@@ -4,31 +4,35 @@ using UnityEngine;
 public class Shelf : MonoBehaviour
 {
     [SerializeField] IngredientsManager _ingredientsManager;
-    [SerializeField] int _countOfObjects;
-    [SerializeField] int _wigth;
+    [SerializeField] int _width;
     [SerializeField] GameObject _posPrefab;
     [SerializeField] Ingredient _³ngredientPrefab;
+    [SerializeField] int _cObjects;
+    [SerializeField] int _cRefresh;
+    
+    
     private List<Ingredient> _ingredients = new();
     private List<Transform> _positions = new();
     void Start()
     {
-        float step = (1 * _wigth) / ((float)_countOfObjects - 1);
-        for (int i = 0; i < _countOfObjects; i++)
+        float step = (1 * _width) / ((float)_cObjects - 1);
+        for (int i = 0; i < _cObjects; i++)
         {
             GameObject obj = Instantiate(_posPrefab, transform);
-            obj.transform.localPosition = new Vector2(i * step - _wigth / 2, 0.5f);
+            obj.transform.localPosition = new Vector2(i * step - _width / 2, 0.5f);
             _positions.Add(obj.transform);
         }
         RefreshShelf();
     }
     public void RefreshShelf()
     {
-        SetIngredients(_ingredientsManager.GetRandomIngredients(_countOfObjects));
+        if (_cRefresh-- <= 0) return;
+        SetIngredients(_ingredientsManager.GetRandomIngredients(_cObjects));
     }
 
     public void SetIngredients(List<SOIngredient> newIngredients)
     {
-        while (_ingredients.Count < _countOfObjects)
+        while (_ingredients.Count < _cObjects)
         {
             Ingredient ingredient = Instantiate(_³ngredientPrefab, GetEmptyPos());
             ingredient.transform.localPosition = Vector2.zero;
@@ -39,7 +43,7 @@ public class Shelf : MonoBehaviour
         for (int i = 0; i < newIngredients.Count; i++)
         {
             _ingredients[i].Setup(newIngredients[i]);
-            _ingredients[i].SetRbType(RigidbodyType2D.Static);
+            _ingredients[i].SetKinematic(true);
             _ingredients[i].ResetLocalPosition();
         }
     }

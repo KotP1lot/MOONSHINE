@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 141694dbd9b33d1439e8a6605d674814, type: 3}
   m_Name: Fish 1
   m_EditorClassIdentifier: 
-  Model: {fileID: 919132149155446097, guid: faf0863d09d911242a7667c23f17386d, type: 3}
-  Color: {r: 0.98490566, g: 0, b: 0, a: 1}
+  Mesh: {fileID: -8908299743826163017, guid: faf0863d09d911242a7667c23f17386d, type: 3}
+  Material: {fileID: 2100000, guid: ba8149a3f056f4e4cabc6e33c914ea2c, type: 2}
   Stats:
     Alcohol: 12
     Toxicity: 12

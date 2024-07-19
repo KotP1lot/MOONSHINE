@@ -1,4 +1,3 @@
-using DG.Tweening;
 using System;
 using UnityEngine;
 
@@ -6,14 +5,16 @@ public class Ingredient : MonoBehaviour
 {
     public event Action<Ingredient> OnParentChange;
     public SOIngredient Data;
+    public bool IsUsed;
 
-    private GameObject _model;
-    private Rigidbody2D _rb;
+    [SerializeField] private GameObject _model;
+    private Rigidbody _rb;
     private Collider2D _collider;
     private void Awake()
     {
-        _rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider2D>();
+        IsUsed = false;
 
         if (Data != null)
         {
@@ -24,9 +25,9 @@ public class Ingredient : MonoBehaviour
     public void Setup(SOIngredient so)
     {
         Data = so;
-        // _model = Instantiate(so.Model, transform);
-        // _model.transform.localPosition = Vector3.zero;
-        GetComponent<SpriteRenderer>().color = so.Color;
+        _model.GetComponent<MeshFilter>().mesh = so.Mesh;
+        _model.GetComponent<MeshRenderer>().material = so.Material;
+        _model.GetComponent<MeshCollider>().sharedMesh = so.Mesh;
     }
 
     public Stats GetStats()
@@ -38,7 +39,7 @@ public class Ingredient : MonoBehaviour
         transform.parent = parent;
         OnParentChange?.Invoke(this);
     }
-    public void SetRbType(RigidbodyType2D type) => _rb.bodyType = type;
+    public void SetKinematic(bool isKinematic) => _rb.isKinematic = isKinematic;
     public void SetActiveCollider(bool isActive) => _collider.enabled = isActive;
     public void ResetLocalPosition()
     {

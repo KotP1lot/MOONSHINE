@@ -4,8 +4,8 @@ using UnityEngine;
 public class SOIngredient : ScriptableObject
 {
     [Header("Visual")]
-    public GameObject Model;
-    public Color Color;
+    public Mesh Mesh;
+    public Material Material;
 
     [Header("Stats")]
     public Stats Stats;

@@ -1,32 +1,25 @@
-using DG.Tweening;
 using UnityEngine;
 
 public class Barrel : MonoBehaviour
 {
     public Stats _beerStat;
-   
-    public float waveHeight = 2f; // Висота хвилі
-    public float waveDuration = 1f; // Час на підйом і спуск
     public void AddIngredient(Ingredient ingredient)
     {
         ingredient.SetParent(transform);
         ingredient.transform.localPosition = new Vector2(ingredient.transform.localPosition.x, 0);
-        ingredient.SetRbType(RigidbodyType2D.Static);
-        ingredient.GetComponent<DragNDrop>().Deactivate();
-
-        Vector3 startPos = transform.position;
-        Vector3 targetPos = new Vector3(startPos.x, startPos.y + waveHeight, startPos.z);
-
-        ingredient.transform.DOMoveY(targetPos.y, waveDuration)
-        .SetEase(Ease.InOutSine) // Плавний підйом і спуск
-        .SetLoops(-1, LoopType.Yoyo);
+        ingredient.SetKinematic(true);
 
         AddStat(ingredient.GetStats());
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        if (collision.TryGetComponent(out Ingredient ingredient))
+        if (collision.transform.parent.TryGetComponent(out Ingredient ingredient))
+        {
+            if (ingredient.IsUsed) return;
             AddIngredient(ingredient);
+            ingredient.IsUsed = true;
+            Destroy(collision.GetComponent<DragNDrop3D>());
+        }
     }
     private void AddStat(Stats stat)
     {

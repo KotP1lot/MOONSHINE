@@ -1,20 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DragNDrop3D : MonoBehaviour
 {
-    public bool IsInHand { get; private set; }
     private Rigidbody _rb;
     private ConfigurableJoint _joint;
     private Rigidbody _jointRB;
     private Vector3 _offset;
+    private MeshCollider _collider;
 
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _joint = GetComponentInParent<ConfigurableJoint>();
         _jointRB = _joint.GetComponent<Rigidbody>();
+        _collider = GetComponent<MeshCollider>();
     }
 
     void FixedUpdate()
@@ -29,7 +28,7 @@ public class DragNDrop3D : MonoBehaviour
         _offset = (transform.parent.position - new Vector3(pos.x, pos.y)) * -1;
         _joint.anchor = _offset;
 
-        IsInHand = true;
+        _collider.enabled = false;
         _jointRB.isKinematic = true;
     }
     public virtual void OnMouseDrag()
@@ -40,7 +39,7 @@ public class DragNDrop3D : MonoBehaviour
 
     public virtual void OnMouseUp()
     {
-        IsInHand = false;
+        _collider.enabled = true;
         _jointRB.isKinematic = false;
 
         _offset = Vector3.zero;

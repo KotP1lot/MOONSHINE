@@ -158,6 +158,7 @@ GameObject:
   - component: {fileID: 3725061310492401840}
   - component: {fileID: 7620349427037010747}
   - component: {fileID: 6154565000000631999}
+  - component: {fileID: 1504524858714655480}
   m_Layer: 0
   m_Name: Ingredient
   m_TagString: Untagged
@@ -310,3 +311,18 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &1504524858714655480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7873067591374825032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aac133a7d448c8148986f8a1d6a091bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: 92adf09c57c1e2d49b508f71d76b2d0c, type: 2}
+  IsUsed: 0
+  _model: {fileID: 3667029418910121751}
