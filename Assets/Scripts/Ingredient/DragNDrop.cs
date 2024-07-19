@@ -1,30 +1,31 @@
 using UnityEngine;
 
-public class DragNDrop: MonoBehaviour
+public class DragNDrop : MonoBehaviour
 {
-    [SerializeField]private Rigidbody2D _rb;
-    public bool IsInHand { get; private set; }
-    
+    private Rigidbody2D _rb;
+    private Collider2D _collider;
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<Collider2D>();
     }
-
     public virtual void OnMouseDown()
     {
-        IsInHand = true;
-        _rb.isKinematic = true;
-       
+        _rb.bodyType = RigidbodyType2D.Kinematic;
+        _collider.enabled = false;
     }
-    public virtual void OnMouseDrag() 
+    public virtual void OnMouseDrag()
     {
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         _rb.position = new Vector3(pos.x, pos.y, 0);
     }
-
-    public virtual void OnMouseUp() 
+    public virtual void OnMouseUp()
     {
-        IsInHand = false;
-        _rb.isKinematic = false;
+        _rb.bodyType = RigidbodyType2D.Dynamic;
+        _collider.enabled = true;
+    }
+    public void Deactivate()
+    {
+        Destroy(this);
     }
 }

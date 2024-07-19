@@ -5,6 +5,7 @@ public class SOIngredient : ScriptableObject
 {
     [Header("Visual")]
     public GameObject Model;
+    public Color Color;
 
     [Header("Stats")]
     public Stats Stats;
