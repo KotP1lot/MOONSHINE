@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,8 +10,8 @@ public class Shelf : MonoBehaviour
     [SerializeField] Ingredient _³ngredientPrefab;
     [SerializeField] int _cObjects;
     [SerializeField] int _cRefresh;
-    
-    
+
+
     private List<Ingredient> _ingredients = new();
     private List<Transform> _positions = new();
     void Start()
@@ -34,9 +35,9 @@ public class Shelf : MonoBehaviour
     {
         while (_ingredients.Count < _cObjects)
         {
-            Ingredient ingredient = Instantiate(_³ngredientPrefab, GetEmptyPos());
-            ingredient.transform.localPosition = Vector2.zero;
+            Ingredient ingredient = Instantiate(_³ngredientPrefab, Vector2.zero, Quaternion.identity, GetEmptyPos());
             ingredient.OnParentChange += Ingredient_OnParentChange;
+            ingredient.OnClick += Ingredient_OnClick;
             _ingredients.Add(ingredient);
         }
 
@@ -47,7 +48,20 @@ public class Shelf : MonoBehaviour
             _ingredients[i].ResetLocalPosition();
         }
     }
-    public void RemoveFromList(Ingredient ingredient) => _ingredients.Remove(ingredient);
+
+    private void Ingredient_OnClick(Ingredient ingredient)
+    {
+        ingredient.transform.parent = null;
+        ingredient.transform.rotation = Quaternion.identity;
+        ingredient.OnParentChange -= Ingredient_OnParentChange;
+        ingredient.OnClick -= Ingredient_OnClick;
+        RemoveFromList(ingredient);
+    }
+
+    public void RemoveFromList(Ingredient ingredient)
+    {
+        _ingredients.Remove(ingredient);
+    }
     private Transform GetEmptyPos()
     {
         return _positions.Find(x => x.childCount == 0);

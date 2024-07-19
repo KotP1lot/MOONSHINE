@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 public class DragNDrop3D : MonoBehaviour
 {
+    public  event Action OnClick;
     private Rigidbody _rb;
     private ConfigurableJoint _joint;
     private Rigidbody _jointRB;
@@ -30,6 +32,7 @@ public class DragNDrop3D : MonoBehaviour
 
         _collider.enabled = false;
         _jointRB.isKinematic = true;
+        OnClick?.Invoke();
     }
     public virtual void OnMouseDrag()
     {

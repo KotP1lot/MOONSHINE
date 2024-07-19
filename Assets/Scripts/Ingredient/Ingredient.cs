@@ -4,6 +4,7 @@ using UnityEngine;
 public class Ingredient : MonoBehaviour
 {
     public event Action<Ingredient> OnParentChange;
+    public event Action<Ingredient> OnClick;
     public SOIngredient Data;
     public bool IsUsed;
 
@@ -15,7 +16,7 @@ public class Ingredient : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider2D>();
         IsUsed = false;
-
+        GetComponentInChildren<DragNDrop3D>().OnClick += () => OnClick?.Invoke(this);
         if (Data != null)
         {
             Setup(Data);
