@@ -1,37 +1,41 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LootboxSystem : MonoBehaviour
 {
     [System.Serializable]
-    public class Ingredient
-    {
-        public string name;
-        public Rarity rarity;
-    }
-
-    public enum Rarity
-    {
-        Common,
-        Uncommon,
-        Rare,
-        Epic,
-        Legendary
-    }
-
-    [System.Serializable]
     public class Lootbox
     {
         public string name;
         public int cost;
-        public int ingredientCount;
-        public List<float> rarityChances; // Шансы выпадения каждой редкости
+        public List<RarityChance> rarityChances;
     }
 
-    public List<Ingredient> allIngredients;
-    public List<Lootbox> availableLootboxes;
+    [System.Serializable]
+    public class RarityChance
+    {
+        public string rarity;
+        public float chance;
+    }
 
-    private float playerMoney;
+    public List<Lootbox> availableLootboxes;
+    private float playerMoney = 200000;
+
+    [SerializeField] private IngredientsManager ingredientsManager;
+
+    private void Start()
+    {
+        if (ingredientsManager == null)
+        {
+            ingredientsManager = FindObjectOfType<IngredientsManager>();
+        }
+    }
+
+    public float GetPlayerMoney()
+    {
+        return playerMoney;
+    }
 
     public void BuyLootbox(int lootboxIndex)
     {
@@ -56,43 +60,51 @@ public class LootboxSystem : MonoBehaviour
 
     private void OpenLootbox(Lootbox lootbox)
     {
-        List<Ingredient> receivedIngredients = new List<Ingredient>();
+        string selectedRarity = GetRandomRarity(lootbox.rarityChances);
+        SOIngredient receivedIngredient = GetRandomIngredientByRarity(selectedRarity);
 
-        for (int i = 0; i < lootbox.ingredientCount; i++)
+        if (receivedIngredient != null)
         {
-            Rarity selectedRarity = GetRandomRarity(lootbox.rarityChances);
-            Ingredient randomIngredient = GetRandomIngredientByRarity(selectedRarity);
-
-            if (randomIngredient != null)
+            if (receivedIngredient.unlocked)
             {
-                receivedIngredients.Add(randomIngredient);
+                float refund = lootbox.cost / 2f;
+                playerMoney += refund;
+                Debug.Log($"Ingredient {receivedIngredient.name} already unlocked. Refunded {refund} coins.");
+            }
+            else
+            {
+                ingredientsManager.UnlockIngredient(receivedIngredient);
+                Debug.Log($"Opened lootbox: {lootbox.name}. Received new ingredient: {receivedIngredient.name} (Rarity: {receivedIngredient.rarity})");
             }
         }
-
-        // Здесь можно добавить логику для отображения полученных ингредиентов
-        Debug.Log($"Opened lootbox: {lootbox.name}. Received {receivedIngredients.Count} ingredients.");
+        else
+        {
+            Debug.LogWarning($"No ingredient found for rarity: {selectedRarity}");
+        }
     }
 
-    private Rarity GetRandomRarity(List<float> rarityChances)
+    private string GetRandomRarity(List<RarityChance> rarityChances)
     {
-        float randomValue = Random.value;
+        float totalChance = rarityChances.Sum(rc => rc.chance);
+        float randomValue = Random.Range(0f, totalChance);
         float cumulativeChance = 0f;
 
-        for (int i = 0; i < rarityChances.Count; i++)
+        foreach (var rarityChance in rarityChances)
         {
-            cumulativeChance += rarityChances[i];
+            cumulativeChance += rarityChance.chance;
             if (randomValue <= cumulativeChance)
             {
-                return (Rarity)i;
+                return rarityChance.rarity;
             }
         }
 
-        return Rarity.Common; // Если что-то пошло не так, возвращаем обычную редкость
+        return rarityChances[rarityChances.Count - 1].rarity;
     }
 
-    private Ingredient GetRandomIngredientByRarity(Rarity rarity)
+    private SOIngredient GetRandomIngredientByRarity(string rarity)
     {
-        List<Ingredient> ingredientsOfRarity = allIngredients.FindAll(i => i.rarity == rarity);
+        List<SOIngredient> allIngredients = ingredientsManager.GetAllIngredients();
+        List<SOIngredient> ingredientsOfRarity = allIngredients.FindAll(i => i.rarity.ToLower() == rarity.ToLower());
 
         if (ingredientsOfRarity.Count > 0)
         {

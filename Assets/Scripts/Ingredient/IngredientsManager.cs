@@ -3,21 +3,33 @@ using UnityEngine;
 
 public class IngredientsManager : MonoBehaviour
 {
-    [SerializeField]private List<SOIngredient> _avalible = new();
+    [SerializeField]private List<SOIngredient> _unlocked = new();
     [SerializeField]private List<SOIngredient> _all = new();
     private void Start()
     {
-        UnlockRandomIngredients(4);
+
     }
-    public void AddIngridient(SOIngredient ingredient) => _avalible.Add(ingredient);
+    public void AddIngridient(SOIngredient ingredient) => _unlocked.Add(ingredient);
     public void UnlockRandomIngredients(int count)
     {
         Utility.ShuffleList(_all);
-        _avalible.AddRange(_all.GetRange(0, count));
+        _unlocked.AddRange(_all.GetRange(0, count));
     }
     public List<SOIngredient> GetRandomIngredients(int count) 
     {
-        Utility.ShuffleList(_avalible);
-        return _avalible.GetRange(0, count);
+        Utility.ShuffleList(_unlocked);
+        return _unlocked.GetRange(0, count);
+    }
+    public List<SOIngredient> GetAllIngredients()
+    {
+        return new List<SOIngredient>(_all);
+    }
+    public void UnlockIngredient(SOIngredient ingredient)
+    {
+        if (!ingredient.unlocked)
+        {
+            _unlocked.Add(ingredient);
+            ingredient.unlocked = true;
+        }
     }
 }
