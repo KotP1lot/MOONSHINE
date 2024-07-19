@@ -20,7 +20,7 @@ public class Shelf : MonoBehaviour
         for (int i = 0; i < _cObjects; i++)
         {
             GameObject obj = Instantiate(_posPrefab, transform);
-            obj.transform.localPosition = new Vector2(i * step - _width / 2, 0.5f);
+            obj.transform.localPosition = new Vector2(i * step - _width / 2, 1f);
             _positions.Add(obj.transform);
         }
         RefreshShelf();
@@ -44,7 +44,6 @@ public class Shelf : MonoBehaviour
         for (int i = 0; i < newIngredients.Count; i++)
         {
             _ingredients[i].Setup(newIngredients[i]);
-            _ingredients[i].SetKinematic(true);
             _ingredients[i].ResetLocalPosition();
         }
     }
