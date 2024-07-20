@@ -9,8 +9,9 @@ public class SOIngredient : ScriptableObject
 
     [Header("Stats")]
     public Stats Stats;
-    public string rarity;
-    public bool unlocked;
+    public string Rarity;
+    public bool Unlocked;
+    public bool IsEnhanced { get; set; }
 }
 [Serializable]
 public struct Stats 

@@ -20,3 +20,5 @@ MonoBehaviour:
     Sweetness: 5
     Bitterness: 6
     Sourness: 6
+  Rarity: 
+  Unlocked: 0

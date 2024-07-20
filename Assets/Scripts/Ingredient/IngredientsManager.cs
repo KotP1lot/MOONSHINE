@@ -26,10 +26,10 @@ public class IngredientsManager : MonoBehaviour
     }
     public void UnlockIngredient(SOIngredient ingredient)
     {
-        if (!ingredient.unlocked)
+        if (!ingredient.Unlocked)
         {
             _unlocked.Add(ingredient);
-            ingredient.unlocked = true;
+            ingredient.Unlocked = true;
         }
     }
 }

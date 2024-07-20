@@ -7,49 +7,49 @@ public class LootboxSystem : MonoBehaviour
     [System.Serializable]
     public class Lootbox
     {
-        public string name;
-        public int cost;
-        public List<RarityChance> rarityChances;
+        public string Name;
+        public int Cost;
+        public List<RarityChance> RarityChances;
     }
 
     [System.Serializable]
     public class RarityChance
     {
-        public string rarity;
-        public float chance;
+        public string Rarity;
+        public float Chance;
     }
 
-    public List<Lootbox> availableLootboxes;
-    private float playerMoney = 200000;
+    public List<Lootbox> AvailableLootboxes;
+    private float _playerMoney = 200000;
 
-    [SerializeField] private IngredientsManager ingredientsManager;
+    [SerializeField] private IngredientsManager _ingredientsManager;
 
     private void Start()
     {
-        if (ingredientsManager == null)
+        if (_ingredientsManager == null)
         {
-            ingredientsManager = FindObjectOfType<IngredientsManager>();
+            _ingredientsManager = FindObjectOfType<IngredientsManager>();
         }
     }
 
     public float GetPlayerMoney()
     {
-        return playerMoney;
+        return _playerMoney;
     }
 
     public void BuyLootbox(int lootboxIndex)
     {
-        if (lootboxIndex < 0 || lootboxIndex >= availableLootboxes.Count)
+        if (lootboxIndex < 0 || lootboxIndex >= AvailableLootboxes.Count)
         {
             Debug.LogError("Invalid lootbox index");
             return;
         }
 
-        Lootbox selectedLootbox = availableLootboxes[lootboxIndex];
+        Lootbox selectedLootbox = AvailableLootboxes[lootboxIndex];
 
-        if (playerMoney >= selectedLootbox.cost)
+        if (_playerMoney >= selectedLootbox.Cost)
         {
-            playerMoney -= selectedLootbox.cost;
+            _playerMoney -= selectedLootbox.Cost;
             OpenLootbox(selectedLootbox);
         }
         else
@@ -60,51 +60,51 @@ public class LootboxSystem : MonoBehaviour
 
     private void OpenLootbox(Lootbox lootbox)
     {
-        string selectedRarity = GetRandomRarity(lootbox.rarityChances);
+        string selectedRarity = GetRandomRarity(lootbox.RarityChances);
         SOIngredient receivedIngredient = GetRandomIngredientByRarity(selectedRarity);
 
         if (receivedIngredient != null)
         {
-            if (receivedIngredient.unlocked)
+            if (receivedIngredient.Unlocked)
             {
-                float refund = lootbox.cost / 2f;
-                playerMoney += refund;
+                float refund = lootbox.Cost / 2f;
+                _playerMoney += refund;
                 Debug.Log($"Ingredient {receivedIngredient.name} already unlocked. Refunded {refund} coins.");
             }
             else
             {
-                ingredientsManager.UnlockIngredient(receivedIngredient);
-                Debug.Log($"Opened lootbox: {lootbox.name}. Received new ingredient: {receivedIngredient.name} (Rarity: {receivedIngredient.rarity})");
+                _ingredientsManager.UnlockIngredient(receivedIngredient);
+                Debug.Log($"Opened lootbox: {lootbox.Name}. Received new ingredient: {receivedIngredient.name} (Rarity: {receivedIngredient.Rarity})");
             }
         }
         else
         {
-            Debug.LogWarning($"No ingredient found for rarity: {selectedRarity}");
+            Debug.LogWarning($"No ingredient found for Rarity: {selectedRarity}");
         }
     }
 
-    private string GetRandomRarity(List<RarityChance> rarityChances)
+    private string GetRandomRarity(List<RarityChance> RarityChances)
     {
-        float totalChance = rarityChances.Sum(rc => rc.chance);
+        float totalChance = RarityChances.Sum(rc => rc.Chance);
         float randomValue = Random.Range(0f, totalChance);
         float cumulativeChance = 0f;
 
-        foreach (var rarityChance in rarityChances)
+        foreach (var RarityChance in RarityChances)
         {
-            cumulativeChance += rarityChance.chance;
+            cumulativeChance += RarityChance.Chance;
             if (randomValue <= cumulativeChance)
             {
-                return rarityChance.rarity;
+                return RarityChance.Rarity;
             }
         }
 
-        return rarityChances[rarityChances.Count - 1].rarity;
+        return RarityChances[RarityChances.Count - 1].Rarity;
     }
 
-    private SOIngredient GetRandomIngredientByRarity(string rarity)
+    private SOIngredient GetRandomIngredientByRarity(string Rarity)
     {
-        List<SOIngredient> allIngredients = ingredientsManager.GetAllIngredients();
-        List<SOIngredient> ingredientsOfRarity = allIngredients.FindAll(i => i.rarity.ToLower() == rarity.ToLower());
+        List<SOIngredient> allIngredients = _ingredientsManager.GetAllIngredients();
+        List<SOIngredient> ingredientsOfRarity = allIngredients.FindAll(i => i.Rarity.ToLower() == Rarity.ToLower());
 
         if (ingredientsOfRarity.Count > 0)
         {
@@ -116,6 +116,6 @@ public class LootboxSystem : MonoBehaviour
 
     public void AddMoney(float amount)
     {
-        playerMoney += amount;
+        _playerMoney += amount;
     }
 }
