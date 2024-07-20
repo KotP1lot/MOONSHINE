@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
-[CreateAssetMenu()]
+[CreateAssetMenu(fileName = "IngredientVariant", menuName = "Ingredient/IngredientVariant")]
 public class SOIngredient : ScriptableObject
 {
-    [Header("Visual")]
+    [Header("_visual")]
     public Mesh Mesh;
     public Material Material;
 
