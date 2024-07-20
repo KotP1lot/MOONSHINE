@@ -7,53 +7,66 @@ public class Client : MonoBehaviour
     [Serializable]
     public class Stat
     {
-        [SerializeField] public float currentValue;
-        [SerializeField] private float lowerThreshold;
-        [SerializeField] private float upperThreshold;
+        [SerializeField] public float CurrentValue;
+        [SerializeField] public float LowerThreshold;
+        [SerializeField] public float UpperThreshold;
 
-        public bool IsAboveUpperThreshold() => currentValue > upperThreshold;
-        public bool IsBelowLowerThreshold() => currentValue < lowerThreshold;
+        public bool IsAboveUpperThreshold() => CurrentValue > UpperThreshold;
+        public bool IsBelowLowerThreshold() => CurrentValue < LowerThreshold;
+
+        public void SetStat() 
+        {
+            LowerThreshold = UnityEngine.Random.Range(0, 80);
+            UpperThreshold = UnityEngine.Random.Range((int)LowerThreshold+10, 100);
+        }
     }
 
-    protected Stat toxicity;
-    protected Stat alcohol;
-    protected Stat bitterness;
-    protected Stat sweetness;
-    protected Stat sourness;
+    protected Stat _toxicity = new();
+    protected Stat _alcohol = new();
+    protected Stat _bitterness = new();
+    protected Stat _sweetness = new();
+    protected Stat _sourness = new();
 
-    protected Stat[] allStats;
+    public List<Stat> AllStats;
 
-    protected bool isDead = false;
+    protected bool _isDead = false;
 
     public event Action<Client> OnClientDied;
     public event Action<Client> OnClientReady;
     public event Action<Client> OnClientSatisfied;
    
-    private ClientMovement _movement;
-    private ClientVisual _visual;
+    protected ClientMovement _movement;
+    protected ClientVisual _visual;
 
     private void Awake()
     {
-        allStats = new Stat[] { toxicity, alcohol, bitterness, sweetness, sourness };
+        AllStats = new () { _toxicity, _alcohol, _bitterness, _sweetness, _sourness };
         _movement = GetComponent<ClientMovement>();
         _visual = GetComponent<ClientVisual>();
         _movement.OnCustomerReady += () => OnClientReady?.Invoke(this);
         _movement.OnExitAnimFinished += () => OnClientSatisfied?.Invoke(this);
     }
-    public void Spawn(List<Sprite> sprites) 
+    public virtual void Spawn(List<Sprite> sprites) 
     {
+        SetStat();
+        transform.position = new Vector2(15, 0);
         _visual.Setup(sprites);
         _movement.MoveIn();
     }
 
+    protected void SetStat() 
+    {
+        AllStats.ForEach(x => x.SetStat());
+        Debug.Log($"{AllStats[0].LowerThreshold} : {AllStats[0].UpperThreshold}");
+    }
     protected virtual void UpdateStats()
     {
-        if (isDead) return;
+        if (_isDead) return;
 
         bool isFeelingSick = false;
         bool allAboveThreshold = true;
 
-        foreach (var stat in allStats)
+        foreach (var stat in AllStats)
         {
             if (stat.IsAboveUpperThreshold())
             {
@@ -76,6 +89,7 @@ public class Client : MonoBehaviour
         }
         if (isFeelingSick)
             FeelSick();
+        _movement.MoveOut();
     }
 
     protected void FeelSick()
@@ -85,20 +99,20 @@ public class Client : MonoBehaviour
 
     protected void Die()
     {
-        if (!isDead)
+        if (!_isDead)
         {
-            isDead = true;
+            _isDead = true;
             OnClientDied?.Invoke(this);
             Debug.Log("client pomer!");
         }
     }
     public void Drink(Stats cock) 
     {
-        toxicity.currentValue += cock.Toxicity;
-        sweetness.currentValue += cock.Sweetness;
-        alcohol.currentValue += cock.Alcohol;
-        bitterness.currentValue += cock.Bitterness;
-        sourness.currentValue += cock.Sourness;
+        _toxicity.CurrentValue += cock.Toxicity;
+        _sweetness.CurrentValue += cock.Sweetness;
+        _alcohol.CurrentValue += cock.Alcohol;
+        _bitterness.CurrentValue += cock.Bitterness;
+        _sourness.CurrentValue += cock.Sourness;
         UpdateStats();
     }
 }

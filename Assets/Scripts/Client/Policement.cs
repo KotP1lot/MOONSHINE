@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Policement : Client
@@ -11,7 +12,13 @@ public class Policement : Client
     protected override void UpdateStats()
     {
         base.UpdateStats();
-        if (alcohol.currentValue > 0)
+        if (_alcohol.CurrentValue > 0)
             Condemn();
+    }
+
+    public override void Spawn(List<Sprite> sprites)
+    {
+        _movement.MoveIn();
+        SetStat();
     }
 }
