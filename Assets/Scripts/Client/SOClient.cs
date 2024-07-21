@@ -7,6 +7,7 @@ public class SOClient : ScriptableObject
 {
     public Sprite BaseSprite;
     public List<Accessory> Accessories;
+    public List<Accessory> PoliceAccessories;
 }
 public enum AccessoryType
 {

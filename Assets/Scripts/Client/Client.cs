@@ -31,6 +31,8 @@ public class Client : MonoBehaviour
 
     protected bool _isDead = false;
 
+    public bool isReady;
+
     public event Action<Client> OnClientDied;
     public event Action<Client> OnClientReady;
     public event Action<Client> OnClientSatisfied;
@@ -46,12 +48,31 @@ public class Client : MonoBehaviour
         _movement.OnCustomerReady += () => OnClientReady?.Invoke(this);
         _movement.OnExitAnimFinished += () => OnClientSatisfied?.Invoke(this);
     }
-    public virtual void Spawn(List<Sprite> sprites) 
+    public void Spawn(SOClient client) 
     {
         SetStat();
         transform.position = new Vector2(15, 0);
-        _visual.Setup(sprites);
+        _visual.Setup(GetSprites(client));
         _movement.MoveIn();
+    }
+    protected List<Sprite> CollectSprites(SOClient client, List<Accessory> accessories)
+    {
+        List<Sprite> sprites = new() { client.BaseSprite };
+        AccessoryType[] accessoryTypes = (AccessoryType[])Enum.GetValues(typeof(AccessoryType));
+        foreach (AccessoryType type in accessoryTypes)
+        {
+            List<Accessory> filteredAccessories = accessories.FindAll(x => x.Type == type);
+            if (filteredAccessories.Count == 0) continue;
+            int random = UnityEngine.Random.Range(0, filteredAccessories.Count + 1);
+            if (random == filteredAccessories.Count) continue;
+            sprites.Add(filteredAccessories[random].Sprite);
+        }
+        return sprites;
+    }
+
+    protected virtual List<Sprite> GetSprites(SOClient client)
+    {
+        return CollectSprites(client, client.Accessories);
     }
 
     protected void SetStat() 

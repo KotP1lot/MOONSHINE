@@ -15,10 +15,16 @@ public class Policement : Client
         if (_alcohol.CurrentValue > 0)
             Condemn();
     }
-
-    public override void Spawn(List<Sprite> sprites)
+    protected override List<Sprite> GetSprites(SOClient client)
     {
-        _movement.MoveIn();
-        SetStat();
+        List<Sprite> sprites = CollectSprites(client, client.Accessories);
+
+        if (client.PoliceAccessories.Count > 0)
+        {
+            List<Accessory> policeAccessories = client.PoliceAccessories;
+            sprites.Add(policeAccessories[UnityEngine.Random.Range(0, policeAccessories.Count)].Sprite);
+        }
+
+        return sprites;
     }
 }

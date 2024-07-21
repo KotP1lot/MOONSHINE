@@ -1,28 +1,37 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class ClientManager : MonoBehaviour
 {
+    private enum ClientType 
+    {
+        Client,
+        Police,
+        UndercoverPolice
+    }
     [Header("Client")]
     [SerializeField] private int _clientCount;
     [SerializeField] private Client _clientPref;
     [SerializeField] private ClientCollection _clientCollection;
     private Client _currentClient;
     private Queue<Client> _clients = new();
-    private Queue<bool> _queue = new();
+    
+    private Queue<ClientType> _queue = new();
 
     [Header("Policement")]
     [SerializeField] private int _policementCount;
+    [SerializeField] private int _undercoverPoliceCount;
     [SerializeField] private Policement _policePref;
-    private Policement _policement;
+    [SerializeField] private ClientCollection _policeCollection;
+    private Queue<Policement> _policements = new();
 
     [Header("UI")]
     [SerializeField] UIStat _uiStat;
 
     private void Start()
     {
+        CreatePolicement();
         CreatePolicement();
         CreateAndEnqueueClient();
         CreateAndEnqueueClient();
@@ -32,18 +41,19 @@ public class ClientManager : MonoBehaviour
     }
     private void CreateQueue() 
     {
-        List<bool> clients = new List<bool>(_clientCount);
-        for (int i = 0; i < _clientCount; i++) 
-        {
-            clients.Add(i <= _policementCount - 1);
-        };
-        Utility.ShuffleList(clients);
-        _queue = new(clients);
+        List<ClientType> clients = new List<ClientType>(_clientCount);
+
+        clients.AddRange(Enumerable.Repeat(ClientType.Police, _policementCount));
+        clients.AddRange(Enumerable.Repeat(ClientType.UndercoverPolice, _undercoverPoliceCount));
+        clients.AddRange(Enumerable.Repeat(ClientType.Client, _clientCount - _policementCount - _undercoverPoliceCount));
+
+        _queue = new(clients.ShuffleList());
     }
     private void CreatePolicement() 
     {
-        _policement = Instantiate(_policePref, new Vector2(15, 0), Quaternion.identity);
-        SetupClientEvents(_policement);
+        Policement policement = Instantiate(_policePref, new Vector2(15, 0), Quaternion.identity);
+        SetupClientEvents(policement);
+        _policements.Enqueue(policement);
     }
     private void CreateAndEnqueueClient()
     {
@@ -100,18 +110,11 @@ public class ClientManager : MonoBehaviour
 
     private void SpawnNewClient()
     {
-        if (_queue.Dequeue())
-        {
-            SpawnPolice();
-            return;
-        }
         _currentClient = _clients.Dequeue();
         _currentClient.Spawn(_clientCollection.GetRandomClient());
     }
     private void SpawnPolice()
     {
-        _policement.Spawn(_clientCollection.GetRandomClient());
-        _currentClient = _policement;
     }
     public void Confirm() 
     {
