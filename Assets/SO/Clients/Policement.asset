@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: Policement
   m_EditorClassIdentifier: 
   BaseSprite: {fileID: 21300000, guid: 18db4d7bd4961b24aba8e91f1f256363, type: 3}
-  Accessories: []
+  Accessories:
+  - Type: 0
+    Sprite: {fileID: 21300000, guid: 1f0e657dc8bf7214992ffabccc738493, type: 3}
+  PoliceAccessories: []

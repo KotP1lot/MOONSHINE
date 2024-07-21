@@ -3,9 +3,8 @@ using UnityEngine;
 
 public static class Utility
 {
-    public static List<T> ShuffleList<T>(List<T> elementToShuffle)
+    public static List<T> ShuffleList<T>(this List<T> elementToShuffle)
     {
-
         for (int t = 0; t < elementToShuffle.Count; t++)
         {
             T tmp = elementToShuffle[t];
