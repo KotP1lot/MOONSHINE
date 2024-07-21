@@ -41,8 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Client
+    uniqueID: 1350427481
+    locked: 0
   - name: UI
     uniqueID: 3438862355
+    locked: 0
   - name: CameraSortingLayer
     uniqueID: 481434291
     locked: 0

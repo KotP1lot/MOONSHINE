@@ -19,12 +19,12 @@ public class ClientManager : MonoBehaviour
     
     private Queue<ClientType> _queue = new();
 
-    [Header("Policement")]
-    [SerializeField] private int _policementCount;
-    [SerializeField] private int _undercoverPoliceCount;
-    [SerializeField] private Policement _policePref;
-    [SerializeField] private ClientCollection _policeCollection;
-    private Queue<Policement> _policements = new();
+    [Header("Policemen")]
+    [SerializeField] private int _policemenCount;
+    [SerializeField] private int _undercoverPolicemenCount;
+    [SerializeField] private Policemen _policemenPref;
+    [SerializeField] private ClientCollection _policemenCollection;
+    private Queue<Policemen> _policemen = new();
 
     [Header("UI")]
     [SerializeField] UIStat _uiStat;
@@ -43,17 +43,17 @@ public class ClientManager : MonoBehaviour
     {
         List<ClientType> clients = new List<ClientType>(_clientCount);
 
-        clients.AddRange(Enumerable.Repeat(ClientType.Police, _policementCount));
-        clients.AddRange(Enumerable.Repeat(ClientType.UndercoverPolice, _undercoverPoliceCount));
-        clients.AddRange(Enumerable.Repeat(ClientType.Client, _clientCount - _policementCount - _undercoverPoliceCount));
+        clients.AddRange(Enumerable.Repeat(ClientType.Police, _policemenCount));
+        clients.AddRange(Enumerable.Repeat(ClientType.UndercoverPolice, _undercoverPolicemenCount));
+        clients.AddRange(Enumerable.Repeat(ClientType.Client, _clientCount - _policemenCount - _undercoverPolicemenCount));
 
         _queue = new(clients.ShuffleList());
     }
     private void CreatePolicement() 
     {
-        Policement policement = Instantiate(_policePref, new Vector2(15, 0), Quaternion.identity);
+        Policemen policement = Instantiate(_policemenPref, new Vector2(15, 0), Quaternion.identity);
         SetupClientEvents(policement);
-        _policements.Enqueue(policement);
+        _policemen.Enqueue(policement);
     }
     private void CreateAndEnqueueClient()
     {
@@ -67,7 +67,7 @@ public class ClientManager : MonoBehaviour
         client.OnClientDied += OnClientDied;
         client.OnClientReady += OnClientReady;
 
-        if (client is Policement police)
+        if (client is Policemen police)
         {
             police.OnCondemn += Policement_OnCondemn;
         }
@@ -79,7 +79,7 @@ public class ClientManager : MonoBehaviour
 
     private void OnClientDied(Client client)
     {
-        if (client is Policement)
+        if (client is Policemen)
             Debug.Log("Kinez");
         else
             Debug.Log("The end of the day | +1 star");
@@ -91,9 +91,10 @@ public class ClientManager : MonoBehaviour
     }
     private void OnClientSatisfied(Client client)
     {
-        if (client is Policement)
+        if (client is Policemen police)
         {
-            _policementCount--;
+            _policemenCount--;
+            _policemen.Enqueue(police);
         }
         else
         {
@@ -110,11 +111,21 @@ public class ClientManager : MonoBehaviour
 
     private void SpawnNewClient()
     {
-        _currentClient = _clients.Dequeue();
-        _currentClient.Spawn(_clientCollection.GetRandomClient());
-    }
-    private void SpawnPolice()
-    {
+        switch (_queue.Dequeue()) 
+        {
+            case ClientType.Client:
+                _currentClient = _clients.Dequeue();
+                _currentClient.Spawn(_clientCollection.GetRandomClient());
+                break;
+            case ClientType.Police:
+                _currentClient = _policemen.Dequeue();
+                _currentClient.Spawn(_policemenCollection.GetRandomClient());
+                break;
+            case ClientType.UndercoverPolice:
+                _currentClient = _policemen.Dequeue();
+                _currentClient.Spawn(_clientCollection.GetRandomClient());
+                break;
+        }
     }
     public void Confirm() 
     {

@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: PoliceCollection 1
   m_EditorClassIdentifier: 
   customers:
-  - {fileID: 11400000, guid: a0686dd6f9fe7c84eadca6de8cf10648, type: 2}
-  - {fileID: 11400000, guid: de0c6016898bd2240a89db3442bbd07b, type: 2}
+  - {fileID: 11400000, guid: 7b826eb3674f02b44863d2791106380f, type: 2}

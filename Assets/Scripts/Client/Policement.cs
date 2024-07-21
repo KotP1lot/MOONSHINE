@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Policement : Client
+public class Policemen : Client
 {
     public event Action OnCondemn;
     private void Condemn() 
