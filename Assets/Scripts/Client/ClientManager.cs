@@ -19,15 +19,16 @@ public class ClientManager : MonoBehaviour
     
     private Queue<ClientType> _queue = new();
 
-    [Header("Policemen")]
+    [Header("Policeman")]
     [SerializeField] private int _policemenCount;
     [SerializeField] private int _undercoverPolicemenCount;
-    [SerializeField] private Policemen _policemenPref;
+    [SerializeField] private Policeman _policemenPref;
     [SerializeField] private ClientCollection _policemenCollection;
-    private Queue<Policemen> _policemen = new();
+    private Queue<Policeman> _policemen = new();
 
     [Header("UI")]
     [SerializeField] UIStat _uiStat;
+    
 
     private void Start()
     {
@@ -51,7 +52,7 @@ public class ClientManager : MonoBehaviour
     }
     private void CreatePolicement() 
     {
-        Policemen policement = Instantiate(_policemenPref, new Vector2(15, 0), Quaternion.identity);
+        Policeman policement = Instantiate(_policemenPref, new Vector2(15, 0), Quaternion.identity);
         SetupClientEvents(policement);
         _policemen.Enqueue(policement);
     }
@@ -67,7 +68,7 @@ public class ClientManager : MonoBehaviour
         client.OnClientDied += OnClientDied;
         client.OnClientReady += OnClientReady;
 
-        if (client is Policemen police)
+        if (client is Policeman police)
         {
             police.OnCondemn += Policement_OnCondemn;
         }
@@ -79,7 +80,7 @@ public class ClientManager : MonoBehaviour
 
     private void OnClientDied(Client client)
     {
-        if (client is Policemen)
+        if (client is Policeman)
             Debug.Log("Kinez");
         else
             Debug.Log("The end of the day | +1 star");
@@ -91,7 +92,7 @@ public class ClientManager : MonoBehaviour
     }
     private void OnClientSatisfied(Client client)
     {
-        if (client is Policemen police)
+        if (client is Policeman police)
         {
             _policemenCount--;
             _policemen.Enqueue(police);
