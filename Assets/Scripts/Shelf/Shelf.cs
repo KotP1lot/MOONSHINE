@@ -35,7 +35,7 @@ public class Shelf : MonoBehaviour
     {
         while (_ingredients.Count < _cObjects)
         {
-            Ingredient ingredient = Instantiate(_³ngredientPrefab, Vector2.zero, Quaternion.identity, GetEmptyPos());
+            Ingredient ingredient = Instantiate(_³ngredientPrefab, GetEmptyPos());
             ingredient.OnParentChange += Ingredient_OnParentChange;
             ingredient.OnClick += Ingredient_OnClick;
             _ingredients.Add(ingredient);

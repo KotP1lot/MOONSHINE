@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 141694dbd9b33d1439e8a6605d674814, type: 3}
-  m_Name: Fish 1
+  m_Name: Eye
   m_EditorClassIdentifier: 
-  Mesh: {fileID: -8908299743826163017, guid: faf0863d09d911242a7667c23f17386d, type: 3}
-  Material: {fileID: 2100000, guid: ba8149a3f056f4e4cabc6e33c914ea2c, type: 2}
+  Mesh: {fileID: 9166428700591565276, guid: ca699fd6ad46de1439639c65f5763b7d, type: 3}
+  Material: {fileID: 2100000, guid: 7243a3c04df415741811580c7d662da8, type: 2}
   Stats:
+    Toxicity: 5
     Alcohol: 12
-    Toxicity: 12
-    Sweetness: 52
-    Bitterness: 12
-    Sourness: 52
+    Bitterness: 3
+    Sweetness: 25
+    Sourness: 8
+  Rarity: 
+  Unlocked: 0

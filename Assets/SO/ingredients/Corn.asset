@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 141694dbd9b33d1439e8a6605d674814, type: 3}
-  m_Name: Fish 5
+  m_Name: Corn
   m_EditorClassIdentifier: 
-  Mesh: {fileID: -8908299743826163017, guid: faf0863d09d911242a7667c23f17386d, type: 3}
-  Material: {fileID: 2100000, guid: ba8149a3f056f4e4cabc6e33c914ea2c, type: 2}
+  Mesh: {fileID: -8908299743826163017, guid: 1a868517e6d3d6845a018bffe09dd52d, type: 3}
+  Material: {fileID: 2100000, guid: 9264af99f3d805b4fb969f78874ac53f, type: 2}
   Stats:
-    Alcohol: 3
-    Toxicity: 9
-    Sweetness: 8
-    Bitterness: 2
-    Sourness: 5
+    Toxicity: 42
+    Alcohol: 40
+    Bitterness: 6
+    Sweetness: 5
+    Sourness: 6
+  Rarity: 
+  Unlocked: 0

@@ -11,6 +11,7 @@ public class ClientManager : MonoBehaviour
         Police,
         UndercoverPolice
     }
+    [SerializeField] Transform _clientContainer;
 
     [Header("Client")]
     [SerializeField] private int _clientCount;
@@ -77,13 +78,15 @@ public class ClientManager : MonoBehaviour
     }
     private void CreatePolicement() 
     {
-        Policeman policement = Instantiate(_policemenPref, new Vector2(15, 0), Quaternion.identity);
+        Policeman policement = Instantiate(_policemenPref, _clientContainer);
+        policement.transform.localPosition = new Vector2(15, 0);
         SetupClientEvents(policement);
         _policemen.Enqueue(policement);
     }
     private void CreateClient()
     {
-        Client client = Instantiate(_clientPref, new Vector2(15, 0), Quaternion.identity);
+        Client client = Instantiate(_clientPref, _clientContainer);
+        client.transform.localPosition = new Vector2(15, 0);
         SetupClientEvents(client);
         _clients.Enqueue(client);
     }

@@ -64,7 +64,7 @@ public class Client : MonoBehaviour
     {
         SetStat();
 
-        transform.position = new Vector2(15, 0);
+        transform.localPosition = new Vector2(15, 0);
         _visual.Setup(GetSprites(client));
 
         _movement.MoveIn();

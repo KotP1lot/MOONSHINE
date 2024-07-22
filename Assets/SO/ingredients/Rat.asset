@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 141694dbd9b33d1439e8a6605d674814, type: 3}
-  m_Name: Fish 4
+  m_Name: Rat
   m_EditorClassIdentifier: 
-  Mesh: {fileID: -8908299743826163017, guid: faf0863d09d911242a7667c23f17386d, type: 3}
-  Material: {fileID: 2100000, guid: ba8149a3f056f4e4cabc6e33c914ea2c, type: 2}
+  Mesh: {fileID: -8908299743826163017, guid: ce231a20633a3644a84aaeccdbcd9578, type: 3}
+  Material: {fileID: 2100000, guid: c51e8fbab412f8c4e98f24986f73c3f6, type: 2}
   Stats:
-    Alcohol: 40
-    Toxicity: 42
-    Sweetness: 5
-    Bitterness: 6
-    Sourness: 6
+    Toxicity: 12
+    Alcohol: 12
+    Bitterness: 12
+    Sweetness: 52
+    Sourness: 52
   Rarity: 
   Unlocked: 0
