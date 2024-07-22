@@ -16,9 +16,9 @@ public class SOIngredient : ScriptableObject
 [Serializable]
 public struct Stats 
 {
-    public float Alcohol;
     public float Toxicity;
-    public float Sweetness;
+    public float Alcohol;
     public float Bitterness;
+    public float Sweetness;
     public float Sourness;
 }

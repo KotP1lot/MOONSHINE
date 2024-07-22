@@ -15,7 +15,6 @@ public class UIBribe : MonoBehaviour
     [SerializeField] Slider _slider;
 
     public event Action<bool> OnBribeResult;
-    public event Action OnCancle;
     
     private int _bribeAmount;
     private int _bribeNeeded;
@@ -23,14 +22,16 @@ public class UIBribe : MonoBehaviour
 
     public void Setup(int bribe) 
     {
-        _slider.maxValue = PlayerWallet.Instance.Gold.Amount;
-        ChangeValue(0);
+        _slider.maxValue = GameManager.Instance.PlayerWallet.Gold.Amount;
         _bribeNeeded = bribe;
+        ChangeValue(0);
         SetActive(true);
     }
     public void ChangeValue(string value) 
     {
-        int.TryParse(value, out _bribeAmount);
+        int.TryParse(value, out int newValue);
+        _bribeAmount = (int)Mathf.Clamp(newValue, 0, _slider.maxValue);
+        _bribeTxt.text = _bribeAmount.ToString();
         _slider.value = _bribeAmount;
         ChangeEmotion();
     }

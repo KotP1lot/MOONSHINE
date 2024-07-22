@@ -2,6 +2,15 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GradeType
+{
+    S,
+    A,
+    B,
+    C,
+    D
+}
+
 public class Client : MonoBehaviour
 {
     [Serializable]
@@ -10,14 +19,19 @@ public class Client : MonoBehaviour
         [SerializeField] public float CurrentValue;
         [SerializeField] public float LowerThreshold;
         [SerializeField] public float UpperThreshold;
+        [SerializeField] public float PerfecValue;
 
         public bool IsAboveUpperThreshold() => CurrentValue > UpperThreshold;
         public bool IsBelowLowerThreshold() => CurrentValue < LowerThreshold;
 
+        public bool IsInThreshold() => CurrentValue >= LowerThreshold && CurrentValue <= UpperThreshold;
+
         public void SetStat()
         {
+            CurrentValue = 0;
             LowerThreshold = UnityEngine.Random.Range(0, 80);
             UpperThreshold = UnityEngine.Random.Range((int)LowerThreshold + 10, 100);
+            PerfecValue = (LowerThreshold + UpperThreshold) / 2;
         }
     }
 
@@ -30,7 +44,7 @@ public class Client : MonoBehaviour
     public List<Stat> AllStats;
 
     public event Action OnClientReady;
-    public event Action OnClientSatisfied;
+    public event Action<bool, GradeType> OnClientSatisfied;
     public event Action OnClientFeelSick;
     public event Action OnClientDied;
 
@@ -82,6 +96,10 @@ public class Client : MonoBehaviour
         AllStats.ForEach(x => x.SetStat());
     }
     #endregion
+    public void MoveOut()
+    {
+        _movement.MoveOut();
+    }
     public void Drink(Stats cock)
     {
         _toxicity.CurrentValue += cock.Toxicity;
@@ -111,7 +129,7 @@ public class Client : MonoBehaviour
                 break;
             }
         }
-
+        
         if (!CheckAdditionalConditions())
         {
             if (allAboveThreshold)
@@ -120,17 +138,64 @@ public class Client : MonoBehaviour
             }
             else if (isFeelingSick)
                 FeelSick();
-            else
-                Satisfy();
+            else 
+            {
+                CheckSatisfy();
+            }
         }
     }
-    protected virtual bool CheckAdditionalConditions()
+    protected virtual void CheckSatisfy() 
+    {
+        bool isSat = true;
+        foreach (var stat in AllStats)
+        {
+            if (!stat.IsInThreshold())
+            {
+                isSat = false;
+                break;
+            }
+        }
+        Satisfy(isSat);
+    }
+    private GradeType GetGrade()
+    {
+        float avaragePrerfectValue = 0;
+        float avarageCurrValue = 0;
+
+        AllStats.ForEach(stat =>
+        {
+            if (ConditionForGrade(stat))
+            {
+                avarageCurrValue += stat.CurrentValue;
+                avaragePrerfectValue += stat.PerfecValue;
+            }
+        });
+
+        float percentageError = Mathf.Abs(avaragePrerfectValue - avarageCurrValue) / avaragePrerfectValue * 100;
+        if (percentageError  < 5)
+            return GradeType.S;
+        else if (percentageError  < 10)
+            return GradeType.A;
+        else if (percentageError  < 15)
+            return GradeType.B;
+        else if (percentageError  < 20)
+            return GradeType.C;
+        else
+            return GradeType.D;
+    }
+
+    protected virtual bool ConditionForGrade(Stat stat)
     {
         return true;
     }
-    protected void Satisfy() 
+
+    protected virtual bool CheckAdditionalConditions()
     {
-        OnClientSatisfied?.Invoke();
+        return false;
+    }
+    protected void Satisfy(bool isSat) 
+    {
+        OnClientSatisfied?.Invoke(isSat, GetGrade());
     }
     protected void FeelSick()
     {

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static Client;
 
 public class ClientManager : MonoBehaviour
 {
@@ -46,8 +45,6 @@ public class ClientManager : MonoBehaviour
 
         _uiBribe.OnBribeResult += OnBribeResult; ;
     }
-
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -55,6 +52,8 @@ public class ClientManager : MonoBehaviour
             Confirm();
         }
     }
+
+    #region CREATE CLIENTS
     private void CreateQueue() 
     {
         List<ClientType> clients = new List<ClientType>(_clientCount);
@@ -89,7 +88,9 @@ public class ClientManager : MonoBehaviour
             police.OnCondemn += OnCondemnHandler;
         }
     }
+    #endregion
 
+    #region CLIENTS HANDLERS
     private void OnBribeResult(bool obj)
     {
         if (obj)
@@ -99,17 +100,17 @@ public class ClientManager : MonoBehaviour
     }
     private void OnCondemnConfirm() 
     {
-        _uiDialog.ShowCodemn("+1 star :(", SpawnNewClient);
+        _uiDialog.ShowText("+1 star :(", SpawnNewClient);
         Debug.Log("+1 star :(");
     }
     private void OnBribeFailure()
     {
-        _uiDialog.ShowCodemn("Ya z ne loh >:( \n +1 star!", SpawnNewClient);
+        _uiDialog.ShowText("Ya z ne loh >:( \n +1 star!", SpawnNewClient);
         Debug.Log("Ya z ne loh >:( \n +1 star!");
     }
     private void OnBribeSuccess() 
     {
-        _uiDialog.ShowCodemn("ok :)", SpawnNewClient);
+        _uiDialog.ShowText("ok :)", SpawnNewClient);
         Debug.Log("Sho tut?");
     }
     private void OnClientReadyHandler()
@@ -130,31 +131,43 @@ public class ClientManager : MonoBehaviour
     private void OnClientDiedHandler()
     {
         if (_currentClient is Policeman)
+        {
+            _uiDialog.ShowText("Kinez", () => { });
             Debug.Log("Kinez");
+        }
         else
+        {
+            _uiDialog.ShowText("The end of the day | +1 star", () => { });
             Debug.Log("The end of the day | +1 star");
+        }
     }
 
-    private void OnClientSatisfiedHandler()
+    private void OnClientSatisfiedHandler(bool isSat, GradeType grade)
     {
-        if (_currentClient is Policeman police)
-        {
-            _policemenCount--;
-            _policemen.Enqueue(police);
-        }
-        else
-        {
-            _clients.Enqueue(_currentClient);
-        }
-        if (--_clientCount <= 0)
-        {
-            Debug.Log("The end of the day");
-            return;
-        }
-        _uiDialog.ShowText("CLIENT DOVOLEN", SpawnNewClient);
+        _uiDialog.ShowText(isSat?$"CLIENT DOVOLEN | Grade: {grade}": "CLIENT NE DOVOLEN >:(", SpawnNewClient);
     }
+
+    #endregion
     private void SpawnNewClient()
     {
+        if (_currentClient != null)
+        {
+            if (_currentClient is Policeman police)
+            {
+                _policemen.Enqueue(police);
+            }
+            else
+            {
+                _clients.Enqueue(_currentClient);
+            }
+            if (--_clientCount <= 0)
+            {
+                Debug.Log("The end of the day");
+                return;
+            }
+            _uiStat.SetActive(false);
+            _currentClient.MoveOut();
+        }
         switch (_queue.Dequeue()) 
         {
             case ClientType.Client:
