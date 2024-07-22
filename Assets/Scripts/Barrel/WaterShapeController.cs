@@ -17,7 +17,7 @@ public class WaterShapeController : MonoBehaviour
 
     private SpriteShapeController _shapeController;
     private List<WaterSpring> _springs = new List<WaterSpring>();
-    public List<Rigidbody> Floaters { get; private set; } = new List<Rigidbody>();
+    private List<Rigidbody> _floaters = new List<Rigidbody>();
     public Spline Spline { get { return _shapeController.spline; } }
 
     private void Start()
@@ -34,7 +34,7 @@ public class WaterShapeController : MonoBehaviour
         WaveEffect();
 
         var surface = _shapeController.spline.GetPosition(1).y;
-        foreach (var floater in Floaters)
+        foreach (var floater in _floaters)
             floater.AddForce(Vector3.up * (surface - floater.transform.position.y) * _floating);
     }
 
@@ -99,6 +99,7 @@ public class WaterShapeController : MonoBehaviour
         GameObject obj = new GameObject("point " + index);
         obj.transform.SetParent(transform, false);
         obj.transform.localPosition = Spline.GetPosition(index) - new Vector3(0,0,transform.position.z);
+        obj.transform.localScale = Vector3.one * 0.8f;
         Collider collider = obj.AddComponent<SphereCollider>();
         collider.isTrigger = true;
         WaterSpring spring = obj.AddComponent<WaterSpring>();
@@ -133,4 +134,11 @@ public class WaterShapeController : MonoBehaviour
         waterSpline.SetRightTangent(index, rightTangent); 
     }
 
+    public void AddFloater(Rigidbody rb)
+    {
+
+        rb.gameObject.layer = LayerMask.NameToLayer("InWater");
+        rb.useGravity = false;
+        _floaters.Add(rb);
+    }
 }

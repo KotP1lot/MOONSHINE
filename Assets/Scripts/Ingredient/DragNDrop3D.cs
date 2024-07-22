@@ -26,8 +26,11 @@ public class DragNDrop3D : MonoBehaviour
 
     public virtual void OnMouseDown()
     {
+        _joint.transform.ZtoZero();
+        transform.ZtoZero(local: true);
+
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        _offset = (transform.parent.position - new Vector3(pos.x, pos.y)) * -1;
+        _offset = (transform.parent.position - new Vector3(pos.x, pos.y, transform.parent.position.z)) * -1;
         _joint.anchor = _offset;
 
         _collider.enabled = false;

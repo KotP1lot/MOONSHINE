@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 141694dbd9b33d1439e8a6605d674814, type: 3}
+  m_Name: Cake
+  m_EditorClassIdentifier: 
+  Mesh: {fileID: -5668833170292645477, guid: a102b47361b331a4e8fca2e5335154b8, type: 3}
+  Material: {fileID: 2100000, guid: 2b29c513923fbe7459398b8f2394c84d, type: 2}
+  Stats:
+    Toxicity: 10
+    Alcohol: 10
+    Bitterness: 10
+    Sweetness: 10
+    Sourness: 10
+  Rarity: 
+  Unlocked: 0
