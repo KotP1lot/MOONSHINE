@@ -22,7 +22,7 @@ public class UIBribe : MonoBehaviour
 
     public void Setup(int bribe) 
     {
-        _slider.maxValue = GameManager.Instance.PlayerWallet.Gold.Amount;
+        _slider.maxValue = GameManager.Instance.Gold.Amount;
         _bribeNeeded = bribe;
         ChangeValue(0);
         SetActive(true);
@@ -57,6 +57,7 @@ public class UIBribe : MonoBehaviour
     {
         int random = UnityEngine.Random.Range(1, 101);
         OnBribeResult?.Invoke(_percent * 100 >= random);
+        GameManager.Instance.Gold.Spend(_bribeAmount);
         SetActive(false);
     }
 }

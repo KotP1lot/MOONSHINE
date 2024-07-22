@@ -26,7 +26,7 @@ public class Combinator : MonoBehaviour
 
     private bool _isUnlocked = false;
 
-    [SerializeField] private Resource _money;
+    [SerializeField] private Value _money;
 
     public bool TryCombine(SOIngredient ingredient1Index, SOIngredient ingredient2Index, out SOIngredient result)
     {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -34,14 +35,16 @@ public class ClientManager : MonoBehaviour
 
     [Header("Temp")]
     [SerializeField] Stats _stats;
-    private void Start()
+
+    public Action OnDayEnd;
+    public Action<int> OnGetStar;
+
+    private void Awake()
     {
         CreatePolicement();
         CreatePolicement();
         CreateClient();
         CreateClient();
-        CreateQueue();
-        SpawnNewClient();
 
         _uiBribe.OnBribeResult += OnBribeResult; ;
     }
@@ -52,7 +55,15 @@ public class ClientManager : MonoBehaviour
             Confirm();
         }
     }
+    public void StartNewDay(int clientCount, int policemenCount, int undercoverPolicemenCount) 
+    {
+        _clientCount = clientCount;
+        _policemenCount = policemenCount;
+        _undercoverPolicemenCount = undercoverPolicemenCount;
 
+        CreateQueue();
+        SpawnNewClient();
+    }
     #region CREATE CLIENTS
     private void CreateQueue() 
     {
@@ -100,12 +111,19 @@ public class ClientManager : MonoBehaviour
     }
     private void OnCondemnConfirm() 
     {
-        _uiDialog.ShowText("+1 star :(", SpawnNewClient);
+        _uiDialog.ShowText("+1 star :(", () => {
+            SpawnNewClient();
+            OnGetStar?.Invoke(1);
+        });
         Debug.Log("+1 star :(");
     }
     private void OnBribeFailure()
     {
-        _uiDialog.ShowText("Ya z ne loh >:( \n +1 star!", SpawnNewClient);
+        _uiDialog.ShowText("Ya z ne loh >:( \n +1 star!", () =>
+        {
+            SpawnNewClient();
+            OnGetStar?.Invoke(1);
+        });
         Debug.Log("Ya z ne loh >:( \n +1 star!");
     }
     private void OnBribeSuccess() 
@@ -137,13 +155,25 @@ public class ClientManager : MonoBehaviour
         }
         else
         {
-            _uiDialog.ShowText("The end of the day | +1 star", () => { });
+            _uiDialog.ShowText("The end of the day | +1 star", () => {
+                OnGetStar?.Invoke(1);
+                OnDayEnd?.Invoke();
+            });
             Debug.Log("The end of the day | +1 star");
         }
     }
 
     private void OnClientSatisfiedHandler(bool isSat, GradeType grade)
     {
+        GameManager.Instance.Gold.AddAmount(grade switch
+        {
+            GradeType.S => 100,
+            GradeType.A => 80,
+            GradeType.B => 60,
+            GradeType.C => 40,
+            GradeType.D => 20,
+            _ => 5
+        });
         _uiDialog.ShowText(isSat?$"CLIENT DOVOLEN | Grade: {grade}": "CLIENT NE DOVOLEN >:(", SpawnNewClient);
     }
 
@@ -163,6 +193,7 @@ public class ClientManager : MonoBehaviour
             if (--_clientCount <= 0)
             {
                 Debug.Log("The end of the day");
+                OnDayEnd?.Invoke();
                 return;
             }
             _uiStat.SetActive(false);

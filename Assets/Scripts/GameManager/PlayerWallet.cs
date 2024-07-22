@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class PlayerWallet : MonoBehaviour
 {
-    public Resource Silver {get; private set;}
-    public Resource Gold {get; private set;}
+    public Value Silver {get; private set;}
+    public Value Gold {get; private set;}
 
     private void Awake()
     {
