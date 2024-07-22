@@ -21,4 +21,6 @@ public struct Stats
     public float Sweetness;
     public float Bitterness;
     public float Sourness;
+    public float Uniqueness;
+
 }
