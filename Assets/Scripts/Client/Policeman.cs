@@ -5,16 +5,7 @@ using UnityEngine;
 public class Policeman : Client
 {
     public event Action OnCondemn;
-    private void Condemn() 
-    {
-        Debug.Log("popa vsya");
-    }
-    protected override void UpdateStats()
-    {
-        base.UpdateStats();
-        if (_alcohol.CurrentValue > 0)
-            Condemn();
-    }
+
     protected override List<Sprite> GetSprites(SOClient client)
     {
         List<Sprite> sprites = CollectSprites(client, client.Accessories);
@@ -26,5 +17,19 @@ public class Policeman : Client
         }
 
         return sprites;
+    }
+
+    protected override bool CheckAdditionalConditions()
+    {
+        if (_alcohol.CurrentValue > 0)
+        {
+            Condemn();
+            return true;
+        }
+        return false;
+    }
+    private void Condemn()
+    {
+        OnCondemn?.Invoke();
     }
 }

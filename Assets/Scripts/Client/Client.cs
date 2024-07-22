@@ -14,10 +14,10 @@ public class Client : MonoBehaviour
         public bool IsAboveUpperThreshold() => CurrentValue > UpperThreshold;
         public bool IsBelowLowerThreshold() => CurrentValue < LowerThreshold;
 
-        public void SetStat() 
+        public void SetStat()
         {
             LowerThreshold = UnityEngine.Random.Range(0, 80);
-            UpperThreshold = UnityEngine.Random.Range((int)LowerThreshold+10, 100);
+            UpperThreshold = UnityEngine.Random.Range((int)LowerThreshold + 10, 100);
         }
     }
 
@@ -29,32 +29,34 @@ public class Client : MonoBehaviour
 
     public List<Stat> AllStats;
 
-    protected bool _isDead = false;
+    public event Action OnClientReady;
+    public event Action OnClientSatisfied;
+    public event Action OnClientFeelSick;
+    public event Action OnClientDied;
 
-    public bool isReady;
-
-    public event Action<Client> OnClientDied;
-    public event Action<Client> OnClientReady;
-    public event Action<Client> OnClientSatisfied;
-   
     protected ClientMovement _movement;
     protected ClientVisual _visual;
 
     private void Awake()
     {
-        AllStats = new () { _toxicity, _alcohol, _bitterness, _sweetness, _sourness };
+        AllStats = new() { _toxicity, _alcohol, _bitterness, _sweetness, _sourness };
+
         _movement = GetComponent<ClientMovement>();
         _visual = GetComponent<ClientVisual>();
-        _movement.OnCustomerReady += () => OnClientReady?.Invoke(this);
-        _movement.OnExitAnimFinished += () => OnClientSatisfied?.Invoke(this);
+
+        _movement.OnClientReady += () => OnClientReady?.Invoke();
     }
-    public void Spawn(SOClient client) 
+    public void Spawn(SOClient client)
     {
         SetStat();
+
         transform.position = new Vector2(15, 0);
         _visual.Setup(GetSprites(client));
+
         _movement.MoveIn();
     }
+
+    #region SETUP
     protected List<Sprite> CollectSprites(SOClient client, List<Accessory> accessories)
     {
         List<Sprite> sprites = new() { client.BaseSprite };
@@ -75,15 +77,22 @@ public class Client : MonoBehaviour
         return CollectSprites(client, client.Accessories);
     }
 
-    protected void SetStat() 
+    protected void SetStat()
     {
         AllStats.ForEach(x => x.SetStat());
-        Debug.Log($"{AllStats[0].LowerThreshold} : {AllStats[0].UpperThreshold}");
+    }
+    #endregion
+    public void Drink(Stats cock)
+    {
+        _toxicity.CurrentValue += cock.Toxicity;
+        _sweetness.CurrentValue += cock.Sweetness;
+        _alcohol.CurrentValue += cock.Alcohol;
+        _bitterness.CurrentValue += cock.Bitterness;
+        _sourness.CurrentValue += cock.Sourness;
+        UpdateStats();
     }
     protected virtual void UpdateStats()
     {
-        if (_isDead) return;
-
         bool isFeelingSick = false;
         bool allAboveThreshold = true;
 
@@ -103,38 +112,33 @@ public class Client : MonoBehaviour
             }
         }
 
-        if (allAboveThreshold)
+        if (!CheckAdditionalConditions())
         {
-            Die();
-            return;
+            if (allAboveThreshold)
+            {
+                Die();
+            }
+            else if (isFeelingSick)
+                FeelSick();
+            else
+                Satisfy();
         }
-        if (isFeelingSick)
-            FeelSick();
-        _movement.MoveOut();
     }
-
+    protected virtual bool CheckAdditionalConditions()
+    {
+        return true;
+    }
+    protected void Satisfy() 
+    {
+        OnClientSatisfied?.Invoke();
+    }
     protected void FeelSick()
     {
-        Debug.Log("ploha clientu");
+        OnClientFeelSick?.Invoke();
     }
-
     protected void Die()
     {
-        if (!_isDead)
-        {
-            _isDead = true;
-            OnClientDied?.Invoke(this);
-            Debug.Log("client pomer!");
-        }
-    }
-    public void Drink(Stats cock) 
-    {
-        _toxicity.CurrentValue += cock.Toxicity;
-        _sweetness.CurrentValue += cock.Sweetness;
-        _alcohol.CurrentValue += cock.Alcohol;
-        _bitterness.CurrentValue += cock.Bitterness;
-        _sourness.CurrentValue += cock.Sourness;
-        UpdateStats();
+        OnClientDied?.Invoke();
     }
 }
 

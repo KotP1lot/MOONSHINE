@@ -20,5 +20,6 @@ public class PlayerWallet : MonoBehaviour
 
         Silver = new();
         Gold = new();
+        Gold.AddAmount(1000);
     }
 }

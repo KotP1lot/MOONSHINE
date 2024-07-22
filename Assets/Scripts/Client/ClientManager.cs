@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static Client;
 
 public class ClientManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class ClientManager : MonoBehaviour
         Police,
         UndercoverPolice
     }
+
     [Header("Client")]
     [SerializeField] private int _clientCount;
     [SerializeField] private Client _clientPref;
@@ -28,17 +30,30 @@ public class ClientManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] UIStat _uiStat;
-    
+    [SerializeField] UIBribe _uiBribe;
+    [SerializeField] UIDialog _uiDialog;
 
+    [Header("Temp")]
+    [SerializeField] Stats _stats;
     private void Start()
     {
         CreatePolicement();
         CreatePolicement();
-        CreateAndEnqueueClient();
-        CreateAndEnqueueClient();
+        CreateClient();
+        CreateClient();
         CreateQueue();
         SpawnNewClient();
-        
+
+        _uiBribe.OnBribeResult += OnBribeResult; ;
+    }
+
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Confirm();
+        }
     }
     private void CreateQueue() 
     {
@@ -56,7 +71,7 @@ public class ClientManager : MonoBehaviour
         SetupClientEvents(policement);
         _policemen.Enqueue(policement);
     }
-    private void CreateAndEnqueueClient()
+    private void CreateClient()
     {
         Client client = Instantiate(_clientPref, new Vector2(15, 0), Quaternion.identity);
         SetupClientEvents(client);
@@ -64,52 +79,80 @@ public class ClientManager : MonoBehaviour
     }
     private void SetupClientEvents(Client client)
     {
-        client.OnClientSatisfied += OnClientSatisfied;
-        client.OnClientDied += OnClientDied;
-        client.OnClientReady += OnClientReady;
+        client.OnClientReady += OnClientReadyHandler;
+        client.OnClientFeelSick += OnClientFeelSickHandler;
+        client.OnClientDied += OnClientDiedHandler;
+        client.OnClientSatisfied += OnClientSatisfiedHandler;
 
         if (client is Policeman police)
         {
-            police.OnCondemn += Policement_OnCondemn;
+            police.OnCondemn += OnCondemnHandler;
         }
     }
-    private void OnClientReady(Client obj)
-    {
-        _uiStat.ShowStats(obj.AllStats);
-    }
 
-    private void OnClientDied(Client client)
+    private void OnBribeResult(bool obj)
     {
-        if (client is Policeman)
+        if (obj)
+            OnBribeSuccess();
+        else
+            OnBribeFailure();
+    }
+    private void OnCondemnConfirm() 
+    {
+        _uiDialog.ShowCodemn("+1 star :(", SpawnNewClient);
+        Debug.Log("+1 star :(");
+    }
+    private void OnBribeFailure()
+    {
+        _uiDialog.ShowCodemn("Ya z ne loh >:( \n +1 star!", SpawnNewClient);
+        Debug.Log("Ya z ne loh >:( \n +1 star!");
+    }
+    private void OnBribeSuccess() 
+    {
+        _uiDialog.ShowCodemn("ok :)", SpawnNewClient);
+        Debug.Log("Sho tut?");
+    }
+    private void OnClientReadyHandler()
+    {
+        Debug.Log("SHOW STATS");
+        _uiStat.ShowStats(_currentClient.AllStats);
+    }
+    private void OnCondemnHandler()
+    {
+        _uiDialog.ShowCodemn("POPAVSYA!", OnCondemnConfirm);
+        Debug.Log("POPAVSYA!");
+    }
+    private void OnClientFeelSickHandler()
+    {
+        _uiDialog.ShowText("clienty ploha", SpawnNewClient);
+        Debug.Log("clienty ploha");
+    }
+    private void OnClientDiedHandler()
+    {
+        if (_currentClient is Policeman)
             Debug.Log("Kinez");
         else
             Debug.Log("The end of the day | +1 star");
     }
 
-    private void Policement_OnCondemn()
+    private void OnClientSatisfiedHandler()
     {
-        Debug.Log("+1 star");
-    }
-    private void OnClientSatisfied(Client client)
-    {
-        if (client is Policeman police)
+        if (_currentClient is Policeman police)
         {
             _policemenCount--;
             _policemen.Enqueue(police);
         }
         else
         {
-            _clients.Enqueue(client);
+            _clients.Enqueue(_currentClient);
         }
         if (--_clientCount <= 0)
         {
             Debug.Log("The end of the day");
             return;
         }
-        _uiStat.SetActive(false);
-        SpawnNewClient();
+        _uiDialog.ShowText("CLIENT DOVOLEN", SpawnNewClient);
     }
-
     private void SpawnNewClient()
     {
         switch (_queue.Dequeue()) 
@@ -130,6 +173,6 @@ public class ClientManager : MonoBehaviour
     }
     public void Confirm() 
     {
-        _currentClient.Drink(new Stats());
+        _currentClient.Drink(_stats);
     }
 }
