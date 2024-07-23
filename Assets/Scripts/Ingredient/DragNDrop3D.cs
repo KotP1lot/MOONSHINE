@@ -51,7 +51,4 @@ public class DragNDrop3D : MonoBehaviour
         _offset = Vector3.zero;
         _joint.anchor = Vector3.zero;
     }
-
-
-
 }
