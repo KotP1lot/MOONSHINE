@@ -47,4 +47,10 @@ public class Ingredient : MonoBehaviour
         transform.localPosition = Vector2.zero;
         transform.rotation = Quaternion.identity;
     }
+
+    public void SetLayer(LayerMask layer)
+    {
+        gameObject.layer = layer;
+        _model.layer = layer;
+    } 
 }

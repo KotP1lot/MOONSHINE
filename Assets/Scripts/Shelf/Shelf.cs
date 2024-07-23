@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,8 @@ public class Shelf : MonoBehaviour
     [SerializeField] Ingredient _³ngredientPrefab;
     [SerializeField] int _cObjects;
     [SerializeField] int _cRefresh;
+    [Space(10)]
+    [SerializeField] float _depth;
 
 
     private List<Ingredient> _ingredients = new();
@@ -20,7 +23,7 @@ public class Shelf : MonoBehaviour
         for (int i = 0; i < _cObjects; i++)
         {
             GameObject obj = Instantiate(_posPrefab, transform);
-            obj.transform.localPosition = new Vector2(i * step - _width / 2, 1f);
+            obj.transform.localPosition = new Vector3(i * step - _width / 2, 1f, _depth);
             _positions.Add(obj.transform);
         }
         RefreshShelf();
@@ -35,7 +38,8 @@ public class Shelf : MonoBehaviour
     {
         while (_ingredients.Count < _cObjects)
         {
-            Ingredient ingredient = Instantiate(_³ngredientPrefab, Vector2.zero, Quaternion.identity, GetEmptyPos());
+            Ingredient ingredient = Instantiate(_³ngredientPrefab, GetEmptyPos());
+            ingredient.SetLayer(LayerMask.NameToLayer("OnShelf"));
             ingredient.OnParentChange += Ingredient_OnParentChange;
             ingredient.OnClick += Ingredient_OnClick;
             _ingredients.Add(ingredient);
@@ -52,6 +56,8 @@ public class Shelf : MonoBehaviour
     {
         ingredient.transform.parent = null;
         ingredient.transform.rotation = Quaternion.identity;
+        ingredient.SetLayer(LayerMask.NameToLayer("Default"));
+        ingredient.transform.position -= new Vector3(0, 0, ingredient.transform.position.z);
         ingredient.OnParentChange -= Ingredient_OnParentChange;
         ingredient.OnClick -= Ingredient_OnClick;
         RemoveFromList(ingredient);

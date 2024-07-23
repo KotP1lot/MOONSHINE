@@ -11,11 +11,11 @@ public class UIStat : MonoBehaviour
     public void ShowStats(List<Client.Stat> stats)
     {
         SetActive(true);
-        _statText.text = $"_toxicity: {stats[0].LowerThreshold} <-|->  {stats[0].UpperThreshold},\n" +
-            $"_alcohol: {stats[1].LowerThreshold}  <-|->   {stats[1].UpperThreshold},\n" +
-            $"_bitterness: {stats[2].LowerThreshold} <-|-> {stats[2].UpperThreshold},\n" +
-            $"_sweetness: {stats[3].LowerThreshold} <-|-> {stats[3].UpperThreshold},\n" +
-            $"_sourness: {stats[4].LowerThreshold} <-|-> {stats[4].UpperThreshold}";
+        _statText.text = $"Toxicity: {stats[0].LowerThreshold} <-|->  {stats[0].UpperThreshold},\n" +
+            $"Alcohol: {stats[1].LowerThreshold}  <-|->   {stats[1].UpperThreshold},\n" +
+            $"Bitterness: {stats[2].LowerThreshold} <-|-> {stats[2].UpperThreshold},\n" +
+            $"Sweetness: {stats[3].LowerThreshold} <-|-> {stats[3].UpperThreshold},\n" +
+            $"Sourness: {stats[4].LowerThreshold} <-|-> {stats[4].UpperThreshold}";
     }
     public void SetActive(bool isActive)
     {

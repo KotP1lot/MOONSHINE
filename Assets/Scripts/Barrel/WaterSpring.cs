@@ -56,9 +56,6 @@ public class WaterSpring : MonoBehaviour
         var rb = collision.GetComponent<Rigidbody>();
         var velocity = Mathf.Clamp(rb.velocity.y, -100, -2f);
         AddVelocity(velocity * _resistance);
-        collision.gameObject.layer = LayerMask.NameToLayer("InWater");
-        rb.useGravity = false;
-        _shapeController.Floaters.Add(rb);
         //rb.drag = 3;
         //rb.angularDrag = 3;
         //var parentRB = collision.transform.parent.GetComponent<Rigidbody>();

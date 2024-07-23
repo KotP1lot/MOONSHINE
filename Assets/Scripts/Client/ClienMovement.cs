@@ -4,26 +4,19 @@ using UnityEngine;
 
 public class ClientMovement : MonoBehaviour
 {
-    public Action OnExitAnimFinished;
-    public Action OnCustomerReady;
+    public Action OnClientReady;
 
     public void MoveIn()
     {
         MoveAnim(true, () =>
         {
             transform.DOLocalMoveY(0, 0.2f);
-            OnCustomerReady?.Invoke();
+            OnClientReady?.Invoke();
         });
     }
     public void MoveOut()
     {
-        OnExitAnimFinished?.Invoke();
         MoveAnim(false, () => {
-
-            //foreach (var img in accessory)
-            //{
-            //    Destroy(img.gameObject);
-            //}
         });
     }
     public void MoveAnim(bool isEnter, Action func)

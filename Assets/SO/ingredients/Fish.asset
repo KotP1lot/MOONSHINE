@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 141694dbd9b33d1439e8a6605d674814, type: 3}
   m_Name: Fish
   m_EditorClassIdentifier: 
-  Mesh: {fileID: -8908299743826163017, guid: faf0863d09d911242a7667c23f17386d, type: 3}
-  Material: {fileID: 2100000, guid: ba8149a3f056f4e4cabc6e33c914ea2c, type: 2}
+  Mesh: {fileID: -8908299743826163017, guid: f9a489d98c9f1984499fc976cc0e4c6d, type: 3}
+  Material: {fileID: 2100000, guid: 37886864cedc5414aadc84d974864bad, type: 2}
   Stats:
-    Alcohol: 10
     Toxicity: 10
-    Sweetness: 10
+    Alcohol: 10
     Bitterness: 10
+    Sweetness: 10
     Sourness: 10
+  Rarity: 
+  Unlocked: 0

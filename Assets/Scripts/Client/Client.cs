@@ -2,6 +2,15 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GradeType
+{
+    S,
+    A,
+    B,
+    C,
+    D
+}
+
 public class Client : MonoBehaviour
 {
     [Serializable]
@@ -10,14 +19,19 @@ public class Client : MonoBehaviour
         [SerializeField] public float CurrentValue;
         [SerializeField] public float LowerThreshold;
         [SerializeField] public float UpperThreshold;
+        [SerializeField] public float PerfecValue;
 
         public bool IsAboveUpperThreshold() => CurrentValue > UpperThreshold;
         public bool IsBelowLowerThreshold() => CurrentValue < LowerThreshold;
 
-        public void SetStat() 
+        public bool IsInThreshold() => CurrentValue >= LowerThreshold && CurrentValue <= UpperThreshold;
+
+        public void SetStat()
         {
+            CurrentValue = 0;
             LowerThreshold = UnityEngine.Random.Range(0, 80);
-            UpperThreshold = UnityEngine.Random.Range((int)LowerThreshold+10, 100);
+            UpperThreshold = UnityEngine.Random.Range((int)LowerThreshold + 10, 100);
+            PerfecValue = (LowerThreshold + UpperThreshold) / 2;
         }
     }
 
@@ -29,32 +43,34 @@ public class Client : MonoBehaviour
 
     public List<Stat> AllStats;
 
-    protected bool _isDead = false;
+    public event Action OnClientReady;
+    public event Action<bool, GradeType> OnClientSatisfied;
+    public event Action OnClientFeelSick;
+    public event Action OnClientDied;
 
-    public bool isReady;
-
-    public event Action<Client> OnClientDied;
-    public event Action<Client> OnClientReady;
-    public event Action<Client> OnClientSatisfied;
-   
     protected ClientMovement _movement;
     protected ClientVisual _visual;
 
     private void Awake()
     {
-        AllStats = new () { _toxicity, _alcohol, _bitterness, _sweetness, _sourness };
+        AllStats = new() { _toxicity, _alcohol, _bitterness, _sweetness, _sourness };
+
         _movement = GetComponent<ClientMovement>();
         _visual = GetComponent<ClientVisual>();
-        _movement.OnCustomerReady += () => OnClientReady?.Invoke(this);
-        _movement.OnExitAnimFinished += () => OnClientSatisfied?.Invoke(this);
+
+        _movement.OnClientReady += () => OnClientReady?.Invoke();
     }
-    public void Spawn(SOClient client) 
+    public void Spawn(SOClient client)
     {
         SetStat();
-        transform.position = new Vector2(15, 0);
+
+        transform.localPosition = new Vector2(15, 0);
         _visual.Setup(GetSprites(client));
+
         _movement.MoveIn();
     }
+
+    #region SETUP
     protected List<Sprite> CollectSprites(SOClient client, List<Accessory> accessories)
     {
         List<Sprite> sprites = new() { client.BaseSprite };
@@ -75,15 +91,26 @@ public class Client : MonoBehaviour
         return CollectSprites(client, client.Accessories);
     }
 
-    protected void SetStat() 
+    protected void SetStat()
     {
         AllStats.ForEach(x => x.SetStat());
-        Debug.Log($"{AllStats[0].LowerThreshold} : {AllStats[0].UpperThreshold}");
+    }
+    #endregion
+    public void MoveOut()
+    {
+        _movement.MoveOut();
+    }
+    public void Drink(Stats cock)
+    {
+        _toxicity.CurrentValue += cock.Toxicity;
+        _sweetness.CurrentValue += cock.Sweetness;
+        _alcohol.CurrentValue += cock.Alcohol;
+        _bitterness.CurrentValue += cock.Bitterness;
+        _sourness.CurrentValue += cock.Sourness;
+        UpdateStats();
     }
     protected virtual void UpdateStats()
     {
-        if (_isDead) return;
-
         bool isFeelingSick = false;
         bool allAboveThreshold = true;
 
@@ -102,39 +129,81 @@ public class Client : MonoBehaviour
                 break;
             }
         }
-
-        if (allAboveThreshold)
+        
+        if (!CheckAdditionalConditions())
         {
-            Die();
-            return;
+            if (allAboveThreshold)
+            {
+                Die();
+            }
+            else if (isFeelingSick)
+                FeelSick();
+            else 
+            {
+                CheckSatisfy();
+            }
         }
-        if (isFeelingSick)
-            FeelSick();
-        _movement.MoveOut();
+    }
+    protected virtual void CheckSatisfy() 
+    {
+        bool isSat = true;
+        foreach (var stat in AllStats)
+        {
+            if (!stat.IsInThreshold())
+            {
+                isSat = false;
+                break;
+            }
+        }
+        Satisfy(isSat);
+    }
+    private GradeType GetGrade()
+    {
+        float avaragePrerfectValue = 0;
+        float avarageCurrValue = 0;
+
+        AllStats.ForEach(stat =>
+        {
+            if (ConditionForGrade(stat))
+            {
+                avarageCurrValue += stat.CurrentValue;
+                avaragePrerfectValue += stat.PerfecValue;
+            }
+        });
+
+        float percentageError = Mathf.Abs(avaragePrerfectValue - avarageCurrValue) / avaragePrerfectValue * 100;
+        if (percentageError  < 5)
+            return GradeType.S;
+        else if (percentageError  < 10)
+            return GradeType.A;
+        else if (percentageError  < 15)
+            return GradeType.B;
+        else if (percentageError  < 20)
+            return GradeType.C;
+        else
+            return GradeType.D;
     }
 
+    protected virtual bool ConditionForGrade(Stat stat)
+    {
+        return true;
+    }
+
+    protected virtual bool CheckAdditionalConditions()
+    {
+        return false;
+    }
+    protected void Satisfy(bool isSat) 
+    {
+        OnClientSatisfied?.Invoke(isSat, GetGrade());
+    }
     protected void FeelSick()
     {
-        Debug.Log("ploha clientu");
+        OnClientFeelSick?.Invoke();
     }
-
     protected void Die()
     {
-        if (!_isDead)
-        {
-            _isDead = true;
-            OnClientDied?.Invoke(this);
-            Debug.Log("client pomer!");
-        }
-    }
-    public void Drink(Stats cock) 
-    {
-        _toxicity.CurrentValue += cock.Toxicity;
-        _sweetness.CurrentValue += cock.Sweetness;
-        _alcohol.CurrentValue += cock.Alcohol;
-        _bitterness.CurrentValue += cock.Bitterness;
-        _sourness.CurrentValue += cock.Sourness;
-        UpdateStats();
+        OnClientDied?.Invoke();
     }
 }
 
