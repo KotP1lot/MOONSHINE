@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Barrel : MonoBehaviour
 {
+    [SerializeField] private StatWindow _statWindow;
+    [SerializeField] private Transform _ingredientParent;
+
     public Stats _beerStat;
 
     private WaterShapeController _water;
@@ -20,6 +23,8 @@ public class Barrel : MonoBehaviour
             _water.AddFloater(collision.GetComponent<Rigidbody>());
             ingredient.IsUsed = true;
             Destroy(collision.GetComponent<DragNDrop3D>());
+            Destroy(collision.GetComponent<CursorHover>());
+            ingredient.transform.SetParent(_ingredientParent);
         }
     }
     private void AddStat(Stats stat)
@@ -29,5 +34,7 @@ public class Barrel : MonoBehaviour
         _beerStat.Bitterness += stat.Bitterness;
         _beerStat.Sweetness += stat.Sweetness;
         _beerStat.Toxicity += stat.Toxicity;
+
+        _statWindow.SetStats(_beerStat);
     }
 }

@@ -11,10 +11,13 @@ public class Ingredient : MonoBehaviour
     [SerializeField] private GameObject _model;
     private Rigidbody _rb;
     private Collider2D _collider;
+    private CursorHover _hover;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider2D>();
+        _hover = GetComponentInChildren<CursorHover>();
         IsUsed = false;
         GetComponentInChildren<DragNDrop3D>().OnClick += () => OnClick?.Invoke(this);
         if (Data != null)
@@ -29,6 +32,8 @@ public class Ingredient : MonoBehaviour
         _model.GetComponent<MeshFilter>().mesh = so.Mesh;
         _model.GetComponent<MeshRenderer>().material = so.Material;
         _model.GetComponent<MeshCollider>().sharedMesh = so.Mesh;
+
+        _hover.SetTooltip(GenerateTooltip(so));
     }
 
     public Stats GetStats()
@@ -53,4 +58,18 @@ public class Ingredient : MonoBehaviour
         gameObject.layer = layer;
         _model.layer = layer;
     } 
+
+    private string GenerateTooltip(SOIngredient so)
+    {
+        string res = $"-{so.name.ToUpper()}-\n";
+        string[] names = new string[] { "alcohol", "toxic", "sweet", "bitter", "sour" };
+
+        for(int i =  0; i < names.Length; i++)
+        {
+            var stat = so.Stats.Array[i];
+            if (stat != 0) res += $"{names[i]}: {stat}\n";
+        }
+
+        return res;
+    }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public static class Utility
@@ -20,5 +21,15 @@ public static class Utility
     {
         if (local) transform.localPosition = new Vector3(transform.localPosition.x,transform.localPosition.y,0);
         else transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+    }
+
+    public static void SetWidth(this RectTransform rectTransform, float width)
+    {
+        rectTransform.sizeDelta = new Vector3(width, rectTransform.sizeDelta.y);
+    }
+    public static string RemoveBetween(this string sourceString, string startTag, string endTag)
+    {
+        Regex regex = new Regex(string.Format("{0}(.*?){1}", Regex.Escape(startTag), Regex.Escape(endTag)), RegexOptions.RightToLeft);
+        return regex.Replace(sourceString, "");
     }
 }

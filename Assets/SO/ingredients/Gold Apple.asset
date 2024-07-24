@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 141694dbd9b33d1439e8a6605d674814, type: 3}
-  m_Name: GoldenApple
+  m_Name: Gold Apple
   m_EditorClassIdentifier: 
   Mesh: {fileID: -8908299743826163017, guid: cf2edc192f2645b46a59226474807f15, type: 3}
   Material: {fileID: 2100000, guid: d10ec1a48a4d2734f84e220275071ee7, type: 2}

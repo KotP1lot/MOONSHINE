@@ -14,11 +14,19 @@ public class SOIngredient : ScriptableObject
     public bool IsEnhanced { get; set; }
 }
 [Serializable]
-public struct Stats 
+public class Stats 
 {
     public float Toxicity;
     public float Alcohol;
     public float Bitterness;
     public float Sweetness;
     public float Sourness;
+
+    public float[] Array
+    {
+        get
+        {
+            return new[] { Alcohol, Toxicity, Sweetness, Bitterness,Sourness };
+        }
+    }
 }

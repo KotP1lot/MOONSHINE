@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 
 public enum CursorType { Default, Click, Grab, Drag }
 public class CursorController : MonoBehaviour
@@ -14,7 +15,9 @@ public class CursorController : MonoBehaviour
     [SerializeField] private Sprite _grabSprite;
     [SerializeField] private Sprite _dragSprite;
 
+    private RectTransform _rectTransform;
     private Image _image;
+    private TooltipController _tooltip;
     private float _screenScale;
 
     private void Awake()
@@ -28,14 +31,17 @@ public class CursorController : MonoBehaviour
 
     private void Start()
     {
-        _image = GetComponent<Image>();
+        _rectTransform = GetComponent<RectTransform>();
+        _image = GetComponentInChildren<Image>();
+        _tooltip = GetComponentInChildren<TooltipController>();
         _defaultSprite = _image.sprite;
         _screenScale = Screen.width / 320;
     }
 
     private void Update()
     {
-        transform.localPosition = Input.mousePosition / _screenScale - new Vector3(160,90);
+        _rectTransform.anchoredPosition = new Vector2(Mathf.Round(Input.mousePosition.x / _screenScale), Mathf.Round(Input.mousePosition.y / _screenScale));
+        _tooltip.AdjustPosition(_rectTransform);
     }
 
     public void SetSprite(CursorType type = CursorType.Default)
@@ -52,4 +58,6 @@ public class CursorController : MonoBehaviour
         _image.sprite = sprite;
         _image.rectTransform.pivot = sprite.pivot / _image.rectTransform.sizeDelta.x;
     }
+
+    
 }

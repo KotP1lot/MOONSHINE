@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CursorChanger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler,IPointerUpHandler
+public class CursorHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler,IPointerUpHandler
 {
     [SerializeField] private CursorType _Hover;
     [SerializeField] private CursorType _Down;
+    [Space(10)]
+    [TextArea][SerializeField] private string _tooltip;
     private bool _isUI;
-    private bool _isHovering;
+
+    public bool IsHovering { get; private set; }
 
     private void Update()
     {
@@ -18,20 +21,26 @@ public class CursorChanger : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        IsHovering = true;
         CursorController.Instance.SetSprite(_Hover);
+        if (_tooltip != "") TooltipController.Instance.SetTooltip(_tooltip);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        IsHovering = false;
         CursorController.Instance.SetSprite();
+        if (_tooltip != "") TooltipController.Instance.HideTooltip();
     }
     public void OnPointerDown(PointerEventData eventData)
     {
+        IsHovering = true;
         CursorController.Instance.SetSprite(_Down);
+        if (_tooltip != "") TooltipController.Instance.SetTooltip(_tooltip);
     }
     public void OnPointerUp(PointerEventData eventData)
     {
-        OnPointerExit(null);
+        if(!IsHovering) OnPointerExit(null);
     }
 
     private void OnMouseEnter()
@@ -52,4 +61,8 @@ public class CursorChanger : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (!_isUI) OnPointerExit(null);
     }
 
+    public void SetTooltip(string text)
+    {
+        _tooltip = text;
+    }
 }

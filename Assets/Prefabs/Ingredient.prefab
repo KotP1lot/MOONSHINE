@@ -162,6 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Hover: 2
   _Down: 3
+  _tooltip: ingredient
 --- !u!1 &7873067591374825032
 GameObject:
   m_ObjectHideFlags: 0
