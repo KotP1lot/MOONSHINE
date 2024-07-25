@@ -12,6 +12,7 @@ public class ClientManager : MonoBehaviour
         UndercoverPolice
     }
     [SerializeField] Transform _clientContainer;
+    [SerializeField] CameraConroller _cameraConroller;
 
     [Header("Client")]
     [SerializeField] private int _clientCount;
@@ -138,6 +139,7 @@ public class ClientManager : MonoBehaviour
     {
         Debug.Log("SHOW STATS");
         _uiStat.ShowStats(_currentClient.AllStats);
+        _uiDialog.ShowText("Give me PIVO!", () => { _cameraConroller.Rotate(); });
     }
     private void OnCondemnHandler()
     {

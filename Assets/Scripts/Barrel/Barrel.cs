@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Barrel : MonoBehaviour
 {
+    [SerializeField] private CameraConroller _cameraConroller;
     [SerializeField] private StatWindow _statWindow;
     [SerializeField] private Transform _ingredientParent;
 
@@ -36,5 +37,10 @@ public class Barrel : MonoBehaviour
         _beerStat.Toxicity += stat.Toxicity;
 
         _statWindow.SetStats(_beerStat);
+    }
+
+    public void Cook() 
+    {
+        _cameraConroller.Rotate();
     }
 }
