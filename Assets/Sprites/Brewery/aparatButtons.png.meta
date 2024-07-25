@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 72481a32d17271d418afdfd0089ee59e
+guid: f0a05c86179cc0345b660d5d9a72afb5
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,85 +97,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cursor_0
+      name: aparatButtons_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 10
-        width: 9
-        height: 9
-      alignment: 1
-      pivot: {x: 0, y: 1}
+        x: 4
+        y: 36
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9decb33576774a543b9bdfabaf2c0ecb
-      internalID: 490533711
+      spriteID: 28480514503a3de4989b9f8566c0ae15
+      internalID: 1906730292
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cursor_1
+      name: aparatButtons_1
       rect:
         serializedVersion: 2
-        x: 10
-        y: 10
-        width: 9
-        height: 9
-      alignment: 9
-      pivot: {x: 0.37615618, y: 0.8766916}
+        x: 4
+        y: 20
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a690ee0650e884940b7b4af8f57a998a
-      internalID: -1088041648
+      spriteID: c476b08dc3217d741949e7b9ae619921
+      internalID: -392129449
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cursor_2
+      name: aparatButtons_2
       rect:
         serializedVersion: 2
-        x: 21
-        y: 10
-        width: 9
-        height: 9
-      alignment: 9
-      pivot: {x: 0.6, y: 0.4}
+        x: 4
+        y: 4
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: de91c3c906b245c48942703c4bef7fed
-      internalID: -313504931
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cursor_3
-      rect:
-        serializedVersion: 2
-        x: 21
-        y: 1
-        width: 9
-        height: 9
-      alignment: 9
-      pivot: {x: 0.6, y: 0.4}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5d12c7bfcc75d874bb1ba1d08d3b09f4
-      internalID: -1651354366
+      spriteID: 89ba72417b18b2e41a430913d9f8d40d
+      internalID: -1249363993
       vertices: []
       indices: 
       edges: []
@@ -191,10 +170,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      cursor_0: 490533711
-      cursor_1: -1088041648
-      cursor_2: -313504931
-      cursor_3: -1651354366
+      aparatButtons_0: 1906730292
+      aparatButtons_1: -392129449
+      aparatButtons_2: -1249363993
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

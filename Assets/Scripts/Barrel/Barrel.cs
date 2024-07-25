@@ -1,11 +1,14 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
-public class Barrel : MonoBehaviour
+public class Barrel : Aparat
 {
     [SerializeField] private ClientManager _clientManager;
     [SerializeField] private StatWindow _statWindow;
     [SerializeField] private Transform _ingredientParent;
+    [Space(10)]
+    [SerializeField] private SpriteRenderer _barrelClosed;
 
     public Stats _beerStat;
 
@@ -59,5 +62,21 @@ public class Barrel : MonoBehaviour
         };
         yield return null;
         GlobalEvents.Instance.OnBeerCooked?.Invoke();
+    }
+
+    public override void ChangeState(TweenCallback onComplete)
+    {
+        float alpha = _barrelClosed.color.a == 1 ? 0 : 1;
+        _barrelClosed.DOFade(alpha, 0.3f).SetEase(Ease.OutCirc).onComplete = () =>
+        {
+            onComplete?.Invoke();
+        };
+
+        bool active = _ingredientParent.gameObject.activeSelf;
+        float ingredientDelay = active ? 0.3f : 0;
+        _ingredientParent.DOScaleZ(1, ingredientDelay).onComplete = () =>
+        {
+            _ingredientParent.gameObject.SetActive(!active);
+        };
     }
 }

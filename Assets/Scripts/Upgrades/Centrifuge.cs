@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Centrifuge : MonoBehaviour
+public class Centrifuge : Aparat
 {
     [Header("Essence Prefabs")]
     [SerializeField] private GameObject alcoholEssencePrefab;
