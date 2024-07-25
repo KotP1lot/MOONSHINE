@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 141694dbd9b33d1439e8a6605d674814, type: 3}
+  m_Name: Mint
+  m_EditorClassIdentifier: 
+  Mesh: {fileID: 7611685038743411415, guid: b505f9c5a4c5c0b4ca00066a812614d1, type: 3}
+  Material: {fileID: 2100000, guid: 653b86f537c916f4da542c39d04a4f12, type: 2}
+  ChildPrefab: {fileID: 0}
+  Stats:
+    Alcohol: 0
+    Toxicity: -3
+    Sweetness: 1
+    Bitterness: 3
+    Sourness: 2
+    Uniqueness: 0
+  Rarity: 
+  Unlocked: 0

@@ -71,7 +71,7 @@ public class TooltipController : MonoBehaviour
         if (parent.anchoredPosition.x + Width > 320)
         {
             SetAlignment(HorizontalAlignmentOptions.Right);
-            pos = new Vector2(-60.6f, pos.y);
+            pos = new Vector2(-81.5f, pos.y);
             //AlignOutline(2, 1);
         }
         else

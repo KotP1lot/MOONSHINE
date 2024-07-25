@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 141694dbd9b33d1439e8a6605d674814, type: 3}
+  m_Name: Golden Apple
+  m_EditorClassIdentifier: 
+  Mesh: {fileID: -8908299743826163017, guid: cf2edc192f2645b46a59226474807f15, type: 3}
+  Material: {fileID: 2100000, guid: d10ec1a48a4d2734f84e220275071ee7, type: 2}
+  ChildPrefab: {fileID: 0}
+  Stats:
+    Alcohol: 0
+    Toxicity: 0
+    Sweetness: 7
+    Bitterness: 7
+    Sourness: 7
+    Uniqueness: 0
+  Rarity: 
+  Unlocked: 0

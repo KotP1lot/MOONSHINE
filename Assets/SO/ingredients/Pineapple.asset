@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 141694dbd9b33d1439e8a6605d674814, type: 3}
-  m_Name: Gold Apple
+  m_Name: Pineapple
   m_EditorClassIdentifier: 
-  Mesh: {fileID: -8908299743826163017, guid: cf2edc192f2645b46a59226474807f15, type: 3}
-  Material: {fileID: 2100000, guid: d10ec1a48a4d2734f84e220275071ee7, type: 2}
+  Mesh: {fileID: -6316266800271276957, guid: 5f4849c7be3e36e4ab7816fe24f8b384, type: 3}
+  Material: {fileID: 2100000, guid: bf00a04c9caaa2f4ea89893a10e39097, type: 2}
+  ChildPrefab: {fileID: 0}
   Stats:
-    Toxicity: 10
-    Alcohol: 10
-    Bitterness: 10
-    Sweetness: 10
-    Sourness: 10
+    Alcohol: 2
+    Toxicity: 0
+    Sweetness: 2
+    Bitterness: 0
+    Sourness: 5
+    Uniqueness: 0
   Rarity: 
   Unlocked: 0

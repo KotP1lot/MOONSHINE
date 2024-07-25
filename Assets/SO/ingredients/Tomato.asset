@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Mesh: {fileID: -8908299743826163017, guid: 22c9cc55f600eb84dab1c9d7a67cb3cf, type: 3}
   Material: {fileID: 2100000, guid: 8f887569126d91c4a928e639831eab9f, type: 2}
+  ChildPrefab: {fileID: 0}
   Stats:
-    Toxicity: 10
-    Alcohol: 10
-    Bitterness: 10
-    Sweetness: 10
-    Sourness: 10
+    Alcohol: 2
+    Toxicity: 0
+    Sweetness: 2
+    Bitterness: 3
+    Sourness: 0
+    Uniqueness: 0
   Rarity: 
   Unlocked: 0

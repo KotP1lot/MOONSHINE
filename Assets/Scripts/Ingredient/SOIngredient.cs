@@ -27,12 +27,12 @@ public class SOIngredient : ScriptableObject
     }
 }
 [Serializable]
-public class Stats 
+public class Stats
 {
-    public float Toxicity;
     public float Alcohol;
-    public float Bitterness;
+    public float Toxicity;
     public float Sweetness;
+    public float Bitterness;
     public float Sourness;
 
     public float[] Array

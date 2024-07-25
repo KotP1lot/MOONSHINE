@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 141694dbd9b33d1439e8a6605d674814, type: 3}
+  m_Name: Banana
+  m_EditorClassIdentifier: 
+  Mesh: {fileID: -8457624670379154836, guid: 89f1ee058075a264bb9e32363a7024ce, type: 3}
+  Material: {fileID: 2100000, guid: 528575878427efd48ae3e48d51735da7, type: 2}
+  ChildPrefab: {fileID: 0}
+  Stats:
+    Alcohol: 3
+    Toxicity: 0
+    Sweetness: 3
+    Bitterness: 2
+    Sourness: 0
+    Uniqueness: 0
+  Rarity: 
+  Unlocked: 0
