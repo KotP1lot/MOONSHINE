@@ -13,6 +13,18 @@ public class SOIngredient : ScriptableObject
     public string Rarity;
     public bool Unlocked;
     public bool IsEnhanced { get; set; }
+
+    public void CopyFrom(SOIngredient other)
+    {
+        if (other == null) return;
+
+        Mesh = other.Mesh;
+        Material = other.Material;
+        Stats = other.Stats;
+        Rarity = other.Rarity;
+        Unlocked = other.Unlocked;
+        IsEnhanced = other.IsEnhanced;
+    }
 }
 [Serializable]
 public class Stats 
@@ -30,4 +42,5 @@ public class Stats
             return new[] { Alcohol, Toxicity, Sweetness, Bitterness,Sourness };
         }
     }
+    public float Uniqueness;
 }
