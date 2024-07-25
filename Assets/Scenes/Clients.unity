@@ -771,7 +771,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 1}
-  m_SizeDelta: {x: 50, y: 41}
+  m_SizeDelta: {x: 69, y: 45}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &54717663
 MonoBehaviour:
@@ -793,7 +793,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '-APPLE-
+  m_text: '-DARK CHOCOLATE-
 
     alcohol: 99
 
@@ -801,10 +801,10 @@ MonoBehaviour:
 
     sweet: 99
 
-    sweet: 99
-
     sweet:
-    99'
+    99
+
+    sweet: 99'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b8ce39f16b1c8784b807912084d7c772, type: 2}
   m_sharedMaterial: {fileID: 5629068610759496227, guid: b8ce39f16b1c8784b807912084d7c772, type: 2}
@@ -1598,7 +1598,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 50, y: 40}
+  m_SizeDelta: {x: 69, y: 45}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &232514866
 MonoBehaviour:
@@ -1620,7 +1620,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '-APPLE-
+  m_text: '-DARK CHOCOLATE-
 
     alcohol: 99
 
@@ -1628,10 +1628,10 @@ MonoBehaviour:
 
     sweet: 99
 
-    sweet: 99
-
     sweet:
-    99'
+    99
+
+    sweet: 99'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b8ce39f16b1c8784b807912084d7c772, type: 2}
   m_sharedMaterial: {fileID: 5629068610759496227, guid: b8ce39f16b1c8784b807912084d7c772, type: 2}
@@ -2460,7 +2460,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 1, y: 0}
-  m_SizeDelta: {x: 49, y: 40}
+  m_SizeDelta: {x: 69, y: 45}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &354914803
 MonoBehaviour:
@@ -2482,7 +2482,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '-APPLE-
+  m_text: '-DARK CHOCOLATE-
 
     alcohol: 99
 
@@ -2490,10 +2490,10 @@ MonoBehaviour:
 
     sweet: 99
 
-    sweet: 99
-
     sweet:
-    99'
+    99
+
+    sweet: 99'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b8ce39f16b1c8784b807912084d7c772, type: 2}
   m_sharedMaterial: {fileID: 5629068610759496227, guid: b8ce39f16b1c8784b807912084d7c772, type: 2}
@@ -4574,7 +4574,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -1, y: 0}
-  m_SizeDelta: {x: 51, y: 40}
+  m_SizeDelta: {x: 69, y: 45}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &923604532
 MonoBehaviour:
@@ -4596,7 +4596,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '-APPLE-
+  m_text: '-DARK CHOCOLATE-
 
     alcohol: 99
 
@@ -4604,10 +4604,10 @@ MonoBehaviour:
 
     sweet: 99
 
-    sweet: 99
-
     sweet:
-    99'
+    99
+
+    sweet: 99'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b8ce39f16b1c8784b807912084d7c772, type: 2}
   m_sharedMaterial: {fileID: 5629068610759496227, guid: b8ce39f16b1c8784b807912084d7c772, type: 2}
@@ -6688,7 +6688,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: -1}
-  m_SizeDelta: {x: 50, y: 39}
+  m_SizeDelta: {x: 69, y: 45}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1874198427
 MonoBehaviour:
@@ -6710,7 +6710,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '-APPLE-
+  m_text: '-DARK CHOCOLATE-
 
     alcohol: 99
 
@@ -6718,10 +6718,10 @@ MonoBehaviour:
 
     sweet: 99
 
-    sweet: 99
-
     sweet:
-    99'
+    99
+
+    sweet: 99'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b8ce39f16b1c8784b807912084d7c772, type: 2}
   m_sharedMaterial: {fileID: 5629068610759496227, guid: b8ce39f16b1c8784b807912084d7c772, type: 2}
@@ -7636,6 +7636,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f70c9d018f678bb4981017456929dfbc, type: 2}
   - {fileID: 11400000, guid: 3a2b6ff8fdf91d74987b7344a8dc100d, type: 2}
   - {fileID: 11400000, guid: a89fb92d3abb17a4fa474f7fe6f7c012, type: 2}
+  - {fileID: 11400000, guid: db5bf4c16fd3da04cbc16ef43ece75d4, type: 2}
+  - {fileID: 11400000, guid: 2ca2dec73e2e50849abf8ea1b8a54ebe, type: 2}
+  - {fileID: 11400000, guid: 40c7fed004289564583eab72587347cc, type: 2}
   _all:
   - {fileID: 11400000, guid: 5c71fa433162950428d140bbebdeaba1, type: 2}
   - {fileID: 11400000, guid: 5f0c0decdf06a1e4998cb81186347256, type: 2}

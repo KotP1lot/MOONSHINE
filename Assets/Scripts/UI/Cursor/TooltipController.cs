@@ -72,26 +72,26 @@ public class TooltipController : MonoBehaviour
         {
             SetAlignment(HorizontalAlignmentOptions.Right);
             pos = new Vector2(-60.6f, pos.y);
-            AlignOutline(2, 1);
+            //AlignOutline(2, 1);
         }
         else
         {
             pos = new Vector2(4.6f, pos.y);
             SetAlignment(HorizontalAlignmentOptions.Left);
-            AlignOutline(1, 1);
+            //AlignOutline(1, 1);
         }
 
         if (parent.anchoredPosition.y - Height < 0)
         {
             SetAlignment(VerticalAlignmentOptions.Bottom);
             pos = new Vector2(pos.x, 42.6f);
-            AlignOutline(0, 2);
+            //AlignOutline(0, 2);
         }
         else
         {
             SetAlignment(VerticalAlignmentOptions.Top);
             pos = new Vector2(pos.x, 7.4f);
-            AlignOutline(0, 1);
+            //AlignOutline(0, 1);
         }
 
         Rect.anchoredPosition = pos;

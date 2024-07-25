@@ -6,6 +6,7 @@ public class SOIngredient : ScriptableObject
     [Header("_visual")]
     public Mesh Mesh;
     public Material Material;
+    public GameObject ChildPrefab;
 
     [Header("Stats")]
     public Stats Stats;

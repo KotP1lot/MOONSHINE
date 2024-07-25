@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Ingredient : MonoBehaviour
@@ -32,6 +34,20 @@ public class Ingredient : MonoBehaviour
         _model.GetComponent<MeshFilter>().mesh = so.Mesh;
         _model.GetComponent<MeshRenderer>().material = so.Material;
         _model.GetComponent<MeshCollider>().sharedMesh = so.Mesh;
+
+        if(_model.transform.childCount>0)
+        {
+            Destroy(_model.GetComponentsInChildren<MeshRenderer>()[1].gameObject);
+        }
+
+        if (so.ChildPrefab != null)
+        {
+            var obj = Instantiate(so.ChildPrefab);
+            obj.transform.SetParent(_model.transform);
+            obj.transform.localPosition = Vector3.zero + so.ChildPrefab.transform.position;
+            obj.transform.localRotation = Quaternion.identity;
+
+        }
 
         _hover.SetTooltip(GenerateTooltip(so));
     }
