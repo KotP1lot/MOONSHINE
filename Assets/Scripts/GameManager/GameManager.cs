@@ -31,6 +31,11 @@ public class GameManager : MonoBehaviour
         Stars = new();
         Days = new();
     }
+    private void OnDisable()
+    {
+        _clientManager.OnDayEnd -= StartNewDay;
+        _clientManager.OnGetStar -= GetStars;
+    }
     private void Start()
     {
         _uiPlayerStats.Setup(_maxStars);

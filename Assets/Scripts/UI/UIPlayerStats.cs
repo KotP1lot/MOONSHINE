@@ -22,6 +22,12 @@ public class UIPlayerStats : MonoBehaviour
         GameManager.Instance.Stars.OnResourceChanged += OnStarChanged;
         GameManager.Instance.Days.OnResourceChanged += OnDaysChanged;
     }
+    private void OnDisable()
+    {
+        GameManager.Instance.Gold.OnResourceChanged -= OnMoneyChanged;
+        GameManager.Instance.Stars.OnResourceChanged -= OnStarChanged;
+        GameManager.Instance.Days.OnResourceChanged -= OnDaysChanged;
+    }
     public void OnMoneyChanged(int value) 
     {
         _money.text = $"${value}";

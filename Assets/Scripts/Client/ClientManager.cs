@@ -12,7 +12,6 @@ public class ClientManager : MonoBehaviour
         UndercoverPolice
     }
     [SerializeField] Transform _clientContainer;
-    [SerializeField] CameraConroller _cameraConroller;
 
     [Header("Client")]
     [SerializeField] private int _clientCount;
@@ -48,13 +47,26 @@ public class ClientManager : MonoBehaviour
         CreateClient();
         CreateClient();
 
-        _uiBribe.OnBribeResult += OnBribeResult; ;
+        _uiBribe.OnBribeResult += OnBribeResult;
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Confirm();
+            Confirm(_stats);
+        }
+    }
+    private void OnDisable()
+    {
+        _uiBribe.OnBribeResult -= OnBribeResult;
+        _clients.Clear();
+        _policemen.Clear();
+
+        Client[] clients = FindObjectsOfType<Client>();
+        foreach (var client in clients)
+        {
+            RemoveClientEvents(client);
+            Destroy(client.gameObject);
         }
     }
     public void StartNewDay(int clientCount, int policemenCount, int undercoverPolicemenCount) 
@@ -103,6 +115,18 @@ public class ClientManager : MonoBehaviour
             police.OnCondemn += OnCondemnHandler;
         }
     }
+    private void RemoveClientEvents(Client client)
+    {
+        client.OnClientReady -= OnClientReadyHandler;
+        client.OnClientFeelSick -= OnClientFeelSickHandler;
+        client.OnClientDied -= OnClientDiedHandler;
+        client.OnClientSatisfied -= OnClientSatisfiedHandler;
+
+        if (client is Policeman police)
+        {
+            police.OnCondemn -= OnCondemnHandler;
+        }
+    }
     #endregion
 
     #region CLIENTS HANDLERS
@@ -139,7 +163,9 @@ public class ClientManager : MonoBehaviour
     {
         Debug.Log("SHOW STATS");
         _uiStat.ShowStats(_currentClient.AllStats);
-        _uiDialog.ShowText("Give me PIVO!", () => { _cameraConroller.Rotate(); });
+        _uiDialog.ShowText("Give me PIVO!", () => {
+            GlobalEvents.Instance.OnChangeCameraPos?.Invoke(CameraPosType.Brewery);
+        });
     }
     private void OnCondemnHandler()
     {
@@ -170,16 +196,18 @@ public class ClientManager : MonoBehaviour
 
     private void OnClientSatisfiedHandler(bool isSat, GradeType grade)
     {
-        GameManager.Instance.Gold.AddAmount(grade switch
-        {
-            GradeType.S => 100,
-            GradeType.A => 80,
-            GradeType.B => 60,
-            GradeType.C => 40,
-            GradeType.D => 20,
-            _ => 5
-        });
-        _uiDialog.ShowText(isSat?$"CLIENT DOVOLEN | Grade: {grade}": "CLIENT NE DOVOLEN >:(", SpawnNewClient);
+        GameManager.Instance.Gold.AddAmount(isSat
+            ? grade switch
+            {
+                GradeType.S => 100,
+                GradeType.A => 80,
+                GradeType.B => 60,
+                GradeType.C => 40,
+                GradeType.D => 20,
+                _ => 5
+            }
+        : 0);
+        _uiDialog.ShowText(isSat ? $"CLIENT DOVOLEN | Grade: {grade}" : "CLIENT NE DOVOLEN >:(", SpawnNewClient);
     }
 
     #endregion
@@ -220,8 +248,8 @@ public class ClientManager : MonoBehaviour
                 break;
         }
     }
-    public void Confirm() 
+    public void Confirm(Stats stats) 
     {
-        _currentClient.Drink(_stats);
+        _currentClient.Drink(stats);
     }
 }

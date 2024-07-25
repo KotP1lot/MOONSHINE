@@ -17,7 +17,10 @@ public class DragNDrop3D : MonoBehaviour
         _jointRB = _joint.GetComponent<Rigidbody>();
         _collider = GetComponent<MeshCollider>();
     }
-
+    private void OnDestroy()
+    {
+        OnClick = null;
+    }
     void FixedUpdate()
     {
         if (_jointRB.velocity.magnitude > 3) _rb.angularDrag = 0.05f;

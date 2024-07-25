@@ -28,4 +28,8 @@ public class ClientMovement : MonoBehaviour
             func();
         });
     }
+    private void OnDisable()
+    {
+        OnClientReady = null;
+    }
 }

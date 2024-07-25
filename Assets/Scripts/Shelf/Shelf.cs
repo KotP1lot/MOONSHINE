@@ -1,5 +1,3 @@
-using DG.Tweening;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +17,8 @@ public class Shelf : MonoBehaviour
     private List<Transform> _positions = new();
     void Start()
     {
+        GlobalEvents.Instance.OnBeerCooked += ResetShelf;
+
         float step = (1 * _width) / ((float)_cObjects - 1);
         for (int i = 0; i < _cObjects; i++)
         {
@@ -28,6 +28,13 @@ public class Shelf : MonoBehaviour
         }
         RefreshShelf();
     }
+
+    private void ResetShelf()
+    {
+        _ingredients.Clear();
+        RefreshShelf();
+    }
+
     public void RefreshShelf()
     {
         if (_cRefresh-- <= 0) return;
@@ -51,7 +58,15 @@ public class Shelf : MonoBehaviour
             _ingredients[i].ResetLocalPosition();
         }
     }
-
+    private void OnDisable()
+    {
+        _ingredients.ForEach(x =>
+        {
+            x.OnParentChange -= Ingredient_OnParentChange;
+            x.OnClick -= Ingredient_OnClick;
+        });
+        GlobalEvents.Instance.OnBeerCooked -= ResetShelf;
+    }
     private void Ingredient_OnClick(Ingredient ingredient)
     {
         ingredient.transform.parent = null;

@@ -1,8 +1,9 @@
+using System.Collections;
 using UnityEngine;
 
 public class Barrel : MonoBehaviour
 {
-    [SerializeField] private CameraConroller _cameraConroller;
+    [SerializeField] private ClientManager _clientManager;
     [SerializeField] private StatWindow _statWindow;
     [SerializeField] private Transform _ingredientParent;
 
@@ -41,6 +42,22 @@ public class Barrel : MonoBehaviour
 
     public void Cook() 
     {
-        _cameraConroller.Rotate();
+        GlobalEvents.Instance.OnChangeCameraPos?.Invoke(CameraPosType.Client);
+        _clientManager.Confirm(_beerStat);
+       
+        _beerStat = new();
+        _statWindow.SetStats(_beerStat);
+        GlobalEvents.Instance.BeforeBeerCook?.Invoke();
+        StartCoroutine(DestroyIngredients());
+    }
+    IEnumerator DestroyIngredients() 
+    {
+        Ingredient[] childTransforms = FindObjectsOfType<Ingredient>();
+        foreach (var children in childTransforms)
+        {
+            Destroy(children.gameObject);
+        };
+        yield return null;
+        GlobalEvents.Instance.OnBeerCooked?.Invoke();
     }
 }

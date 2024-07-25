@@ -25,8 +25,16 @@ public class WaterShapeController : MonoBehaviour
         _shapeController = GetComponent<SpriteShapeController>();
         SetPoints();
         CreateSprings();
+        GlobalEvents.Instance.BeforeBeerCook += ResetWater;
     }
-
+    private void OnDisable()
+    {
+        GlobalEvents.Instance.BeforeBeerCook -= ResetWater;
+    }
+    private void ResetWater() 
+    {
+        _floaters.Clear();
+    }
     private void FixedUpdate()
     {
         foreach (var spring in _springs)
