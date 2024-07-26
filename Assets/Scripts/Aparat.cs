@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Aparat : MonoBehaviour
 {
-    public float DefaultX;
+    [HideInInspector]public float DefaultX;
 
     public virtual void ChangeState(TweenCallback onComplete)
     {

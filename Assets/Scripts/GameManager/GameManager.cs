@@ -1,6 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+[Serializable]
+public struct StatColors
+{
+    public Color Alcohol;
+    public Color Toxicity;
+    public Color Sweetness;
+    public Color Bitterness;
+    public Color Sourness;
+    public Color NegativeValue;
+
+    public Color[] Array
+    {
+        get
+        {
+            return new[] { Alcohol, Toxicity, Sweetness, Bitterness, Sourness };
+        }
+    }
+}
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +29,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] ClientManager _clientManager;
     [SerializeField] UIPlayerStats _uiPlayerStats;
     [SerializeField] int _maxStars;
+    [SerializeField] AparatChanger _aparatChanger;
+
+    [Header("Stats")]
+    public int HighestStat;
+    public float HighestEssencePercent;
+    public StatColors Colors;
+
     public Value Silver { get; private set; }
     public Value Gold { get; private set; }
     public Value Stars { get; private set; }
@@ -57,5 +84,10 @@ public class GameManager : MonoBehaviour
             Debug.Log("KINEZ");
             return;
         }
+    }
+
+    public void SetProcessing(bool proc)
+    {
+        _aparatChanger.EnableButtons(!proc);
     }
 }

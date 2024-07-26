@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AparatChanger : MonoBehaviour
 {
@@ -18,15 +19,19 @@ public class AparatChanger : MonoBehaviour
 
     private TweenCallback _callback;
     private bool _isChecking;
+    private Button[] _buttons;
 
     private void Start()
     {
+        _buttons = GetComponentsInChildren<Button>();
+
         _barrel.DefaultX = _barrel.transform.position.x;
         _combinator.DefaultX = _combinator.transform.position.x;
         _centrifuge.DefaultX = _centrifuge.transform.position.x;
 
-        MoveToStack(_combinator.transform,0);
-        MoveToStack(_centrifuge.transform,0);
+        if (!_barrel.gameObject.activeSelf) { MoveToStack(_barrel.transform, 0); _barrel.ChangeState(() => { }); };
+        if (!_combinator.gameObject.activeSelf) MoveToStack(_combinator.transform,0);
+        if (!_centrifuge.gameObject.activeSelf) MoveToStack(_centrifuge.transform,0);
     }
 
     private void Update()
@@ -46,18 +51,21 @@ public class AparatChanger : MonoBehaviour
     public void ChangeToBarrel()
     {
         if (_barrel.gameObject.activeSelf) return;
+        if (_isChecking) return;
         Hide(new Aparat[] { _centrifuge, _combinator });
         _callback = () => { Appear(_barrel); };
     }
     public void ChangeToCentrifuge()
     {
         if (_centrifuge.gameObject.activeSelf) return;
+        if (_isChecking) return;
         Hide(new Aparat[] { _barrel, _combinator });
         _callback = () => { Appear(_centrifuge); };
     }
     public void ChangeToCombinator()
     {
         if (_combinator.gameObject.activeSelf) return;
+        if (_isChecking) return;
         Hide(new Aparat[] { _barrel, _centrifuge });
         _callback = () => { Appear(_combinator); };
 
@@ -87,5 +95,11 @@ public class AparatChanger : MonoBehaviour
         aparat.transform.gameObject.SetActive(true);
         aparat.transform.DOMoveX(aparat.DefaultX, 0.5f).SetEase(_appearEase).SetDelay(_appearDelay)
             .onComplete = ()=> { aparat.ChangeState(() => { }); };
+    }
+
+    public void EnableButtons(bool enable)
+    {
+        foreach (var button in _buttons)
+            button.interactable = enable;
     }
 }

@@ -67,6 +67,7 @@ public class Ingredient : MonoBehaviour
     {
         transform.localPosition = Vector2.zero;
         transform.rotation = Quaternion.identity;
+        _model.transform.rotation = Quaternion.identity;
     }
 
     public void SetLayer(LayerMask layer)
@@ -74,6 +75,14 @@ public class Ingredient : MonoBehaviour
         gameObject.layer = layer;
         _model.layer = layer;
     } 
+
+    public void DisablePhycics()
+    {
+        Destroy(GetComponent<ConfigurableJoint>());
+        Destroy(_rb);
+        Destroy(_model.GetComponent<Rigidbody>());
+        Destroy(_model.GetComponent<MeshCollider>());
+    }
 
     private string GenerateTooltip(SOIngredient so)
     {
@@ -83,7 +92,11 @@ public class Ingredient : MonoBehaviour
         for(int i =  0; i < names.Length; i++)
         {
             var stat = so.Stats.Array[i];
-            if (stat != 0) res += $"{names[i]}: {stat}\n";
+            string numberColor = stat < 0 ? $"</color><color=#{GameManager.Instance.Colors.NegativeValue.ToHexString()}>" : "";
+
+            if (stat != 0) res += $"<color=#{GameManager.Instance.Colors.Array[i].ToHexString()}>" +
+                    $"{names[i]}: " +
+                    $"{numberColor}{stat}</color>\n";
         }
 
         return res;

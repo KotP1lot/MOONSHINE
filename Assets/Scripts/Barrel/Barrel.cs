@@ -7,16 +7,19 @@ public class Barrel : Aparat
     [SerializeField] private ClientManager _clientManager;
     [SerializeField] private StatWindow _statWindow;
     [SerializeField] private Transform _ingredientParent;
+    [SerializeField] private Transform _throwOutPoint;
     [Space(10)]
     [SerializeField] private SpriteRenderer _barrelClosed;
 
     public Stats _beerStat;
 
     private WaterShapeController _water;
+    private Collider _collider;
 
     private void Start()
     {
         _water = GetComponentInChildren<WaterShapeController>();
+        _collider = GetComponent<Collider>();
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -30,6 +33,13 @@ public class Barrel : Aparat
             Destroy(collision.GetComponent<DragNDrop3D>());
             Destroy(collision.GetComponent<CursorHover>());
             ingredient.transform.SetParent(_ingredientParent);
+        }
+
+        if (collision.transform.parent.TryGetComponent(out EssenceComponent essence))
+        {
+            essence.EnablePhysics(false);
+            essence.transform.DOMove(_throwOutPoint.position, 1).SetEase(Ease.OutCirc).SetDelay(0.5f)
+                .onComplete = ()=> { essence.EnablePhysics(true); };
         }
     }
     private void AddStat(Stats stat)

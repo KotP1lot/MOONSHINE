@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 [CreateAssetMenu(fileName = "IngredientVariant", menuName = "Ingredient/IngredientVariant")]
 public class SOIngredient : ScriptableObject
@@ -34,6 +36,7 @@ public class Stats
     public float Sweetness;
     public float Bitterness;
     public float Sourness;
+    public float Uniqueness;
 
     public float[] Array
     {
@@ -42,5 +45,29 @@ public class Stats
             return new[] { Alcohol, Toxicity, Sweetness, Bitterness,Sourness };
         }
     }
-    public float Uniqueness;
+
+    public int GetHighestStatIndex()
+    {
+        float max = 0;
+        List<int> maxIndexes = new List<int>();
+
+        for(int i = 0; i < Array.Length; i++)
+        {
+
+            if (Array[i] > max)
+            {
+                max= Array[i];
+
+                maxIndexes.Clear();
+                maxIndexes.Add(i);
+            }
+            else if (Array[i] == max)
+            {
+                maxIndexes.Add(i);
+            }
+        }
+
+        int rand = UnityEngine.Random.Range(0, maxIndexes.Count);
+        return maxIndexes[rand];
+    }
 }

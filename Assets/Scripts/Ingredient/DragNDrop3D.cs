@@ -23,6 +23,8 @@ public class DragNDrop3D : MonoBehaviour
     }
     void FixedUpdate()
     {
+        if (_jointRB == null) return;
+
         if (_jointRB.velocity.magnitude > 3) _rb.angularDrag = 0.05f;
         else _rb.angularDrag = 5;
     }

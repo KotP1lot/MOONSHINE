@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -31,5 +32,13 @@ public static class Utility
     {
         Regex regex = new Regex(string.Format("{0}(.*?){1}", Regex.Escape(startTag), Regex.Escape(endTag)), RegexOptions.RightToLeft);
         return regex.Replace(sourceString, "");
+    }
+
+    public static Tweener Delay(float time, TweenCallback func, bool realTime = false)
+    {
+        float timer = 0;
+        Tweener tween = DOTween.To(() => timer, x => timer = x, time, time).SetUpdate(realTime);
+        tween.onComplete = func;
+        return tween;
     }
 }

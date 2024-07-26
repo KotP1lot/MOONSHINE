@@ -1,85 +1,93 @@
+using DG.Tweening;
 using System;
+using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class Centrifuge : Aparat
 {
     [Header("Essence Prefabs")]
-    [SerializeField] private GameObject alcoholEssencePrefab;
-    [SerializeField] private GameObject toxicityEssencePrefab;
-    [SerializeField] private GameObject sweetnessEssencePrefab;
-    [SerializeField] private GameObject bitternessEssencePrefab;
-    [SerializeField] private GameObject sournessEssencePrefab;
+    [SerializeField] private EssenceComponent alcoholEssencePrefab;
+    [SerializeField] private EssenceComponent toxicityEssencePrefab;
+    [SerializeField] private EssenceComponent sweetnessEssencePrefab;
+    [SerializeField] private EssenceComponent bitternessEssencePrefab;
+    [SerializeField] private EssenceComponent sournessEssencePrefab;
+
+    [Space(10)]
+    [SerializeField] private Transform _lever;
+    [SerializeField] private SpriteRenderer _cover;
+    [SerializeField] private Transform _outputPoint;
+    [SerializeField] private Collider _ceiling;
+
+    private Collider2D _leverCollider;
+    private Collider _collider;
+    private List<Ingredient> _ingredients = new List<Ingredient>();
+    private ErrorCanvas _error;
+
+    private void Start()
+    {
+        _collider = GetComponent<Collider>();
+        _leverCollider = _lever.GetComponent<Collider2D>();
+        _error= GetComponentInChildren<ErrorCanvas>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        Ingredient ingredient = other.GetComponent<Ingredient>();
-        if (ingredient == null)
-        {
-            ingredient = other.GetComponentInParent<Ingredient>();
-        }
+        var ingredient = other.GetComponentInParent<Ingredient>();
 
         if (ingredient != null)
         {
-            ProcessIngredient(ingredient);
-        }
-        else
-        {
-            Debug.Log("No Ingredient component found on the entering collider.");
+            _ingredients.Add(ingredient);
         }
     }
 
-    private void ProcessIngredient(Ingredient ingredient)
+    private EssenceComponent ProcessIngredient(Stats stats)
     {
-        if (ingredient != null)
+        Essence essence = CreateEssenceFromIngredient(stats);
+
+        var essenceObject = CreateEssenceObject(essence);
+        if (essenceObject != null)
         {
-            Essence essence = CreateEssenceFromIngredient(ingredient);
+            essenceObject.transform.position = _outputPoint.position;
+            essenceObject.transform.localScale = Vector3.zero;
+            essenceObject.transform.rotation = Quaternion.identity;
 
-            // Создание объекта эссенции
-            GameObject essenceObject = CreateEssenceObject(essence);
-            if (essenceObject != null)
-            {
-                essenceObject.transform.position = ingredient.transform.position;
-                essenceObject.transform.rotation = Quaternion.identity;
-            }
-
-            // Уничтожение ингредиента
-            Destroy(ingredient.gameObject);
-
-            Debug.Log($"Created {essence.Type} essence with {essence.GetStrengthLevel()} strength.");
         }
-        else
-        {
-            Debug.LogError("Ingredient is null.");
-        }
+
+        return essenceObject;
     }
 
-    private Essence CreateEssenceFromIngredient(Ingredient ingredient)
+    private Essence CreateEssenceFromIngredient(Stats stats)
     {
-        // Логика создания эссенции
-        Stats stats = ingredient.GetStats();
-        Array values = Enum.GetValues(typeof(Essence.EssenceType));
-        Essence.EssenceType randomEssenceType = (Essence.EssenceType)values.GetValue(UnityEngine.Random.Range(0, values.Length));
+        //Array values = Enum.GetValues(typeof(Essence.EssenceType));
+        //Essence.EssenceType randomEssenceType = (Essence.EssenceType)values.GetValue(UnityEngine.Random.Range(0, values.Length));
 
-        float strength = randomEssenceType switch
-        {
-            Essence.EssenceType.Alcohol => stats.Alcohol,
-            Essence.EssenceType.Toxicity => stats.Toxicity,
-            Essence.EssenceType.Sweetness => stats.Sweetness,
-            Essence.EssenceType.Bitterness => stats.Bitterness,
-            Essence.EssenceType.Sourness => stats.Sourness,
-            _ => 0f,
-        };
+        //float strength = randomEssenceType switch
+        //{
+        //    Essence.EssenceType.Alcohol => stats.Alcohol,
+        //    Essence.EssenceType.Toxicity => stats.Toxicity,
+        //    Essence.EssenceType.Sweetness => stats.Sweetness,
+        //    Essence.EssenceType.Bitterness => stats.Bitterness,
+        //    Essence.EssenceType.Sourness => stats.Sourness,
+        //    _ => 0f,
+        //};
+
+        //Essence essence = ScriptableObject.CreateInstance<Essence>();
+        //essence.Type = randomEssenceType;
+        //essence.Strength = strength;
+
+        var index = stats.GetHighestStatIndex();
 
         Essence essence = ScriptableObject.CreateInstance<Essence>();
-        essence.Type = randomEssenceType;
-        essence.Strength = strength;
+        essence.Type = (Essence.EssenceType)index;
+        essence.Strength = stats.Array[index] / GameManager.Instance.HighestStat * GameManager.Instance.HighestEssencePercent;
 
         return essence;
     }
 
-    private GameObject CreateEssenceObject(Essence essence)
+    private EssenceComponent CreateEssenceObject(Essence essence)
     {
-        GameObject prefab = essence.Type switch
+        EssenceComponent prefab = essence.Type switch
         {
             Essence.EssenceType.Alcohol => alcoholEssencePrefab,
             Essence.EssenceType.Toxicity => toxicityEssencePrefab,
@@ -91,13 +99,80 @@ public class Centrifuge : Aparat
 
         if (prefab != null)
         {
-            GameObject essenceObject = Instantiate(prefab);
-            EssenceComponent essenceComponent = essenceObject.GetComponent<EssenceComponent>();
+            EssenceComponent essenceComponent = Instantiate(prefab);
             essenceComponent.SetEssence(essence);
-            return essenceObject;
+            return essenceComponent;
         }
 
         Debug.LogError("No prefab found for the essence type.");
         return null;
+    }
+
+    public void TryExtract()
+    {
+        _collider.enabled = true;
+        _leverCollider.enabled = false;
+        Utility.Delay(0.1f, () => 
+        {
+            if (_ingredients.Count == 1) StartExtraction(_ingredients[0]);
+            else
+            {
+                if (_ingredients.Count>1) _error.ShowText("more than one ingredient in the tank");
+                if (_ingredients.Count ==0) _error.ShowText("tank is empty");
+
+                CancelExtraction();
+            }
+        });
+    }
+
+    private void StartExtraction(Ingredient ingredient)
+    {
+        GameManager.Instance.SetProcessing(true);
+        _collider.enabled = false;
+        _ceiling.enabled = true;
+        _lever.DORotate(new Vector3(0, 0, -27), 0.3f).SetEase(Ease.OutBack, 2);
+
+        var essence = ProcessIngredient(ingredient.GetStats());
+
+        ingredient.DisablePhycics();
+        ingredient.transform.DOShakePosition(2, 0.2f, 20,90,false,false).SetEase(Ease.InCirc)
+            .onComplete = () => Destroy(ingredient.gameObject);
+
+        _cover.DOFade(1,1.3f).SetEase(Ease.InSine).SetDelay(0.5f);
+
+        Utility.Delay(2.5f, () =>
+        {
+            essence.transform.DOScale(1, 2).SetEase(Ease.OutQuad);
+            _cover.transform.DOScaleY(0, 2).SetEase(Ease.OutQuad);
+
+            Utility.Delay(2.2f, () => 
+            {
+                essence.EnablePhysics(true);
+
+                GameManager.Instance.SetProcessing(false);
+                ResetCentrifuge();
+            });
+        });
+    }
+
+    private void CancelExtraction()
+    {
+        _collider.enabled = false;
+        _lever.DORotate(new Vector3(0, 0, 17), 0.2f).SetEase(Ease.OutCirc, 2).onComplete = () =>
+        {
+            ResetCentrifuge();
+        };
+    }
+
+    private void ResetCentrifuge()
+    {
+        _cover.DOFade(0, 0);
+        _cover.transform.localScale = Vector3.one;
+
+        _lever.DORotate(new Vector3(0, 0, 27), 0.2f).SetEase(Ease.OutBack, 3).onComplete = () =>
+                _leverCollider.enabled = true;
+
+        _ceiling.enabled = false;
+        _ingredients.Clear();
     }
 }

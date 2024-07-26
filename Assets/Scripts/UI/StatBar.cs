@@ -9,12 +9,13 @@ using UnityEngine.UI;
 
 public class StatBar : MonoBehaviour
 {
-    public float MaxValue;
-    [Space(10)]
-    [Range(0,1)][SerializeField] private float _fillValue;
-    [Range(0, 1)][SerializeField] private float _lowLimitValue;
-    [Range(0, 1)][SerializeField] private float _highLimitValue;
-    [Range(0, 1)][SerializeField] private float _idealValue;
+    [SerializeField] private Essence.EssenceType _colorType;
+
+    [HideInInspector]public float MaxValue;
+    private float _fillValue;
+    private float _lowLimitValue;
+    private float _highLimitValue;
+    private float _idealValue;
 
     private RectTransform _rectTransform;
 
@@ -42,6 +43,8 @@ public class StatBar : MonoBehaviour
         _highLimit = images[3];
         _ideal = images[4];
         _fillBar = images[5];
+
+        _fillBar.color = GameManager.Instance.Colors.Array[(int)_colorType];
 
         _fillText = _fillBar.GetComponentInChildren<TextMeshProUGUI>();
     }
