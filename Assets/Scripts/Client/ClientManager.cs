@@ -12,6 +12,7 @@ public class ClientManager : MonoBehaviour
         UndercoverPolice
     }
     [SerializeField] Transform _clientContainer;
+    [SerializeField] int _maxStat;
 
     [Header("Client")]
     [SerializeField] private int _clientCount;
@@ -39,7 +40,6 @@ public class ClientManager : MonoBehaviour
 
     public Action OnDayEnd;
     public Action<int> OnGetStar;
-
     private void Awake()
     {
         CreatePolicement();
@@ -165,6 +165,7 @@ public class ClientManager : MonoBehaviour
         _uiStat.ShowStats(_currentClient.AllStats);
         _uiDialog.ShowText("Give me PIVO!", () => {
             GlobalEvents.Instance.OnChangeCameraPos?.Invoke(CameraPosType.Brewery);
+            GlobalEvents.Instance.OnClientStatUpdated?.Invoke(_currentClient.AllStats);
         });
     }
     private void OnCondemnHandler()
@@ -236,15 +237,15 @@ public class ClientManager : MonoBehaviour
         {
             case ClientType.Client:
                 _currentClient = _clients.Dequeue();
-                _currentClient.Spawn(_clientCollection.GetRandomClient());
+                _currentClient.Spawn(_clientCollection.GetRandomClient(), _maxStat);
                 break;
             case ClientType.Police:
                 _currentClient = _policemen.Dequeue();
-                _currentClient.Spawn(_policemenCollection.GetRandomClient());
+                _currentClient.Spawn(_policemenCollection.GetRandomClient(), _maxStat);
                 break;
             case ClientType.UndercoverPolice:
                 _currentClient = _policemen.Dequeue();
-                _currentClient.Spawn(_clientCollection.GetRandomClient());
+                _currentClient.Spawn(_clientCollection.GetRandomClient(), _maxStat);
                 break;
         }
     }

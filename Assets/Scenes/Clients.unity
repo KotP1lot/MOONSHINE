@@ -420,6 +420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _clientContainer: {fileID: 1324643557}
+  _maxStat: 20
   _clientCount: 10
   _clientPref: {fileID: 8883705618458559381, guid: a0917d6e261b1e541b79ed89eb2c2ec1, type: 3}
   _clientCollection: {fileID: 11400000, guid: 665a61ee67d66f34c95956830f3f9e19, type: 2}
@@ -1648,7 +1649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f474d7dadb4ff074f938bf8146956ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxValue: 50
+  _maxValue: 20
   _lowLimit:
     Alcohol: 20
     Toxicity: 10
@@ -3802,7 +3803,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &608540246
 Transform:
   m_ObjectHideFlags: 0
@@ -5174,7 +5175,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &909167139
 Transform:
   m_ObjectHideFlags: 0
@@ -6849,13 +6850,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1477870666}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &1477870670
 MonoBehaviour:
   m_ObjectHideFlags: 0

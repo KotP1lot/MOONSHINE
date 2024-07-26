@@ -1,5 +1,7 @@
 using DG.Tweening;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Barrel : Aparat
@@ -16,10 +18,16 @@ public class Barrel : Aparat
     private WaterShapeController _water;
     private Collider _collider;
 
-    private void Start()
+    private void Awake ()
     {
         _water = GetComponentInChildren<WaterShapeController>();
         _collider = GetComponent<Collider>();
+        GlobalEvents.Instance.OnClientStatUpdated += SetupStatBar;
+    }
+
+    private void SetupStatBar(List<Stat> obj)
+    {
+        _statWindow.SetLimits(obj);
     }
 
     private void OnTriggerEnter(Collider collision)

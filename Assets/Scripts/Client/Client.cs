@@ -10,31 +10,33 @@ public enum GradeType
     C,
     D
 }
+[Serializable]
+public class Stat
+{
+    [SerializeField] public int Max;
+    [SerializeField] public float CurrentValue;
+    [SerializeField] public float LowerThreshold;
+    [SerializeField] public float UpperThreshold;
+    [SerializeField] public float PerfecValue;
 
+    public bool IsAboveUpperThreshold() => CurrentValue > UpperThreshold;
+    public bool IsBelowLowerThreshold() => CurrentValue < LowerThreshold;
+
+    public bool IsInThreshold() => CurrentValue >= LowerThreshold && CurrentValue <= UpperThreshold;
+
+    public void SetStat(int max)
+    {
+        CurrentValue = 0;
+        Max = max;
+        float lowerMax = max * 0.65f;
+        float upperMin = max * 0.15f; 
+        LowerThreshold = Mathf.RoundToInt(UnityEngine.Random.Range(0, lowerMax));
+        UpperThreshold = Mathf.RoundToInt(UnityEngine.Random.Range(LowerThreshold + upperMin, max));
+        PerfecValue = Mathf.RoundToInt((LowerThreshold + UpperThreshold) / 2);
+    }
+}
 public class Client : MonoBehaviour
 {
-    [Serializable]
-    public class Stat
-    {
-        [SerializeField] public float CurrentValue;
-        [SerializeField] public float LowerThreshold;
-        [SerializeField] public float UpperThreshold;
-        [SerializeField] public float PerfecValue;
-
-        public bool IsAboveUpperThreshold() => CurrentValue > UpperThreshold;
-        public bool IsBelowLowerThreshold() => CurrentValue < LowerThreshold;
-
-        public bool IsInThreshold() => CurrentValue >= LowerThreshold && CurrentValue <= UpperThreshold;
-
-        public void SetStat()
-        {
-            CurrentValue = 0;
-            LowerThreshold = UnityEngine.Random.Range(0, 80);
-            UpperThreshold = UnityEngine.Random.Range((int)LowerThreshold + 10, 100);
-            PerfecValue = (LowerThreshold + UpperThreshold) / 2;
-        }
-    }
-
     protected Stat _toxicity = new();
     protected Stat _alcohol = new();
     protected Stat _bitterness = new();
@@ -53,16 +55,16 @@ public class Client : MonoBehaviour
 
     private void Awake()
     {
-        AllStats = new() { _toxicity, _alcohol, _bitterness, _sweetness, _sourness };
+        AllStats = new() {_alcohol, _toxicity, _sweetness,_bitterness, _sourness };
 
         _movement = GetComponent<ClientMovement>();
         _visual = GetComponent<ClientVisual>();
 
         _movement.OnClientReady += () => OnClientReady?.Invoke();
     }
-    public void Spawn(SOClient client)
+    public void Spawn(SOClient client, int max)
     {
-        SetStat();
+        SetStat(max);
 
         transform.localPosition = new Vector2(15, 0);
         _visual.Setup(GetSprites(client));
@@ -91,9 +93,13 @@ public class Client : MonoBehaviour
         return CollectSprites(client, client.Accessories);
     }
 
-    protected void SetStat()
+    protected void SetStat(int max)
     {
-        AllStats.ForEach(x => x.SetStat());
+        AllStats.ForEach(x =>
+        {
+            if(x == _toxicity) x.SetStat(max/2);
+            else x.SetStat(max);
+        });
     }
     #endregion
     public void MoveOut()

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,17 +11,16 @@ public class StatWindow : MonoBehaviour
 
     private StatBar[] _bars;
 
-
     private void Start()
     {
         _bars = GetComponentsInChildren<StatBar>();
-
-        foreach (var bar in _bars)
-            bar.MaxValue = _maxValue;
-        
-        for(int i = 0;  i < _bars.Length; i++)
+    }
+    public void SetLimits(List<Stat> stats) 
+    {
+        for (int i = 0; i < stats.Count; i++)
         {
-            _bars[i].SetLimits(_lowLimit.Array[i], _ideal.Array[i],_highLimit.Array[i]);
+            _bars[i].MaxValue = stats[i].Max;
+            _bars[i].SetLimits(stats[i].LowerThreshold, stats[i].PerfecValue, stats[i].UpperThreshold);
         }
     }
 

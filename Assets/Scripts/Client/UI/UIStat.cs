@@ -8,7 +8,7 @@ public class UIStat : MonoBehaviour
     [SerializeField] Image _container;
     [SerializeField] TextMeshProUGUI _statText;
 
-    public void ShowStats(List<Client.Stat> stats)
+    public void ShowStats(List<Stat> stats)
     {
         SetActive(true);
         _statText.text = $"Toxicity: {stats[0].LowerThreshold} <-|->  {stats[0].UpperThreshold},\n" +
