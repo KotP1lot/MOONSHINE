@@ -134,7 +134,7 @@ public class Centrifuge : Aparat
 
         var essence = ProcessIngredient(ingredient.GetStats());
 
-        ingredient.DisablePhycics();
+        ingredient.EnablePhysics(false);
         ingredient.transform.DOShakePosition(2, 0.2f, 20,90,false,false).SetEase(Ease.InCirc)
             .onComplete = () => Destroy(ingredient.gameObject);
 

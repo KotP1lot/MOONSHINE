@@ -9,13 +9,13 @@ public class AparatChanger : MonoBehaviour
     [SerializeField] private Aparat _barrel;
     [SerializeField] private Aparat _combinator;
     [SerializeField] private Aparat _centrifuge;
+    [SerializeField] private Collider _janitor;
 
     [Space(10)]
     [SerializeField] private float _xCoordinate;
     [SerializeField] private float _appearDelay;
     [SerializeField] private Ease _hideEase = Ease.InBack;
     [SerializeField] private Ease _appearEase = Ease.OutBack;
-
 
     private TweenCallback _callback;
     private bool _isChecking;
@@ -80,6 +80,9 @@ public class AparatChanger : MonoBehaviour
     private void Hide(Aparat[] aparats)
     {
         _isChecking = true;
+
+        _janitor.enabled = true;
+        Utility.Delay(0.1f, ()=>_janitor.enabled = false);
 
         foreach(var aparat in aparats)
         {
