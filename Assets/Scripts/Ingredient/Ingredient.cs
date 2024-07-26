@@ -12,14 +12,19 @@ public class Ingredient : MonoBehaviour
 
     [SerializeField] private GameObject _model;
     private Rigidbody _rb;
-    private Collider2D _collider;
     private CursorHover _hover;
+
+    private Rigidbody[] _rbs;
+    private MeshCollider _collider;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _collider = GetComponent<Collider2D>();
         _hover = GetComponentInChildren<CursorHover>();
+
+        _rbs = GetComponentsInChildren<Rigidbody>();
+        _collider = GetComponentInChildren<MeshCollider>();
+
         IsUsed = false;
         GetComponentInChildren<DragNDrop3D>().OnClick += () => OnClick?.Invoke(this);
         if (Data != null)
@@ -61,8 +66,6 @@ public class Ingredient : MonoBehaviour
         transform.parent = parent;
         OnParentChange?.Invoke(this);
     }
-    public void SetKinematic(bool isKinematic) => _rb.isKinematic = isKinematic;
-    public void SetActiveCollider(bool isActive) => _collider.enabled = isActive;
     public void ResetLocalPosition()
     {
         transform.localPosition = Vector2.zero;
@@ -74,14 +77,13 @@ public class Ingredient : MonoBehaviour
     {
         gameObject.layer = layer;
         _model.layer = layer;
-    } 
+    }
 
-    public void DisablePhycics()
+    public void EnablePhysics(bool enable)
     {
-        Destroy(GetComponent<ConfigurableJoint>());
-        Destroy(_rb);
-        Destroy(_model.GetComponent<Rigidbody>());
-        Destroy(_model.GetComponent<MeshCollider>());
+        foreach (var rb in _rbs)
+            rb.isKinematic = !enable;
+        _collider.enabled = enable;
     }
 
     private string GenerateTooltip(SOIngredient so)
