@@ -424,7 +424,7 @@ MonoBehaviour:
   _clientCount: 10
   _clientPref: {fileID: 8883705618458559381, guid: a0917d6e261b1e541b79ed89eb2c2ec1, type: 3}
   _clientCollection: {fileID: 11400000, guid: 665a61ee67d66f34c95956830f3f9e19, type: 2}
-  _policemenCount: 10
+  _policemenCount: 0
   _undercoverPolicemenCount: 0
   _policemenPref: {fileID: 1979586395114833308, guid: dc96bb90612bfae47ba2988b7d2f0133, type: 3}
   _policemenCollection: {fileID: 11400000, guid: e89750943e4764c4c9329f0f03d38284, type: 2}
@@ -447,7 +447,7 @@ Transform:
   m_GameObject: {fileID: 15723667}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3177,9 +3177,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 20
+  m_SortingLayerID: 561262133
+  m_SortingLayer: 2
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 62453ca90f454544099dd5d2bd88a2ef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -7419,7 +7419,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 481434291
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7575e885aa0a7d548867af364276e5a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -8055,7 +8055,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 481434291
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 638ed3887a3fc6846894dfb1a4a76d1a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}

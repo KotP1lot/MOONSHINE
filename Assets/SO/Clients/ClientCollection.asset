@@ -15,3 +15,12 @@ MonoBehaviour:
   customers:
   - {fileID: 11400000, guid: a0686dd6f9fe7c84eadca6de8cf10648, type: 2}
   - {fileID: 11400000, guid: de0c6016898bd2240a89db3442bbd07b, type: 2}
+  - {fileID: 11400000, guid: ca7b441c7bd1b1149832a6d920f2491f, type: 2}
+  - {fileID: 11400000, guid: 88b36cc446eee2b4f9fd34b6d24cceb5, type: 2}
+  - {fileID: 11400000, guid: 1e9a6b99699f40345a798741c8c3a92e, type: 2}
+  - {fileID: 11400000, guid: f3fd2238e03c2104abdb6a3583f64fc2, type: 2}
+  - {fileID: 11400000, guid: 390a60d6751bd9c408a606cf718083bb, type: 2}
+  - {fileID: 11400000, guid: 9262fbc95487f424fad409eb1dd5c945, type: 2}
+  - {fileID: 11400000, guid: 55bf38e1868b09e4f931ab03dac103fa, type: 2}
+  - {fileID: 11400000, guid: 75a5d365427f05642a3c407ee407e233, type: 2}
+  - {fileID: 11400000, guid: ac92395c660d78d49848357979065479, type: 2}
