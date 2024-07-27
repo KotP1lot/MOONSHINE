@@ -18,7 +18,7 @@ public class Barrel : Aparat
     private WaterShapeController _water;
     private Collider _collider;
 
-    private void Awake ()
+    private void Start ()
     {
         _water = GetComponentInChildren<WaterShapeController>();
         _collider = GetComponent<Collider>();
