@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class StatBar : MonoBehaviour
 {
-    [SerializeField] private Essence.EssenceType _colorType;
+    [SerializeField] private StatType _colorType;
 
     [HideInInspector]public float MaxValue;
     private float _fillValue;

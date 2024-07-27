@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ca699fd6ad46de1439639c65f5763b7d
+guid: 3b709ac1849e3494f9e3273ce1c16e09
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,13 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: eye
-    second: {fileID: 2100000, guid: 7243a3c04df415741811580c7d662da8, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: texture
-    second: {fileID: 2100000, guid: 7243a3c04df415741811580c7d662da8, type: 2}
+      name: essence
+    second: {fileID: 2100000, guid: 184fd488486434f4897ff848ec140719, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

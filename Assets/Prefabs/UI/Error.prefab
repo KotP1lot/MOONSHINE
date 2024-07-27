@@ -103,7 +103,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
-  m_wordSpacing: 4.4
+  m_wordSpacing: 30
   m_lineSpacing: 23
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
@@ -237,7 +237,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
-  m_wordSpacing: 4.4
+  m_wordSpacing: 30
   m_lineSpacing: 23
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
@@ -371,7 +371,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
-  m_wordSpacing: 4.4
+  m_wordSpacing: 30
   m_lineSpacing: 23
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
@@ -505,7 +505,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
-  m_wordSpacing: 4.4
+  m_wordSpacing: 30
   m_lineSpacing: 23
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
@@ -639,7 +639,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
-  m_wordSpacing: 4.4
+  m_wordSpacing: 30
   m_lineSpacing: 23
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0

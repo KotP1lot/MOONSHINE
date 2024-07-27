@@ -1,9 +1,10 @@
+using DG.Tweening;
 using System;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Ingredient : MonoBehaviour
+public class Ingredient : Item
 {
     public event Action<Ingredient> OnParentChange;
     public event Action<Ingredient> OnClick;
@@ -14,16 +15,15 @@ public class Ingredient : MonoBehaviour
     private Rigidbody _rb;
     private CursorHover _hover;
 
-    private Rigidbody[] _rbs;
-    private MeshCollider _collider;
+    private MeshRenderer _meshRenderer;
+
+    public Transform Child { get { return _model.transform; } }
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _hover = GetComponentInChildren<CursorHover>();
-
-        _rbs = GetComponentsInChildren<Rigidbody>();
-        _collider = GetComponentInChildren<MeshCollider>();
+        _meshRenderer = _model.GetComponent<MeshRenderer>();
 
         IsUsed = false;
         GetComponentInChildren<DragNDrop3D>().OnClick += () => OnClick?.Invoke(this);
@@ -37,7 +37,7 @@ public class Ingredient : MonoBehaviour
     {
         Data = so;
         _model.GetComponent<MeshFilter>().mesh = so.Mesh;
-        _model.GetComponent<MeshRenderer>().material = so.Material;
+        _meshRenderer.material = so.Material;
         _model.GetComponent<MeshCollider>().sharedMesh = so.Mesh;
 
         if(_model.transform.childCount>0)
@@ -55,6 +55,26 @@ public class Ingredient : MonoBehaviour
         }
 
         _hover.SetTooltip(GenerateTooltip(so));
+        Utility.Delay(Time.deltaTime,()=>Spawn());
+    }
+
+    public void AddMaterial(Material material)
+    {
+        var materials = _meshRenderer.materials.ToList();
+        materials.Add(material);
+        _meshRenderer.SetMaterials(materials);
+    }
+
+    public void ApplyEssence(Essence essence)
+    {
+        SOIngredient enhancedIngredient = Instantiate(Data);
+        enhancedIngredient.IsEnhanced = true;
+        enhancedIngredient.name = Data.name;
+
+        enhancedIngredient.Stats.EnhanceStat((int)essence.Type, essence.Strength);
+        Data = enhancedIngredient;
+
+        _hover.SetTooltip(GenerateTooltip(Data));
     }
 
     public Stats GetStats()
@@ -66,11 +86,15 @@ public class Ingredient : MonoBehaviour
         transform.parent = parent;
         OnParentChange?.Invoke(this);
     }
-    public void ResetLocalPosition()
+    public void Spawn()
     {
-        transform.localPosition = Vector2.zero;
+        transform.localPosition = Vector3.zero + Data.SpawnPos;
         transform.rotation = Quaternion.identity;
         _model.transform.rotation = Quaternion.identity;
+
+        EnablePhysics(false);
+        transform.localScale = Vector3.zero;
+        transform.DOScale(1, 0.2f).SetEase(Ease.OutElastic).onComplete = () => EnablePhysics(true);
     }
 
     public void SetLayer(LayerMask layer)
@@ -79,16 +103,10 @@ public class Ingredient : MonoBehaviour
         _model.layer = layer;
     }
 
-    public void EnablePhysics(bool enable)
-    {
-        foreach (var rb in _rbs)
-            rb.isKinematic = !enable;
-        _collider.enabled = enable;
-    }
-
     private string GenerateTooltip(SOIngredient so)
     {
-        string res = $"-{so.name.ToUpper()}-\n";
+        string marker = so.IsEnhanced ? "+" : "-";
+        string res = $"{marker}{so.name.ToUpper()}{marker}\n";
         string[] names = new string[] { "alcohol", "toxic", "sweet", "bitter", "sour" };
 
         for(int i =  0; i < names.Length; i++)
@@ -96,8 +114,10 @@ public class Ingredient : MonoBehaviour
             var stat = so.Stats.Array[i];
             string numberColor = stat < 0 ? $"</color><color=#{GameManager.Instance.Colors.NegativeValue.ToHexString()}>" : "";
 
+            string plus = so.IsEnhanced && so.Stats.EnhancedStat == i ? "+" : "";
+
             if (stat != 0) res += $"<color=#{GameManager.Instance.Colors.Array[i].ToHexString()}>" +
-                    $"{names[i]}: " +
+                    $"{plus}{names[i]}: " +
                     $"{numberColor}{stat}</color>\n";
         }
 

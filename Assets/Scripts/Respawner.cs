@@ -16,23 +16,16 @@ public class Respawner : MonoBehaviour
     {
         var pos = new Vector3(RandomX(), _respawnPoint.position.y);
 
-        if (other.transform.parent.TryGetComponent(out Ingredient ingredient))
+        if (other.transform.parent.TryGetComponent(out Item item))
         {
-            ingredient.EnablePhysics(false);
-            ingredient.transform.DOMove(pos, 1).SetEase(Ease.OutCirc).SetDelay(0.5f)
-                .onComplete = () => { ingredient.EnablePhysics(true); };
-        }
-
-        if (other.transform.parent.TryGetComponent(out EssenceComponent essence))
-        {
-            essence.EnablePhysics(false);
-            essence.transform.DOMove(pos, 1).SetEase(Ease.OutCirc).SetDelay(0.5f)
-                .onComplete = () => { essence.EnablePhysics(true); };
+            item.EnablePhysics(false);
+            item.transform.DOMove(pos, 1).SetEase(Ease.OutCirc).SetDelay(0.5f)
+                .onComplete = () => { item.EnablePhysics(true); };
         }
     }
 
     private float RandomX()
     {
-        return Random.Range(_respawnPoint.position.x-1, _respawnPoint.position.x+1);
+        return Random.Range(_respawnPoint.position.x-1.5f, _respawnPoint.position.x+ 1.5f);
     }
 }

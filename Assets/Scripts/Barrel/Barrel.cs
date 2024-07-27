@@ -12,6 +12,7 @@ public class Barrel : Aparat
     [SerializeField] private Transform _throwOutPoint;
     [Space(10)]
     [SerializeField] private SpriteRenderer _barrelClosed;
+    [SerializeField] private BarrelAnimation _barrelAnimation;
 
     public Stats _beerStat;
 
@@ -63,17 +64,27 @@ public class Barrel : Aparat
 
     public void Cook() 
     {
-        GlobalEvents.Instance.OnChangeCameraPos?.Invoke(CameraPosType.Client);
-        _clientManager.Confirm(_beerStat);
-       
-        _beerStat = new();
-        _statWindow.SetStats(_beerStat);
-        GlobalEvents.Instance.BeforeBeerCook?.Invoke();
-        StartCoroutine(DestroyIngredients());
+        _barrelAnimation.PlayAnimation(this,onComplete: () =>
+        {
+            gameObject.SetActive(true);
+
+            GlobalEvents.Instance.OnChangeCameraPos?.Invoke(CameraPosType.Client);
+
+            Utility.Delay(0.2f, () =>
+            {
+                GlobalEvents.Instance.BeforeBeerCook?.Invoke();
+                Utility.Delay(Time.deltaTime,()=>StartCoroutine(DestroyIngredients()));
+            });
+            
+            //_clientManager.Confirm(_beerStat);
+
+            //_beerStat = new();
+            //_statWindow.SetStats(_beerStat);
+        });
     }
     IEnumerator DestroyIngredients() 
     {
-        Ingredient[] childTransforms = FindObjectsOfType<Ingredient>();
+        Item[] childTransforms = FindObjectsOfType<Item>();
         foreach (var children in childTransforms)
         {
             Destroy(children.gameObject);
@@ -90,11 +101,16 @@ public class Barrel : Aparat
             onComplete?.Invoke();
         };
 
+
         bool active = _ingredientParent.gameObject.activeSelf;
+
+        foreach (var child in _ingredientParent.GetComponentsInChildren<Ingredient>())
+            child.EnablePhysics(!active);
+
         float ingredientDelay = active ? 0.3f : 0;
-        _ingredientParent.DOScaleZ(1, ingredientDelay).onComplete = () =>
+        Utility.Delay(ingredientDelay, () =>
         {
             _ingredientParent.gameObject.SetActive(!active);
-        };
+        });
     }
 }

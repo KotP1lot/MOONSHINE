@@ -1,17 +1,16 @@
 using UnityEngine;
 
+public enum StatType
+{
+    Alcohol,
+    Toxicity,
+    Sweetness,
+    Bitterness,
+    Sourness
+}
 public class Essence : ScriptableObject
 {
-    public enum EssenceType
-    {
-        Alcohol,
-        Toxicity,
-        Sweetness,
-        Bitterness,
-        Sourness
-    }
-
-    public EssenceType Type;
+    public StatType Type;
     public float Strength;
 
     public string GetStrengthLevel()
