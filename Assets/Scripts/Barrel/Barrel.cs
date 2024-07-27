@@ -35,6 +35,7 @@ public class Barrel : Aparat
         if (collision.transform.parent.TryGetComponent(out Ingredient ingredient))
         {
             if (ingredient.IsUsed) return;
+            
             AddStat(ingredient.GetStats());
             _water.AddFloater(collision.GetComponent<Rigidbody>());
             ingredient.IsUsed = true;
