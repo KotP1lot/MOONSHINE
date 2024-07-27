@@ -48,9 +48,12 @@ public class Combinator : Aparat
                 var ingredient = _items.OfType<Ingredient>().First();
                 var essence = _items.OfType<EssenceComponent>().First();
 
+                AudioManager.instance.Play("Lever");
+
                 if (ingredient.Data.IsEnhanced)
                 {
                     _error.ShowText("ingredient already enhanced");
+                    AudioManager.instance.Play("Error");
                     CancelCombine();
                     return;
                 }
@@ -58,6 +61,7 @@ public class Combinator : Aparat
                 if (ingredient.Data.Stats.Array[(int)essence.Type]==0)
                 {
                     _error.ShowText($"{ingredient.Data.name} doesn't have {essence.Type.ToString()}");
+                    AudioManager.instance.Play("Error");
                     CancelCombine();
                     return;
                 }
@@ -67,6 +71,7 @@ public class Combinator : Aparat
             }
             if (_items.Count <= 2) _error.ShowText("Add an ingredient and an esssence");
             if (_items.Count > 2) _error.ShowText("too many items added");
+            AudioManager.instance.Play("Error");
             CancelCombine();
         });
     }
@@ -77,6 +82,8 @@ public class Combinator : Aparat
         GameManager.Instance.SetProcessing(true);
         _collider.enabled = false;
         _lever.DORotate(new Vector3(0, 0, -27), 0.3f).SetEase(Ease.OutBack, 2);
+
+        AudioManager.instance.Play("Combinator");
 
         _processParticles.Play();
         ingredient.EnablePhysics(false);
@@ -120,6 +127,7 @@ public class Combinator : Aparat
         {
             Destroy(essence.gameObject);
             ingredient.EnablePhysics(true);
+            AudioManager.instance.Play("Pop");
         });
     }
 

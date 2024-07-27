@@ -39,6 +39,7 @@ public class Shelf : MonoBehaviour
     {
         if (_cRefresh-- <= 0) return;
         SetIngredients(_ingredientsManager.GetRandomIngredients(_cObjects));
+        AudioManager.instance.Play("Roll");
     }
 
     public void SetIngredients(List<SOIngredient> newIngredients)
@@ -74,6 +75,7 @@ public class Shelf : MonoBehaviour
         ingredient.OnParentChange -= Ingredient_OnParentChange;
         ingredient.OnClick -= Ingredient_OnClick;
         RemoveFromList(ingredient);
+        AudioManager.instance.Play("BuyIngredient");
     }
 
     public void RemoveFromList(Ingredient ingredient)

@@ -99,9 +99,11 @@ public class Centrifuge : Aparat
         {
             if (_ingredients.Count == 1)
             {
+                AudioManager.instance.Play("Lever");
                 if (_ingredients[0].Data.IsEnhanced)
                 {
                     _error.ShowText("can't extract from enhanced ingredient");
+                    AudioManager.instance.Play("Error");
                     CancelExtraction();
                 }
                 else StartExtraction(_ingredients[0]);
@@ -110,7 +112,7 @@ public class Centrifuge : Aparat
             {
                 if (_ingredients.Count > 1) _error.ShowText("more than one ingredient in the tank");
                 if (_ingredients.Count == 0) _error.ShowText("tank is empty");
-
+                AudioManager.instance.Play("Error");
                 CancelExtraction();
             }
         });
@@ -123,6 +125,7 @@ public class Centrifuge : Aparat
         _ceiling.enabled = true;
         _lever.DORotate(new Vector3(0, 0, -27), 0.3f).SetEase(Ease.OutBack, 2);
 
+        AudioManager.instance.Play("Centrifuge");
         var essence = ProcessIngredient(ingredient.GetStats());
 
         ingredient.EnablePhysics(false);
@@ -139,6 +142,7 @@ public class Centrifuge : Aparat
             Utility.Delay(2.2f, () => 
             {
                 essence.EnablePhysics(true);
+                AudioManager.instance.Play("Pop");
 
                 GameManager.Instance.SetProcessing(false);
                 ResetCentrifuge();

@@ -51,6 +51,7 @@ public class AparatChanger : MonoBehaviour
         if (_isChecking || _IsMoving) return;
         Hide(_aparats.Where(x=>Array.IndexOf(_aparats,x)!=index).ToArray());
         _callback = () => { Appear(_aparats[index]); };
+        AudioManager.instance.Play("Swap");
     }
 
     private void MoveToStack(Transform transform, float duration = 0.5f)

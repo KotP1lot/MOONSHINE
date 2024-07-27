@@ -21,6 +21,7 @@ public class Barrel : Aparat
 
     private void Start ()
     {
+        AudioManager.instance.Play("Bubbles");
         _water = GetComponentInChildren<WaterShapeController>();
         _collider = GetComponent<Collider>();
         GlobalEvents.Instance.OnClientStatUpdated += SetupStatBar;
@@ -33,6 +34,7 @@ public class Barrel : Aparat
 
     private void OnTriggerEnter(Collider collision)
     {
+        AudioManager.instance.Bulk();
         if (collision.transform.parent.TryGetComponent(out Ingredient ingredient))
         {
             if (ingredient.IsUsed) return;

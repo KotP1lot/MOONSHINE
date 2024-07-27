@@ -4783,6 +4783,166 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1683017701}
   m_CullTransparentMesh: 1
+--- !u!1 &1768188511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1768188513}
+  - component: {fileID: 1768188512}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!114 &1768188512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768188511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2622c904c8ad8046a6016b9b0304a46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfx:
+  - name: Bubbles
+    clip: {fileID: 8300000, guid: eec7514813a14e547ba03056cea33d9e, type: 3}
+    volume: 0.1
+    pitch: 1
+    loop: 1
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: ItemDrop
+    clip: {fileID: 8300000, guid: 4c1c04068a42e3e429f55fd8671d58ca, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Roll
+    clip: {fileID: 8300000, guid: 667fba9462c62fd488fa35e566fe600b, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: BuyIngredient
+    clip: {fileID: 8300000, guid: aefe312a6c97343439c1b92d69c4c4c6, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Lootbox
+    clip: {fileID: 8300000, guid: 7b08c68b19d08d849b92d55f64174934, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: MoneyGain
+    clip: {fileID: 8300000, guid: d1bdd29053538914c9c76c4adce7f575, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Swap
+    clip: {fileID: 8300000, guid: fd07fdc870548554db7173b0af94a742, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Error
+    clip: {fileID: 8300000, guid: 2d54fc2660d8b0b4fafcc0e9c725a950, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Lever
+    clip: {fileID: 8300000, guid: 12a8b682d00925749aa404af2e77cb10, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Pop
+    clip: {fileID: 8300000, guid: 2780610b8f6362546b0d5cfeeafb656b, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Centrifuge
+    clip: {fileID: 8300000, guid: 55cd2a3240c8b1145b63f43a0568bbb6, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Combinator
+    clip: {fileID: 8300000, guid: 510bc18cafcb20c4bb8c4d2a178c614a, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  bulks:
+  - name: bulk1
+    clip: {fileID: 8300000, guid: 7d9a58ad0fe67e54783953aa926cabd9, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: bulk2
+    clip: {fileID: 8300000, guid: 1030cdbacc6067d4ca97e280696b6bdf, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: bulk3
+    clip: {fileID: 8300000, guid: 3d7f7f515e8c3534c8a30a4d1a8c9676, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: bulk4
+    clip: {fileID: 8300000, guid: e330a17488955ee478fdceaeb24361c5, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  mixer: {fileID: 24100000, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+  muted: 0
+--- !u!4 &1768188513
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768188511}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.56286705, y: 0.053963434, z: -2.279051}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1801915575
 GameObject:
   m_ObjectHideFlags: 0
@@ -26091,3 +26251,4 @@ SceneRoots:
   - {fileID: 3817120442420138886}
   - {fileID: 1324643557}
   - {fileID: 322438534}
+  - {fileID: 1768188513}
