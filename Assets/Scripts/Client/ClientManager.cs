@@ -91,14 +91,14 @@ public class ClientManager : MonoBehaviour
     }
     private void CreatePolicement() 
     {
-        Policeman policement = Instantiate(_policemenPref, _clientContainer);
+        Policeman policement = Instantiate(_policemenPref, transform);
         policement.transform.localPosition = new Vector2(15, 0);
         SetupClientEvents(policement);
         _policemen.Enqueue(policement);
     }
     private void CreateClient()
     {
-        Client client = Instantiate(_clientPref, _clientContainer);
+        Client client = Instantiate(_clientPref, transform);
         client.transform.localPosition = new Vector2(15, 0);
         SetupClientEvents(client);
         _clients.Enqueue(client);

@@ -59,27 +59,10 @@ public class Centrifuge : Aparat
 
     private Essence CreateEssenceFromIngredient(Stats stats)
     {
-        //Array values = Enum.GetValues(typeof(Essence.EssenceType));
-        //Essence.EssenceType randomEssenceType = (Essence.EssenceType)values.GetValue(UnityEngine.Random.Range(0, values.Length));
-
-        //float strength = randomEssenceType switch
-        //{
-        //    Essence.EssenceType.Alcohol => stats.Alcohol,
-        //    Essence.EssenceType.Toxicity => stats.Toxicity,
-        //    Essence.EssenceType.Sweetness => stats.Sweetness,
-        //    Essence.EssenceType.Bitterness => stats.Bitterness,
-        //    Essence.EssenceType.Sourness => stats.Sourness,
-        //    _ => 0f,
-        //};
-
-        //Essence essence = ScriptableObject.CreateInstance<Essence>();
-        //essence.Type = randomEssenceType;
-        //essence.Strength = strength;
-
         var index = stats.GetHighestStatIndex();
 
         Essence essence = ScriptableObject.CreateInstance<Essence>();
-        essence.Type = (Essence.EssenceType)index;
+        essence.Type = (StatType)index;
         essence.Strength = stats.Array[index] / GameManager.Instance.HighestStat * GameManager.Instance.HighestEssencePercent;
 
         return essence;
@@ -89,11 +72,11 @@ public class Centrifuge : Aparat
     {
         EssenceComponent prefab = essence.Type switch
         {
-            Essence.EssenceType.Alcohol => alcoholEssencePrefab,
-            Essence.EssenceType.Toxicity => toxicityEssencePrefab,
-            Essence.EssenceType.Sweetness => sweetnessEssencePrefab,
-            Essence.EssenceType.Bitterness => bitternessEssencePrefab,
-            Essence.EssenceType.Sourness => sournessEssencePrefab,
+            StatType.Alcohol => alcoholEssencePrefab,
+            StatType.Toxicity => toxicityEssencePrefab,
+            StatType.Sweetness => sweetnessEssencePrefab,
+            StatType.Bitterness => bitternessEssencePrefab,
+            StatType.Sourness => sournessEssencePrefab,
             _ => null
         };
 
@@ -114,11 +97,19 @@ public class Centrifuge : Aparat
         _leverCollider.enabled = false;
         Utility.Delay(0.1f, () => 
         {
-            if (_ingredients.Count == 1) StartExtraction(_ingredients[0]);
+            if (_ingredients.Count == 1)
+            {
+                if (_ingredients[0].Data.IsEnhanced)
+                {
+                    _error.ShowText("can't extract from enhanced ingredient");
+                    CancelExtraction();
+                }
+                else StartExtraction(_ingredients[0]);
+            }
             else
             {
-                if (_ingredients.Count>1) _error.ShowText("more than one ingredient in the tank");
-                if (_ingredients.Count ==0) _error.ShowText("tank is empty");
+                if (_ingredients.Count > 1) _error.ShowText("more than one ingredient in the tank");
+                if (_ingredients.Count == 0) _error.ShowText("tank is empty");
 
                 CancelExtraction();
             }

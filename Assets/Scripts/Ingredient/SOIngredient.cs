@@ -9,13 +9,13 @@ public class SOIngredient : ScriptableObject
     public Mesh Mesh;
     public Material Material;
     public GameObject ChildPrefab;
+    public Vector3 SpawnPos;
 
     [Header("Stats")]
     public Stats Stats;
     public string Rarity;
     public bool Unlocked;
     public bool IsEnhanced { get; set; }
-
     public void CopyFrom(SOIngredient other)
     {
         if (other == null) return;
@@ -36,7 +36,8 @@ public class Stats
     public float Sweetness;
     public float Bitterness;
     public float Sourness;
-    public float Uniqueness;
+
+    [HideInInspector]public int EnhancedStat;
 
     public float[] Array
     {
@@ -69,5 +70,24 @@ public class Stats
 
         int rand = UnityEngine.Random.Range(0, maxIndexes.Count);
         return maxIndexes[rand];
+    }
+
+    public void EnhanceStat(int index, float percent)
+    {
+        EnhancedStat = index;
+        switch(index)
+        {
+            case 0: Alcohol += GetRounded(Alcohol * percent); break;
+            case 1: Toxicity += GetRounded(Toxicity * percent); break;
+            case 2: Sweetness += GetRounded(Sweetness * percent); break;
+            case 3: Bitterness += GetRounded(Bitterness * percent); break;
+            case 4: Sourness += GetRounded(Sourness * percent); break;
+        };
+    }
+
+    private float GetRounded(float value)
+    {
+        if(value < 0) return Mathf.FloorToInt(value);
+        return Mathf.CeilToInt(value);
     }
 }

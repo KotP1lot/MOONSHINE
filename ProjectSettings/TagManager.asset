@@ -44,6 +44,9 @@ TagManager:
   - name: Client
     uniqueID: 1350427481
     locked: 0
+  - name: Front
+    uniqueID: 561262133
+    locked: 0
   - name: CameraSortingLayer
     uniqueID: 481434291
     locked: 0

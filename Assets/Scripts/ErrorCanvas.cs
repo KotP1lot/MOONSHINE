@@ -19,11 +19,12 @@ public class ErrorCanvas : MonoBehaviour
 
     public void ShowText(string text, float duration = 3)
     {
+        if (_flash!=null) return;
         _flash = _canvasGroup.DOFade(1, 0.3f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutCirc);
 
         foreach(var t in _texts)
             t.text = text.ToUpper();
 
-        Utility.Delay(duration, () => { _flash.Kill(); _canvasGroup.alpha = 0; });
+        Utility.Delay(duration, () => { _flash.Kill(); _flash = null; _canvasGroup.alpha = 0; });
     }
 }

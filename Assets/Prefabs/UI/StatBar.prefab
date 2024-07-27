@@ -382,14 +382,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3041594207080231111}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7af852b5652fe5940a09e3fa2ecfc64f, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d4e595f494b3fe40b09d38da35aec12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _colorType: 0
   MaxValue: 0
-  _fillValue: 0
-  _lowLimitValue: 0
-  _highLimitValue: 0
-  _idealValue: 0
 --- !u!1 &4476909668358607998
 GameObject:
   m_ObjectHideFlags: 0
@@ -974,7 +971,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 2248146944
+    rgba: 2147483648
   m_fontColor: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_enableVertexGradient: 0
   m_colorMode: 3

@@ -3,54 +3,43 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EssenceComponent : MonoBehaviour
+public class EssenceComponent : Item
 {
-    [SerializeField] private Essence.EssenceType _type;
-    [SerializeField] private float _strength;
-    [SerializeField] private float _enhancementPercentage;
-
+    private StatType _type;
+    private float _strength;
     private Essence _essence;
-    private Rigidbody[] _rbs;
-    private MeshCollider _collider;
-    private void Start()
-    {
-        _rbs = GetComponentsInChildren<Rigidbody>();
-        _collider = GetComponentInChildren<MeshCollider>();
-    }
 
-    // Метод для установки эссенции
+    private MeshRenderer _renderer;
+    [HideInInspector]public ParticleSystem Particles;
+
     public void SetEssence(Essence essence)
     {
         _essence = essence;
         _type = essence.Type;
         _strength = essence.Strength;
-        _enhancementPercentage = CalculateEnhancementPercentage(_strength);
+
+        var color = GameManager.Instance.Colors.Array[(int)essence.Type];
+
+        Particles = GetComponentInChildren<ParticleSystem>();
+        var main = Particles.main;
+        main.startColor = color;
+
+        _renderer = GetComponentInChildren<MeshRenderer>();
+        var mat = Instantiate(_renderer.material);
+        mat.color = color;
+        _renderer.material = mat;
 
         GetComponentInChildren<CursorHover>().SetTooltip(GenerateTooltip());
     }
 
-    // Метод для получения эссенции
-    public Essence GetEssence() => _essence;
-
-    // Метод для вычисления процента увеличения на основе силы
-    private float CalculateEnhancementPercentage(float strength)
-    {
-        if (strength <= 25) return 0.1f;
-        if (strength <= 50) return 0.2f;
-        if (strength <= 75) return 0.3f;
-        return 0.5f;
-    }
-
-    // Методы для доступа к полям
-    public Essence.EssenceType Type => _type;
+    public Essence Essence => _essence;
+    public StatType Type => _type;
     public float Strength => _strength;
-    public float EnhancementPercentage => _enhancementPercentage;
 
-    public void EnablePhysics(bool enable)
+    public override void EnablePhysics(bool enable)
     {
-        foreach(var rb in _rbs)
-            rb.isKinematic = !enable;
-        _collider.enabled = enable;
+        base.EnablePhysics(enable);
+        if (enable) Particles.Play();
     }
 
     private string GenerateTooltip()

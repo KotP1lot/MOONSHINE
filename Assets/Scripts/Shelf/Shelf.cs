@@ -53,10 +53,8 @@ public class Shelf : MonoBehaviour
         }
 
         for (int i = 0; i < newIngredients.Count; i++)
-        {
             _ingredients[i].Setup(newIngredients[i]);
-            _ingredients[i].ResetLocalPosition();
-        }
+
     }
     private void OnDisable()
     {

@@ -15,12 +15,13 @@ MonoBehaviour:
   Mesh: {fileID: -309714252234372146, guid: 98d6ecbbb5a82454e8d6c1c3f7475689, type: 3}
   Material: {fileID: 2100000, guid: 35aced959a6422f4c970626904531307, type: 2}
   ChildPrefab: {fileID: 0}
+  SpawnPos: {x: 0, y: -0.4, z: 0}
   Stats:
     Alcohol: 5
     Toxicity: 0
     Sweetness: 0
     Bitterness: 2
     Sourness: 1
-    Uniqueness: 0
+    EnhancedStat: 4
   Rarity: 
   Unlocked: 0

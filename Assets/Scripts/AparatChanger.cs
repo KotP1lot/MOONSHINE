@@ -1,14 +1,14 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class AparatChanger : MonoBehaviour
 {
-    [SerializeField] private Aparat _barrel;
-    [SerializeField] private Aparat _combinator;
-    [SerializeField] private Aparat _centrifuge;
+    [SerializeField] private Aparat[] _aparats;
     [SerializeField] private Collider _janitor;
 
     [Space(10)]
@@ -19,28 +19,25 @@ public class AparatChanger : MonoBehaviour
 
     private TweenCallback _callback;
     private bool _isChecking;
+    private bool _IsMoving;
     private Button[] _buttons;
 
     private void Start()
     {
         _buttons = GetComponentsInChildren<Button>();
 
-        _barrel.DefaultX = _barrel.transform.position.x;
-        _combinator.DefaultX = _combinator.transform.position.x;
-        _centrifuge.DefaultX = _centrifuge.transform.position.x;
-
-        if (!_barrel.gameObject.activeSelf) { MoveToStack(_barrel.transform, 0); _barrel.ChangeState(() => { }); };
-        if (!_combinator.gameObject.activeSelf) MoveToStack(_combinator.transform,0);
-        if (!_centrifuge.gameObject.activeSelf) MoveToStack(_centrifuge.transform,0);
+        foreach(var aparat in _aparats)
+        {
+            aparat.DefaultX = aparat.transform.position.x;
+            if (!aparat.gameObject.activeSelf) { MoveToStack(aparat.transform, 0); aparat.ChangeState(() => { }); };
+        }
     }
 
     private void Update()
     {
         if(_isChecking)
         {
-            if(!_barrel.gameObject.activeSelf
-                && !_centrifuge.gameObject.activeSelf
-                && !_combinator.gameObject.activeSelf)
+            if(_aparats.Count(x=>x.gameObject.activeSelf)==0)
             {
                 _isChecking = false;
                 _callback?.Invoke();
@@ -48,27 +45,12 @@ public class AparatChanger : MonoBehaviour
         }
     }
 
-    public void ChangeToBarrel()
+    public void ChangeToIndex(int index)
     {
-        if (_barrel.gameObject.activeSelf) return;
-        if (_isChecking) return;
-        Hide(new Aparat[] { _centrifuge, _combinator });
-        _callback = () => { Appear(_barrel); };
-    }
-    public void ChangeToCentrifuge()
-    {
-        if (_centrifuge.gameObject.activeSelf) return;
-        if (_isChecking) return;
-        Hide(new Aparat[] { _barrel, _combinator });
-        _callback = () => { Appear(_centrifuge); };
-    }
-    public void ChangeToCombinator()
-    {
-        if (_combinator.gameObject.activeSelf) return;
-        if (_isChecking) return;
-        Hide(new Aparat[] { _barrel, _centrifuge });
-        _callback = () => { Appear(_combinator); };
-
+        if (_aparats[index].gameObject.activeSelf) return;
+        if (_isChecking || _IsMoving) return;
+        Hide(_aparats.Where(x=>Array.IndexOf(_aparats,x)!=index).ToArray());
+        _callback = () => { Appear(_aparats[index]); };
     }
 
     private void MoveToStack(Transform transform, float duration = 0.5f)
@@ -80,6 +62,7 @@ public class AparatChanger : MonoBehaviour
     private void Hide(Aparat[] aparats)
     {
         _isChecking = true;
+        _IsMoving = true;
 
         _janitor.enabled = true;
         Utility.Delay(0.1f, ()=>_janitor.enabled = false);
@@ -97,7 +80,7 @@ public class AparatChanger : MonoBehaviour
     {
         aparat.transform.gameObject.SetActive(true);
         aparat.transform.DOMoveX(aparat.DefaultX, 0.5f).SetEase(_appearEase).SetDelay(_appearDelay)
-            .onComplete = ()=> { aparat.ChangeState(() => { }); };
+            .onComplete = ()=> { aparat.ChangeState(() => { _IsMoving = false; }); };
     }
 
     public void EnableButtons(bool enable)
