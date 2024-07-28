@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,10 +22,16 @@ public class AparatChanger : MonoBehaviour
     private bool _isChecking;
     private bool _IsMoving;
     private Button[] _buttons;
+    private List<RectTransform> _buttonRects = new List<RectTransform>();
+    private float _buttonX;
 
     private void Start()
     {
         _buttons = GetComponentsInChildren<Button>();
+        foreach(var button in _buttons)
+            _buttonRects.Add(button.GetComponent<RectTransform>());
+        _buttonX = _buttonRects[0].anchoredPosition.x;
+
         for (int i = 0; i < _aparats.Length; i++) 
         {
             _aparats[i].DefaultX = _aparats[i].transform.position.x;
@@ -34,8 +41,10 @@ public class AparatChanger : MonoBehaviour
                 component.OnUnlock += EnableButton;
             }
         }
-        EnableButton(false, 1);
-        EnableButton(false, 2);
+        //EnableButton(false, 1);
+        //EnableButton(false, 2);
+
+        SetActiveButton(0);
     }
 
     private void Update()
@@ -57,6 +66,8 @@ public class AparatChanger : MonoBehaviour
         Hide(_aparats.Where(x=>Array.IndexOf(_aparats,x)!=index).ToArray());
         _callback = () => { Appear(_aparats[index]); };
         AudioManager.instance.Play("Swap");
+
+        SetActiveButton(index);
     }
 
     private void MoveToStack(Transform transform, float duration = 0.5f)
@@ -96,5 +107,13 @@ public class AparatChanger : MonoBehaviour
     {
         foreach (var button in _buttons)
             button.interactable = enable;
+    }
+
+    public void SetActiveButton(int index)
+    {
+        foreach (var button in _buttonRects)
+            button.DOAnchorPosX(_buttonX,0.2f).SetEase(Ease.OutCirc);
+
+        _buttonRects[index].DOAnchorPosX(_buttonX-4, 0.3f).SetEase(Ease.OutCirc);
     }
 }
