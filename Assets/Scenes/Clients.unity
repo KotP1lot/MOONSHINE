@@ -284,7 +284,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _so: {fileID: 11400000, guid: 4da868dcd6afefd409e9a9a255303085, type: 2}
-  _lockedSprite: {fileID: 6926249846542881021}
   _lockedSprite: {fileID: 643237923}
   _ingredientsManager: {fileID: 4726933934478578010}
   _width: 6
@@ -4413,7 +4412,6 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1477870666}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -12707,7 +12705,6 @@ GameObject:
   - component: {fileID: 2212421551051289881}
   - component: {fileID: 6926249846542881021}
   m_Layer: 0
-  m_Name: signs
   m_Name: shelf1Sign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12969,7 +12966,6 @@ Transform:
   m_GameObject: {fileID: 1765306522891054900}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.82, y: 0.95, z: 3}
   m_LocalPosition: {x: -4.82, y: 2.06, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -21568,13 +21564,11 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b5339967ce198d3408e7f87d17d9de8b, type: 3}
   m_Sprite: {fileID: 181276066, guid: b5339967ce198d3408e7f87d17d9de8b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 8.3529415, y: 4.117647}
   m_Size: {x: 8.3529415, y: 2.0588236}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
