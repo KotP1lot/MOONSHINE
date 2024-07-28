@@ -67,8 +67,9 @@ public class Lootbox : MonoBehaviour
         transform.localRotation = Quaternion.identity;
         transform.DOLocalRotate(new Vector3(-8, 380, 0), 1.5f, RotateMode.FastBeyond360).SetEase(Ease.OutCirc);
 
-        Utility.Delay(1.9f, () => 
+        Utility.Delay(1.9f, () =>
         {
+            AudioManager.instance.Play("Lootbox");
             transform.DOShakePosition(1f, 0.5f, 30, 90, false, false).onComplete =
                 ()=> 
                 {
