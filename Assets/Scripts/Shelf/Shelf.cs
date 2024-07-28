@@ -6,26 +6,29 @@ public class Shelf : MonoBehaviour
     [Header("Upgrade")]
     [SerializeField] SOUpgrade _so;
     [SerializeField] SpriteRenderer _lockedSprite;
+
     [Space(10)]
     [SerializeField] IngredientsManager _ingredientsManager;
-    [SerializeField] int _width;
+    [SerializeField] float _width;
     [SerializeField] GameObject _posPrefab;
-    [SerializeField] Ingredient _³ngredientPrefab;
-    [SerializeField] int _cObjects;
+    [SerializeField] Item _³ngredientPrefab;
+    [SerializeField] int _maxItemCount;
+    [SerializeField] int _itemCount;
     [SerializeField] int _cRefresh;
     [Space(10)]
     [SerializeField] float _depth;
+    [SerializeField] bool _isIngredient;
 
 
-    private List<Ingredient> _ingredients = new();
+    private List<Item> _items = new();
     private List<Transform> _positions = new();
     void Start()
     {
         if (_so != null) SOSetup();
         GlobalEvents.Instance.OnBeerCooked += ResetShelf;
 
-        float step = (1 * _width) / ((float)_cObjects - 1);
-        for (int i = 0; i < _cObjects; i++)
+        float step = (1 * _width) / ((float)_maxItemCount - 1); 
+        for (int i = 0; i < _maxItemCount; i++)
         {
             GameObject obj = Instantiate(_posPrefab, transform);
             obj.transform.localPosition = new Vector3(i * step - _width / 2, 1f, _depth);
@@ -40,71 +43,86 @@ public class Shelf : MonoBehaviour
     private void UnlockShelf() 
     {
         _lockedSprite.sprite = null;
-        //animation
     }
     private void UpgradeShelf(Upgrade upgrade) 
     {
         if(upgrade.CurrLvl == 0) UnlockShelf();
-        _cObjects = _so.LvlInfo[upgrade.CurrLvl].bonus;
-        Debug.Log("adfsf");
+        _itemCount = _so.LvlInfo[upgrade.CurrLvl].bonus;
     }
     private void ResetShelf()
     {
-        _ingredients.Clear();
+        _items.Clear();
         RefreshShelf();
     }
 
     public void RefreshShelf()
     {
         if (_cRefresh-- <= 0) return;
-        SetIngredients(_ingredientsManager.GetRandomIngredients(_cObjects));
+        if (_isIngredient) SetItems(_ingredientsManager.GetRandomIngredients(_itemCount));
+        else SetItems(GenerateEssense(_itemCount));
+    }
+    private List<ScriptableObject> GenerateEssense(int count) 
+    {
+        List<ScriptableObject> objects = new();
+        float highestEssencePercent = GameManager.Instance.HighestEssencePercent;
+        while (objects.Count < count)
+        {
+            int index = Random.Range(0, 5);
+
+            Essence essence = ScriptableObject.CreateInstance<Essence>();
+            essence.Type = (StatType)index;
+
+            essence.Strength = Random.Range(0, highestEssencePercent);
+
+            objects.Add(essence);
+        }
+        return objects;
     }
 
-    public void SetIngredients(List<SOIngredient> newIngredients)
+    public void SetItems(List<ScriptableObject> newIngredients)
     {
-        while (_ingredients.Count < _cObjects)
+        while (_items.Count < _itemCount)
         {
-            Ingredient ingredient = Instantiate(_³ngredientPrefab, GetEmptyPos());
-            ingredient.SetLayer(LayerMask.NameToLayer("OnShelf"));
-            ingredient.OnParentChange += Ingredient_OnParentChange;
-            ingredient.OnClick += Ingredient_OnClick;
-            _ingredients.Add(ingredient);
+            Item item = Instantiate(_³ngredientPrefab, GetEmptyPos());
+            item.SetLayer(LayerMask.NameToLayer("OnShelf"));
+            item.OnParentChange += Ingredient_OnParentChange;
+            item.OnClick += Ingredient_OnClick;
+            _items.Add(item);
         }
 
         for (int i = 0; i < newIngredients.Count; i++)
-            _ingredients[i].Setup(newIngredients[i]);
-
+            _items[i].Setup(newIngredients[i]);
     }
     private void OnDisable()
     {
-        _ingredients.ForEach(x =>
+        _items.ForEach(x =>
         {
             x.OnParentChange -= Ingredient_OnParentChange;
             x.OnClick -= Ingredient_OnClick;
         });
         GlobalEvents.Instance.OnBeerCooked -= ResetShelf;
     }
-    private void Ingredient_OnClick(Ingredient ingredient)
+    private void Ingredient_OnClick(Item item)
     {
-        ingredient.transform.parent = null;
-        ingredient.transform.rotation = Quaternion.identity;
-        ingredient.SetLayer(LayerMask.NameToLayer("Default"));
-        ingredient.transform.position -= new Vector3(0, 0, ingredient.transform.position.z);
-        ingredient.OnParentChange -= Ingredient_OnParentChange;
-        ingredient.OnClick -= Ingredient_OnClick;
-        RemoveFromList(ingredient);
+        item.transform.parent = null;
+        item.transform.rotation = Quaternion.identity;
+        item.SetLayer(LayerMask.NameToLayer("Default"));
+        item.transform.position -= new Vector3(0, 0, item.transform.position.z);
+        item.OnParentChange -= Ingredient_OnParentChange;
+        item.OnClick -= Ingredient_OnClick;
+        RemoveFromList(item);
         AudioManager.instance.Play("BuyIngredient");
     }
 
-    public void RemoveFromList(Ingredient ingredient)
+    public void RemoveFromList(Item ingredient)
     {
-        _ingredients.Remove(ingredient);
+        _items.Remove(ingredient);
     }
     private Transform GetEmptyPos()
     {
         return _positions.Find(x => x.childCount == 0);
     }
-    private void Ingredient_OnParentChange(Ingredient obj)
+    private void Ingredient_OnParentChange(Item obj)
     {
         obj.OnParentChange -= Ingredient_OnParentChange;
         RemoveFromList(obj);

@@ -47,7 +47,7 @@ public class LootboxSystem : MonoBehaviour
 
     public void UnlockIngredient(Rarity rarity,int cashback)
     {
-        List<SOIngredient> allIngredients = _ingredientsManager.GetAllIngredients();
+        List<SOIngredient> allIngredients = _ingredientsManager.GetAllIngredients().ConvertAll(x => (SOIngredient)x);
         List<SOIngredient> ingredientsOfRarity = allIngredients.FindAll(i => i.Rarity== rarity);
 
         var so = ingredientsOfRarity[Random.Range(0, ingredientsOfRarity.Count)];

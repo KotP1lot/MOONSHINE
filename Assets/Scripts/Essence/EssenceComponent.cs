@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,8 +10,9 @@ public class EssenceComponent : Item
     private MeshRenderer _renderer;
     [HideInInspector]public ParticleSystem Particles;
 
-    public void SetEssence(Essence essence)
+    public override void Setup(ScriptableObject so, bool bo = true)
     {
+        Essence essence = so as Essence;
         _essence = essence;
         _type = essence.Type;
         _strength = essence.Strength;
@@ -30,6 +29,7 @@ public class EssenceComponent : Item
         _renderer.material = mat;
 
         GetComponentInChildren<CursorHover>().SetTooltip(GenerateTooltip());
+        if (bo) Utility.Delay(Time.deltaTime, () => Spawn());
     }
 
     public Essence Essence => _essence;
@@ -52,5 +52,11 @@ public class EssenceComponent : Item
 
         return res;
     }
+    public override void Spawn()
+    {
+        transform.localPosition = Vector3.zero;
+        transform.rotation = Quaternion.identity;
 
+        base.Spawn();
+    }
 }
