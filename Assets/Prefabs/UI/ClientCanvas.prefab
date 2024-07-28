@@ -1341,8 +1341,10 @@ MonoBehaviour:
   _info: {fileID: 3260047679679000347}
   _propContainer: {fileID: 5397319371045018340}
   _upgradeInfos:
+  - {fileID: 11400000, guid: b52bbc879b201614bba249b2e91fa30b, type: 2}
   - {fileID: 11400000, guid: 5aa181bb1e6543640983362c40e31186, type: 2}
   - {fileID: 11400000, guid: 4da868dcd6afefd409e9a9a255303085, type: 2}
+  - {fileID: 11400000, guid: 5f042d612a3b016498842c63c55f1ada, type: 2}
   _propPrefab: {fileID: 3574390067853553196, guid: 41fcd965b6a6cbc40a26c75afccd2ecc, type: 3}
 --- !u!1 &2316421752355214778
 GameObject:

@@ -8490,7 +8490,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1527856370980039001
 Transform:
   m_ObjectHideFlags: 0
@@ -16335,6 +16335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultX: 0
+  _so: {fileID: 11400000, guid: b52bbc879b201614bba249b2e91fa30b, type: 2}
   _lever: {fileID: 5550667239415142796}
   _outputPoint: {fileID: 6337823141204003688}
   _resultParticles: {fileID: 4097140121649732574}
@@ -22973,6 +22974,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultX: 0
+  _so: {fileID: 11400000, guid: 5f042d612a3b016498842c63c55f1ada, type: 2}
   alcoholEssencePrefab: {fileID: 4263001487115462101, guid: 2f09ef0f9897b6b49a33081e80afe4f1, type: 3}
   toxicityEssencePrefab: {fileID: 4263001487115462101, guid: 2f09ef0f9897b6b49a33081e80afe4f1, type: 3}
   sweetnessEssencePrefab: {fileID: 4263001487115462101, guid: 2f09ef0f9897b6b49a33081e80afe4f1, type: 3}
@@ -23112,7 +23114,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8887117587354390591
 Transform:
   m_ObjectHideFlags: 0

@@ -10,9 +10,9 @@ public class UIUpgrade : MonoBehaviour
     [SerializeField] Transform _propContainer;
     [SerializeField] List<SOUpgrade> _upgradeInfos;
     [SerializeField] UIPropUpgrade _propPrefab;
-
+   
     private List<UIPropUpgrade> _props = new();
-    
+    private List<Upgrade> _upgrades = new();
     private void Start()
     {
         _info.Setup(null);
@@ -20,6 +20,7 @@ public class UIUpgrade : MonoBehaviour
         {
             UIPropUpgrade ui = Instantiate(_propPrefab, _propContainer);
             Upgrade up = new(-1, upgrade, false);
+            _upgrades.Add(up);
             ui.Setup(up);
             ui.OnPropClick += OnClickProp;
             ui.OnUpgradeConfirm += OnPurshConfirm;
@@ -48,6 +49,10 @@ public class UIUpgrade : MonoBehaviour
         {
             foreach (var unlock in upgrade.SO.Unlock) 
                 unlock.OnUnlock?.Invoke();
+            foreach (var unlock in upgrade.SO.AlsoUpgrade) 
+            {
+                OnPurshConfirm(_upgrades.Find(x => x.SO == unlock));
+            }
         }
         upgrade.CurrLvl++;
         upgrade.UpgradeObj();

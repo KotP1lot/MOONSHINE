@@ -6,6 +6,7 @@ public enum UpgradeType
     Combinator,
     Shelf,
     E_Shelf,
+    Centrifuge,
 }
 [CreateAssetMenu()]
 public class SOUpgrade : ScriptableObject
@@ -15,6 +16,7 @@ public class SOUpgrade : ScriptableObject
     public string Description;
     public List<LvlInfo> LvlInfo;
     public List<SOUpgrade> Unlock;
+    public List<SOUpgrade> AlsoUpgrade;
     public Action OnUnlock;
     public Action<Upgrade> OnUpgrade;
 }

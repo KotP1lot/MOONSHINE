@@ -1,13 +1,15 @@
 using DG.Tweening;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting.Antlr3.Runtime;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
-public class Combinator : Aparat
+public class Combinator : Aparat, IUpgrade
 {
+    [Header("Upgrade")]
+    [SerializeField] private SOUpgrade _so;
+    [SerializeField] private SOUpgrade _shelfSO;
+
     [Space(10)]
     [SerializeField] private Transform _lever;
     [SerializeField] private Transform _outputPoint;
@@ -20,13 +22,23 @@ public class Combinator : Aparat
     private List<Item> _items = new List<Item>();
     private ErrorCanvas _error;
 
+    public Action<bool, int> OnUnlock { get; set; }
+
     private void Start()
     {
+        _so.OnUpgrade += OnUpgrade;
         _collider = GetComponent<Collider>();
         _leverCollider = _lever.GetComponent<Collider2D>();
         _error = GetComponentInChildren<ErrorCanvas>();
+        gameObject.SetActive(false);
     }
-
+    private void OnUpgrade(Upgrade upgrade)
+    {
+        if (upgrade.CurrLvl == 0)
+        {
+            OnUnlock?.Invoke(true, 1);
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         var item = other.GetComponentInParent<Item>();

@@ -25,12 +25,17 @@ public class AparatChanger : MonoBehaviour
     private void Start()
     {
         _buttons = GetComponentsInChildren<Button>();
-
-        foreach(var aparat in _aparats)
+        for (int i = 0; i < _aparats.Length; i++) 
         {
-            aparat.DefaultX = aparat.transform.position.x;
-            if (!aparat.gameObject.activeSelf) { MoveToStack(aparat.transform, 0); aparat.ChangeState(() => { }); };
+            _aparats[i].DefaultX = _aparats[i].transform.position.x;
+            if (i!=0) { MoveToStack(_aparats[i].transform, 0); _aparats[i].ChangeState(() => { }); };
+            if (_aparats[i].TryGetComponent(out IUpgrade component))
+            {
+                component.OnUnlock += EnableButton;
+            }
         }
+        EnableButton(false, 1);
+        EnableButton(false, 2);
     }
 
     private void Update()
@@ -83,7 +88,10 @@ public class AparatChanger : MonoBehaviour
         aparat.transform.DOMoveX(aparat.DefaultX, 0.5f).SetEase(_appearEase).SetDelay(_appearDelay)
             .onComplete = ()=> { aparat.ChangeState(() => { _IsMoving = false; }); };
     }
-
+    public void EnableButton(bool enable, int id) 
+    {
+        _buttons[id].gameObject.SetActive(enable);
+    }
     public void EnableButtons(bool enable)
     {
         foreach (var button in _buttons)
