@@ -12693,7 +12693,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8645729036225144604, guid: ea9bc08da5c20144aa58f9ea9639ca8d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.20599937
+      value: 0.20600128
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19813,7 +19813,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8645729036225144604, guid: ea9bc08da5c20144aa58f9ea9639ca8d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.20599937
+      value: 0.20600128
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -20203,7 +20203,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8645729036225144604, guid: ea9bc08da5c20144aa58f9ea9639ca8d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.20599937
+      value: 0.20600128
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22170,6 +22170,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Alcohol
       objectReference: {fileID: 0}
+    - target: {fileID: 8645729036225144604, guid: ea9bc08da5c20144aa58f9ea9639ca8d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.20601654
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -22375,7 +22379,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8645729036225144604, guid: ea9bc08da5c20144aa58f9ea9639ca8d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.20599937
+      value: 0.20600128
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
