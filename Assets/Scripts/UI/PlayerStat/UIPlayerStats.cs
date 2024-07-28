@@ -8,16 +8,12 @@ public class UIPlayerStats : MonoBehaviour
     [SerializeField] TextMeshProUGUI _money;
     [SerializeField] TextMeshProUGUI _days;
 
-    [SerializeField] Transform _starContainer;
     [SerializeField] UIStar _starPref;
     List<UIStar> _stars = new();
 
     public void Setup(int stars) 
     {
-        for (int i = 0; i < stars; i++)
-        {
-            _stars.Add(Instantiate(_starPref, _starContainer));
-        }
+
         GameManager.Instance.Gold.OnResourceChanged += OnMoneyChanged;
         GameManager.Instance.Stars.OnResourceChanged += OnStarChanged;
         GameManager.Instance.Days.OnResourceChanged += OnDaysChanged;
