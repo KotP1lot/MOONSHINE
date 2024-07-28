@@ -1,11 +1,13 @@
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
-public class Centrifuge : Aparat
+public class Centrifuge : Aparat, IUpgrade
 {
+    [Header("Upgrade")]
+    [SerializeField] private SOUpgrade _so;
+
     [Header("Essence Prefabs")]
     [SerializeField] private EssenceComponent alcoholEssencePrefab;
     [SerializeField] private EssenceComponent toxicityEssencePrefab;
@@ -24,13 +26,21 @@ public class Centrifuge : Aparat
     private List<Ingredient> _ingredients = new List<Ingredient>();
     private ErrorCanvas _error;
 
+    public Action<bool, int> OnUnlock { get; set; }
+
     private void Start()
     {
+        _so.OnUpgrade += OnUpgrade;
         _collider = GetComponent<Collider>();
         _leverCollider = _lever.GetComponent<Collider2D>();
         _error= GetComponentInChildren<ErrorCanvas>();
+        gameObject.SetActive(false);
     }
+    private void OnUpgrade(Upgrade upgrade) 
+    {
+        if (upgrade.CurrLvl == 0) OnUnlock?.Invoke(true, 2);
 
+    }
     private void OnTriggerEnter(Collider other)
     {
         var ingredient = other.GetComponentInParent<Ingredient>();

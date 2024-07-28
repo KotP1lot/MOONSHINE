@@ -10,6 +10,7 @@ public class Barrel : Aparat
     [SerializeField] private StatWindow _statWindow;
     [SerializeField] private Transform _ingredientParent;
     [SerializeField] private Transform _throwOutPoint;
+    [SerializeField] private Beer _pivoPrefab;
     [Space(10)]
     [SerializeField] private SpriteRenderer _barrelClosed;
     [SerializeField] private BarrelAnimation _barrelAnimation;
@@ -72,7 +73,9 @@ public class Barrel : Aparat
 
     public void Cook() 
     {
-        _barrelAnimation.PlayAnimation(this,onComplete: () =>
+        GameManager.Instance.SetProcessing(true);
+
+        _barrelAnimation.PlayAnimation(this,CreateBeer, onComplete: () =>
         {
             gameObject.SetActive(true);
 
@@ -82,19 +85,30 @@ public class Barrel : Aparat
             {
                 GlobalEvents.Instance.BeforeBeerCook?.Invoke();
                 Utility.Delay(Time.deltaTime,()=>StartCoroutine(DestroyIngredients()));
-            });
-            
-            //_clientManager.Confirm(_beerStat);
 
-            //_beerStat = new();
-            //_statWindow.SetStats(_beerStat);
+                GameManager.Instance.SetProcessing(false);
+
+                _beerStat = new();
+            });
         });
     }
+
+    public Beer CreateBeer(float slideDelay)
+    {
+        var beer = Instantiate(_pivoPrefab);
+        beer.SetStats(_beerStat,_clientManager);
+
+        Utility.Delay(slideDelay, () => beer.Slide());
+
+        return beer;
+    }
+
     IEnumerator DestroyIngredients() 
     {
         Item[] childTransforms = FindObjectsOfType<Item>();
         foreach (var children in childTransforms)
         {
+            if (children.CompareTag("Ignore")) continue;
             Destroy(children.gameObject);
         };
         yield return null;

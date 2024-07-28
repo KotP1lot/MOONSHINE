@@ -13,14 +13,21 @@ MonoBehaviour:
   m_Name: Combinator
   m_EditorClassIdentifier: 
   Type: 0
+  Image: {fileID: 21300000, guid: 90335264a12747d43a2dd68d94a11d8f, type: 3}
+  Description: 'Combinator: combine N times'
   LvlInfo:
-  - bonus: 0
-    describe: 
-    cost: 0
-  - bonus: 0
-    describe: 
-    cost: 0
-  - bonus: 0
-    describe: 
-    cost: 0
-  Unlock: []
+  - bonus: 1
+    describe: N = 1
+    cost: 5
+  - bonus: 2
+    describe: N = 2
+    cost: 10
+  - bonus: 3
+    describe: N = 3
+    cost: 15
+  Unlock:
+  - {fileID: 11400000, guid: 5aa181bb1e6543640983362c40e31186, type: 2}
+  - {fileID: 11400000, guid: 4da868dcd6afefd409e9a9a255303085, type: 2}
+  - {fileID: 11400000, guid: 5f042d612a3b016498842c63c55f1ada, type: 2}
+  AlsoUpgrade:
+  - {fileID: 11400000, guid: 4da868dcd6afefd409e9a9a255303085, type: 2}

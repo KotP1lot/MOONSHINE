@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class Shelf : MonoBehaviour
 {
+    [Header("Upgrade")]
+    [SerializeField] SOUpgrade _so;
+    [SerializeField] SpriteRenderer _lockedSprite;
+    [Space(10)]
     [SerializeField] IngredientsManager _ingredientsManager;
     [SerializeField] int _width;
     [SerializeField] GameObject _posPrefab;
@@ -17,6 +21,7 @@ public class Shelf : MonoBehaviour
     private List<Transform> _positions = new();
     void Start()
     {
+        if (_so != null) SOSetup();
         GlobalEvents.Instance.OnBeerCooked += ResetShelf;
 
         float step = (1 * _width) / ((float)_cObjects - 1);
@@ -26,9 +31,23 @@ public class Shelf : MonoBehaviour
             obj.transform.localPosition = new Vector3(i * step - _width / 2, 1f, _depth);
             _positions.Add(obj.transform);
         }
-        RefreshShelf();
+        if (_so == null) RefreshShelf();
     }
-
+    private void SOSetup() 
+    {
+        _so.OnUpgrade += UpgradeShelf;
+    }
+    private void UnlockShelf() 
+    {
+        _lockedSprite.sprite = null;
+        //animation
+    }
+    private void UpgradeShelf(Upgrade upgrade) 
+    {
+        if(upgrade.CurrLvl == 0) UnlockShelf();
+        _cObjects = _so.LvlInfo[upgrade.CurrLvl].bonus;
+        Debug.Log("adfsf");
+    }
     private void ResetShelf()
     {
         _ingredients.Clear();
@@ -39,7 +58,6 @@ public class Shelf : MonoBehaviour
     {
         if (_cRefresh-- <= 0) return;
         SetIngredients(_ingredientsManager.GetRandomIngredients(_cObjects));
-        AudioManager.instance.Play("Roll");
     }
 
     public void SetIngredients(List<SOIngredient> newIngredients)

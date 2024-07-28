@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3830f0e48bd99854294790b420bbe1d5, type: 3}
+  m_Name: ShelfEsens
+  m_EditorClassIdentifier: 
+  Type: 2
+  Image: {fileID: 21300000, guid: 638ed3887a3fc6846894dfb1a4a76d1a, type: 3}
+  Description: 'E_Shelf: unlock esense'
+  LvlInfo:
+  - bonus: 1
+    describe: 1 esense
+    cost: 5
+  - bonus: 2
+    describe: 2 esense
+    cost: 10
+  - bonus: 3
+    describe: 3 esense
+    cost: 15
+  Unlock: []

@@ -253,4 +253,7 @@ public class ClientManager : MonoBehaviour
     {
         _currentClient.Drink(stats);
     }
+    public Client GetCurrentClient()
+    {
+    return _currentClient; }
 }

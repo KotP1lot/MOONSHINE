@@ -22,6 +22,7 @@ public class StatWindow : MonoBehaviour
             _bars[i].MaxValue = stats[i].Max;
             _bars[i].SetLimits(stats[i].LowerThreshold, stats[i].PerfecValue, stats[i].UpperThreshold);
         }
+        ResetValues();
     }
 
     public void SetStats(Stats stats)
@@ -32,5 +33,11 @@ public class StatWindow : MonoBehaviour
         }
     }
 
-
+    public void ResetValues()
+    {
+        for (int i = 0; i < _bars.Length; i++)
+        {
+            _bars[i].SetValue(0.01f);
+        }
+    }
 }
