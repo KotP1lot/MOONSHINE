@@ -22,6 +22,7 @@ public class LootboxSystem : MonoBehaviour
 {
     [SerializeField] private IngredientsManager _ingredientsManager;
     [SerializeField] private SpriteRenderer _fade;
+    [SerializeField] private SpriteRenderer _vignette;
     [SerializeField] private GameObject _raycastBlock;
     [SerializeField] private Ingredient _loot;
 
@@ -81,7 +82,8 @@ public class LootboxSystem : MonoBehaviour
     public void StartOpening()
     {
         _raycastBlock.SetActive(true);
-        _fade.DOFade(0.7f, 1);
+        _fade.DOFade(0.5f, 1);
+        _vignette.DOFade(0.8f, 1);
     }
 
     private void ShowInfo( bool isNew, int cashback)
