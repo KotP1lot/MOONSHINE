@@ -4189,13 +4189,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1477870666}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &1477870670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4807,8 +4807,8 @@ MonoBehaviour:
     mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
     source: {fileID: 0}
   - name: Lootbox
-    clip: {fileID: 8300000, guid: 7b08c68b19d08d849b92d55f64174934, type: 3}
-    volume: 0.3
+    clip: {fileID: 8300000, guid: f7545b32e078c18468e1e3f1d23f9f6e, type: 3}
+    volume: 1
     pitch: 1
     loop: 0
     mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
