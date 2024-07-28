@@ -106,6 +106,7 @@ public class Combinator : Aparat
 
     private void FinishCombination(Ingredient ingredient, EssenceComponent essence)
     {
+        AudioManager.instance.Play("Steam");
         _resultParticles.Play();
         essence.transform.DOScale(1f, 0.3f).SetEase(Ease.OutCirc);
         ingredient.ApplyEssence(essence.Essence);
@@ -127,7 +128,6 @@ public class Combinator : Aparat
         {
             Destroy(essence.gameObject);
             ingredient.EnablePhysics(true);
-            AudioManager.instance.Play("Pop");
         });
     }
 

@@ -140,7 +140,6 @@ public class WaterShapeController : MonoBehaviour
 
     public void AddFloater(Rigidbody rb)
     {
-
         rb.gameObject.layer = LayerMask.NameToLayer("InWater");
         rb.useGravity = false;
         _floaters.Add(rb);

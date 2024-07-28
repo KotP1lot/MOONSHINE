@@ -4815,7 +4815,7 @@ MonoBehaviour:
   sfx:
   - name: Bubbles
     clip: {fileID: 8300000, guid: eec7514813a14e547ba03056cea33d9e, type: 3}
-    volume: 0.1
+    volume: 0.2
     pitch: 1
     loop: 1
     mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
@@ -4870,8 +4870,8 @@ MonoBehaviour:
     mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
     source: {fileID: 0}
   - name: Lever
-    clip: {fileID: 8300000, guid: 12a8b682d00925749aa404af2e77cb10, type: 3}
-    volume: 0.2
+    clip: {fileID: 8300000, guid: 4922e5ef0f44e53419c6ea94f59306da, type: 3}
+    volume: 0.3
     pitch: 1
     loop: 0
     mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
@@ -4891,8 +4891,15 @@ MonoBehaviour:
     mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
     source: {fileID: 0}
   - name: Combinator
-    clip: {fileID: 8300000, guid: 510bc18cafcb20c4bb8c4d2a178c614a, type: 3}
+    clip: {fileID: 8300000, guid: 038f4dd223b624e468393bb974592f5c, type: 3}
     volume: 0.2
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Steam
+    clip: {fileID: 8300000, guid: 2f591ddf7ca175b4d80f1b9b4510df91, type: 3}
+    volume: 0.3
     pitch: 1
     loop: 0
     mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}

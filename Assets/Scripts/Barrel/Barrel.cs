@@ -45,6 +45,11 @@ public class Barrel : Aparat
             Destroy(collision.GetComponent<DragNDrop3D>());
             Destroy(collision.GetComponent<CursorHover>());
             ingredient.transform.SetParent(_ingredientParent);
+
+            var rb = collision.GetComponent<Rigidbody>();
+            var velocity = Mathf.Clamp(rb.velocity.y, -100, -2f);
+           
+
         }
 
         if (collision.transform.parent.TryGetComponent(out EssenceComponent essence))

@@ -67,6 +67,7 @@ public class AudioManager : MonoBehaviour
     public void Bulk()
     {
         Sound s = bulks[UnityEngine.Random.Range(0, bulks.Length)];
+        
         s.source.Play();
     }
 }
