@@ -74,7 +74,7 @@ public class Upgrade
     public void UpgradeObj() 
     {
         OnUpgrade?.Invoke();
-        SO.OnUnlock?.Invoke();
+        SO.OnUpgrade?.Invoke(this);
     }
     private void Unlock() 
     {
