@@ -114,6 +114,7 @@ public class LootboxSystem : MonoBehaviour
 
         _loot.transform.DOScale(0, 0.3f).SetEase(Ease.InBack);
 
+        _vignette.DOFade(0, 0.5f);
         _fade.DOFade(0, 0.5f).onComplete=() =>
             _raycastBlock.SetActive(false);
     }

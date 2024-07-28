@@ -11,7 +11,7 @@ public class UIPlayerStats : MonoBehaviour
     [SerializeField] UIStar _starPref;
     List<UIStar> _stars = new();
 
-    public void Setup(int stars) 
+    private void Start()
     {
 
         GameManager.Instance.Gold.OnResourceChanged += OnMoneyChanged;
@@ -26,11 +26,11 @@ public class UIPlayerStats : MonoBehaviour
     }
     public void OnMoneyChanged(int value) 
     {
-        _money.text = $"${value}";
+        _money.text = $"{value}";
     }
     public void OnDaysChanged(int value) 
     {
-        _days.text = $"Day: {value}";
+        _days.text = $"{value}";
     }
     public void OnStarChanged(int value) 
     {
