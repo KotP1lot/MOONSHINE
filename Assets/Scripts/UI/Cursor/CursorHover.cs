@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class CursorHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public bool IsHovering { get; private set; }
 
+    public Action OnHover;
+
     private void Update()
     {
         _isUI = TryGetComponent<RectTransform>(out var rect);
@@ -21,9 +24,11 @@ public class CursorHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        OnHover?.Invoke();
         IsHovering = true;
         CursorController.Instance.SetSprite(_Hover);
         if (_tooltip != "") TooltipController.Instance.SetTooltip(_tooltip);
+        if (_tooltip == "resetTooltip") TooltipController.Instance.SetTooltip("");
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -36,7 +41,7 @@ public class CursorHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         IsHovering = true;
         CursorController.Instance.SetSprite(_Down);
-        if (_tooltip != "") TooltipController.Instance.SetTooltip(_tooltip);
+        if (_tooltip != ""&& _tooltip != "resetTooltip") TooltipController.Instance.SetTooltip(_tooltip);
     }
     public void OnPointerUp(PointerEventData eventData)
     {
