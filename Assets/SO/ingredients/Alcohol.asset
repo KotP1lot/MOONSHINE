@@ -14,13 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Mesh: {fileID: -3117702180364922942, guid: 0ee0031947e99c44ba63e00235ce0601, type: 3}
   Material: {fileID: 2100000, guid: 6f501c36caec787409e9cb9bb98a51fa, type: 2}
-  ChildPrefab: {fileID: 6075832741573831187, guid: bb89f558bc2b04947b396ac1dfb47065, type: 3}
+  ChildMesh: {fileID: 4949611885764658078, guid: 0ee0031947e99c44ba63e00235ce0601, type: 3}
+  ChildMaterial: {fileID: 2100000, guid: 7ebe89816f319aa4baae8885251df18a, type: 2}
+  SpawnPos: {x: 0, y: 0, z: 0}
   Stats:
     Alcohol: 8
     Toxicity: 2
     Sweetness: 0
     Bitterness: 0
     Sourness: 0
-    Uniqueness: 0
-  Rarity: 
-  Unlocked: 0
+    EnhancedStat: 0
+  Rarity: 0
+  Unlocked: 1

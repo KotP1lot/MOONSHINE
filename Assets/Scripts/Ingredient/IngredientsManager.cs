@@ -30,12 +30,17 @@ public class IngredientsManager : MonoBehaviour
         return new List<SOIngredient>(_all);
     }
 
-    public void UnlockIngredient(SOIngredient ingredient)
+    public bool UnlockIngredient(SOIngredient ingredient,int cashback)
     {
-        if (!ingredient.Unlocked)
+        if (!_unlocked.Contains(ingredient))
         {
             _unlocked.Add(ingredient);
-            ingredient.Unlocked = true;
+            return true;
         }
+        else
+        {
+            GameManager.Instance.Gold.AddAmount(cashback);
+        }
+        return false;
     }
 }

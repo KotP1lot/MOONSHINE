@@ -2,19 +2,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+
+public enum Rarity { Uncommon, Rare, Legendary }
+
 [CreateAssetMenu(fileName = "IngredientVariant", menuName = "Ingredient/IngredientVariant")]
 public class SOIngredient : ScriptableObject
 {
     [Header("_visual")]
     public Mesh Mesh;
     public Material Material;
-    public GameObject ChildPrefab;
+    public Mesh ChildMesh;
+    public Material ChildMaterial;
     public Vector3 SpawnPos;
 
     [Header("Stats")]
     public Stats Stats;
-    public string Rarity;
-    public bool Unlocked;
+    public Rarity Rarity;
     public bool IsEnhanced { get; set; }
     public void CopyFrom(SOIngredient other)
     {
@@ -24,7 +27,6 @@ public class SOIngredient : ScriptableObject
         Material = other.Material;
         Stats = other.Stats;
         Rarity = other.Rarity;
-        Unlocked = other.Unlocked;
         IsEnhanced = other.IsEnhanced;
     }
 }

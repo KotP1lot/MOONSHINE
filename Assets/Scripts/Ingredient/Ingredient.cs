@@ -14,7 +14,7 @@ public class Ingredient : Item
     [SerializeField] private GameObject _model;
     private Rigidbody _rb;
     private CursorHover _hover;
-
+    private GameObject _modelChild;
     private MeshRenderer _meshRenderer;
 
     public Transform Child { get { return _model.transform; } }
@@ -24,38 +24,33 @@ public class Ingredient : Item
         _rb = GetComponent<Rigidbody>();
         _hover = GetComponentInChildren<CursorHover>();
         _meshRenderer = _model.GetComponent<MeshRenderer>();
+        _modelChild = _model.GetComponentsInChildren<MeshRenderer>()[1].gameObject;
 
         IsUsed = false;
         GetComponentInChildren<DragNDrop3D>().OnClick += () => OnClick?.Invoke(this);
-        if (Data != null)
-        {
-            Setup(Data);
-        }
     }
 
-    public void Setup(SOIngredient so)
+    public void Setup(SOIngredient so, bool spawn = true)
     {
         Data = so;
         _model.GetComponent<MeshFilter>().mesh = so.Mesh;
         _meshRenderer.material = so.Material;
         _model.GetComponent<MeshCollider>().sharedMesh = so.Mesh;
 
-        if(_model.transform.childCount>0)
-        {
-            Destroy(_model.GetComponentsInChildren<MeshRenderer>()[1].gameObject);
-        }
+        _modelChild.GetComponent<MeshFilter>().mesh = so.ChildMesh;
+        _modelChild.GetComponent<MeshRenderer>().material = so.ChildMaterial;
 
-        if (so.ChildPrefab != null)
-        {
-            var obj = Instantiate(so.ChildPrefab);
-            obj.transform.SetParent(_model.transform);
-            obj.transform.localPosition = Vector3.zero + so.ChildPrefab.transform.position;
-            obj.transform.localRotation = Quaternion.identity;
+        //if (so.ChildMesh != null)
+        //{
+        //    obj.transform.SetParent(_model.transform);
+        //    obj.transform.localPosition = Vector3.zero + so.ChildPrefab.transform.position;
+        //    obj.transform.localRotation = Quaternion.identity;
 
-        }
+
+        //}
 
         _hover.SetTooltip(GenerateTooltip(so));
-        Utility.Delay(Time.deltaTime,()=>Spawn());
+        if(spawn)Utility.Delay(Time.deltaTime,()=>Spawn());
     }
 
     public void AddMaterial(Material material)
@@ -103,7 +98,7 @@ public class Ingredient : Item
         _model.layer = layer;
     }
 
-    private string GenerateTooltip(SOIngredient so)
+    public string GenerateTooltip(SOIngredient so)
     {
         string marker = so.IsEnhanced ? "+" : "-";
         string res = $"{marker}{so.name.ToUpper()}{marker}\n";
