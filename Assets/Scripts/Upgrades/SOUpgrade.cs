@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum UpgradeType 
 {
-    Combinator,
-    Shelf,
-    E_Shelf,
+    Combinator
 }
 [CreateAssetMenu()]
 public class SOUpgrade : ScriptableObject
