@@ -21,7 +21,8 @@ public class ClientMovement : MonoBehaviour
     }
     public void MoveAnim(bool isEnter, Action func)
     {
-        Tween wobbling = transform.DOLocalMoveY(0.5f, 0.15f).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
+        Tween wobbling = transform.DOLocalMoveY(0.5f, 0.15f).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo).OnStepComplete(() => { AudioManager.instance.Step(); });
+
         transform.DOLocalMoveX(isEnter ? 0 : -15, isEnter? 2f:1.8f).SetEase(Ease.Linear).OnComplete(() =>
         {
             wobbling.Kill();
