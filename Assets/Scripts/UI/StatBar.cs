@@ -113,7 +113,7 @@ public class StatBar : MonoBehaviour
     {
         string res = $"-{gameObject.name.ToUpper()}-\n";
 
-        res += $"<color=#{_fillBar.color.ToHexString()}>current: {_fillValue}</color>\n";
+        res += $"<color=#{_fillBar.color.ToHexString()}>current: {_fillValue.ToString("0")}</color>\n";
         res += $"<color=#{_lowLimit.color.ToHexString()}>min: {_lowLimitValue}</color>\n";
         res += $"<color=#{_ideal.color.ToHexString()}>ideal: {_idealValue}</color>\n";
         res += $"<color=#{_highLimit.color.ToHexString()}>max: {_highLimitValue}</color>\n";

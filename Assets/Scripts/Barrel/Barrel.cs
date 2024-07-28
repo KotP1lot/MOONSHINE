@@ -84,7 +84,6 @@ public class Barrel : Aparat
                 GameManager.Instance.SetProcessing(false);
 
                 _beerStat = new();
-                _statWindow.SetStats(_beerStat);
             });
         });
     }
@@ -104,6 +103,7 @@ public class Barrel : Aparat
         Item[] childTransforms = FindObjectsOfType<Item>();
         foreach (var children in childTransforms)
         {
+            if (children.CompareTag("Ignore")) continue;
             Destroy(children.gameObject);
         };
         yield return null;

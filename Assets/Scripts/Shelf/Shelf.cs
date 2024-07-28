@@ -58,7 +58,6 @@ public class Shelf : MonoBehaviour
     {
         if (_cRefresh-- <= 0) return;
         SetIngredients(_ingredientsManager.GetRandomIngredients(_cObjects));
-        AudioManager.instance.Play("Roll");
     }
 
     public void SetIngredients(List<SOIngredient> newIngredients)
