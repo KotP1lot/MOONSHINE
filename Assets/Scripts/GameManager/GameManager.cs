@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _uiPlayerStats.Setup(_maxStars);
-        Gold.AddAmount(10);
+        Gold.AddAmount(30);
         StartNewDay();
     }
     private void StartNewDay() 

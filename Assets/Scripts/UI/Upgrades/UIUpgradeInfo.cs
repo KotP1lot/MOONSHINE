@@ -40,6 +40,10 @@ public class UIUpgradeInfo : MonoBehaviour
 
                 _unlockTxt.text = unlockInfo;
             }
+            else 
+            {
+                _unlockTxt.text = "";
+            }
         }
     }
 }
