@@ -167,6 +167,8 @@ public class ClientManager : MonoBehaviour
             GlobalEvents.Instance.OnChangeCameraPos?.Invoke(CameraPosType.Brewery);
             GlobalEvents.Instance.OnClientStatUpdated?.Invoke(_currentClient.AllStats);
         });
+
+        GameManager.Instance.ResetAll();
     }
     private void OnCondemnHandler()
     {

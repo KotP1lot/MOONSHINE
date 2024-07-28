@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Centrifuge : Aparat, IUpgrade
+public class Centrifuge : Aparat, IUpgrade, Resetter
 {
     [Header("Upgrade")]
     [SerializeField] private SOUpgrade _so;
@@ -26,6 +26,9 @@ public class Centrifuge : Aparat, IUpgrade
     private List<Ingredient> _ingredients = new List<Ingredient>();
     private ErrorCanvas _error;
 
+    private int _maxUses;
+    private int _currentUses;
+
     public Action<bool, int> OnUnlock { get; set; }
 
     private void Start()
@@ -39,6 +42,9 @@ public class Centrifuge : Aparat, IUpgrade
     private void OnUpgrade(Upgrade upgrade) 
     {
         if (upgrade.CurrLvl == 0) OnUnlock?.Invoke(true, 2);
+
+        _maxUses = _so.LvlInfo[upgrade.CurrLvl].bonus;
+        _currentUses = _maxUses;
 
     }
     private void OnTriggerEnter(Collider other)
@@ -107,6 +113,14 @@ public class Centrifuge : Aparat, IUpgrade
         _leverCollider.enabled = false;
         Utility.Delay(0.1f, () => 
         {
+            if(_currentUses==0)
+            {
+                _error.ShowText("no uses left");
+
+                CancelExtraction();
+                return;
+            }
+
             if (_ingredients.Count == 1)
             {
                 AudioManager.instance.Play("Lever");
@@ -130,6 +144,8 @@ public class Centrifuge : Aparat, IUpgrade
 
     private void StartExtraction(Ingredient ingredient)
     {
+        _currentUses--;
+
         GameManager.Instance.SetProcessing(true);
         _collider.enabled = false;
         _ceiling.enabled = true;
@@ -179,5 +195,10 @@ public class Centrifuge : Aparat, IUpgrade
 
         _ceiling.enabled = false;
         _ingredients.Clear();
+    }
+
+    public void ResetValues()
+    {
+        _currentUses = _maxUses;
     }
 }

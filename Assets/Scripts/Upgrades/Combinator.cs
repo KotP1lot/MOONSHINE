@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Combinator : Aparat, IUpgrade
+public class Combinator : Aparat, IUpgrade, Resetter
 {
     [Header("Upgrade")]
     [SerializeField] private SOUpgrade _so;
@@ -22,6 +22,9 @@ public class Combinator : Aparat, IUpgrade
     private List<Item> _items = new List<Item>();
     private ErrorCanvas _error;
 
+    private int _maxUses;
+    private int _currentUses;
+
     public Action<bool, int> OnUnlock { get; set; }
 
     private void Start()
@@ -38,6 +41,9 @@ public class Combinator : Aparat, IUpgrade
         {
             OnUnlock?.Invoke(true, 1);
         }
+
+        _maxUses = _so.LvlInfo[upgrade.CurrLvl].bonus;
+        _currentUses = _maxUses;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -55,6 +61,14 @@ public class Combinator : Aparat, IUpgrade
         _leverCollider.enabled = false;
         Utility.Delay(0.1f, () =>
         {
+            if (_currentUses == 0)
+            {
+                _error.ShowText("no uses left");
+
+                CancelCombine();
+                return;
+            }
+
             if (_items.OfType<Ingredient>().Count()==1 && _items.OfType<EssenceComponent>().Count() == 1)
             {
                 var ingredient = _items.OfType<Ingredient>().First();
@@ -91,6 +105,8 @@ public class Combinator : Aparat, IUpgrade
 
     private void StartCombine(Ingredient ingredient, EssenceComponent essence)
     {
+        _currentUses--;
+
         GameManager.Instance.SetProcessing(true);
         _collider.enabled = false;
         _lever.DORotate(new Vector3(0, 0, -27), 0.3f).SetEase(Ease.OutBack, 2);
@@ -158,5 +174,10 @@ public class Combinator : Aparat, IUpgrade
                 _leverCollider.enabled = true;
 
         _items.Clear();
+    }
+
+    public void ResetValues()
+    {
+        _currentUses = _maxUses;
     }
 }

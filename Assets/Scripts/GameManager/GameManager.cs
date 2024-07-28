@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 [Serializable]
@@ -38,6 +39,8 @@ public class GameManager : MonoBehaviour
     public Value Stars { get; private set; }
     public Value Days { get; private set; }
 
+    private Resetter[] _resetters;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -54,6 +57,8 @@ public class GameManager : MonoBehaviour
         Gold = new();
         Stars = new();
         Days = new();
+
+        _resetters = FindObjectsOfType<MonoBehaviour>().OfType<Resetter>().ToArray();
     }
     private void OnDisable()
     {
@@ -86,5 +91,11 @@ public class GameManager : MonoBehaviour
     public void SetProcessing(bool proc)
     {
         _aparatChanger.EnableButtons(!proc);
+    }
+
+    public void ResetAll()
+    {
+        foreach (var reset in _resetters)
+            reset.ResetValues();
     }
 }
