@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac2d9cb8991f0b84f8ea380792f19654, type: 3}
   m_Name: Seagull
   m_EditorClassIdentifier: 
-  BaseSprite: {fileID: 21300000, guid: 17596d40f66db0846b33d92c5da0632c, type: 3}
-  Accessories: []
-  PoliceAccessories:
+  BaseSprite: {fileID: 21300000, guid: ef349a673e160264dbe7522ab38d0164, type: 3}
+  Accessories:
   - Type: 0
-    Sprite: {fileID: 21300000, guid: 7a7ce1d8905d0ab43a282cf468ae1062, type: 3}
+    Sprite: {fileID: 21300000, guid: 386121bfba32aeb4dae001e31707ba1e, type: 3}
+  - Type: 0
+    Sprite: {fileID: 21300000, guid: 9478bef1eff2fb0498f287b10c03960d, type: 3}
+  - Type: 1
+    Sprite: {fileID: 21300000, guid: 5e7ad34e059170e41a8fda3c0e24d3a9, type: 3}
+  PoliceAccessories:
+  - Type: 1
+    Sprite: {fileID: 21300000, guid: fe93b2017c91a5d41a2843a27ad60827, type: 3}

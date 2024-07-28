@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac2d9cb8991f0b84f8ea380792f19654, type: 3}
   m_Name: Alien
   m_EditorClassIdentifier: 
-  BaseSprite: {fileID: 21300000, guid: 653a20aea51c31c42a4b1eb3cfa6b17a, type: 3}
-  Accessories: []
-  PoliceAccessories:
+  BaseSprite: {fileID: 21300000, guid: 262d1e9323eda3343b421fcbc384f308, type: 3}
+  Accessories:
   - Type: 0
-    Sprite: {fileID: 21300000, guid: 0a3405c3faa807b45af6fb615c7fec70, type: 3}
+    Sprite: {fileID: 21300000, guid: 14d0193526c46af4e88847f7e4343ae2, type: 3}
+  - Type: 1
+    Sprite: {fileID: 21300000, guid: 72afa311a7595b34297e3a712faf3c08, type: 3}
+  - Type: 1
+    Sprite: {fileID: 21300000, guid: bd67a662de835af48bbabd85f1af8651, type: 3}
+  PoliceAccessories:
+  - Type: 1
+    Sprite: {fileID: 21300000, guid: 29ba71c82fd8e0449b28321cae6b897d, type: 3}

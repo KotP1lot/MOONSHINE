@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac2d9cb8991f0b84f8ea380792f19654, type: 3}
   m_Name: Gnome
   m_EditorClassIdentifier: 
-  BaseSprite: {fileID: 21300000, guid: 8869ceb81308a3d42a4c9454329c19fc, type: 3}
-  Accessories: []
+  BaseSprite: {fileID: 21300000, guid: f8b5adbbad7bd1a49a99fa606c5cbf0b, type: 3}
+  Accessories:
+  - Type: 1
+    Sprite: {fileID: 21300000, guid: 2677832b8182fba4e9d353c2d3610903, type: 3}
+  - Type: 1
+    Sprite: {fileID: 21300000, guid: 72f116ac8f49f194a88cadf880694535, type: 3}
   PoliceAccessories:
   - Type: 0
-    Sprite: {fileID: 21300000, guid: 7a7ce1d8905d0ab43a282cf468ae1062, type: 3}
+    Sprite: {fileID: 21300000, guid: a112048cc5979c845b14c72bb29d9c64, type: 3}

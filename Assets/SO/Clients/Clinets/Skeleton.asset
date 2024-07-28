@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac2d9cb8991f0b84f8ea380792f19654, type: 3}
   m_Name: Skeleton
   m_EditorClassIdentifier: 
-  BaseSprite: {fileID: 21300000, guid: 480ff736b10d5e245ab206f91444bdf1, type: 3}
-  Accessories: []
-  PoliceAccessories:
+  BaseSprite: {fileID: 21300000, guid: 9d00488639a5f1f44891a4390032c9ca, type: 3}
+  Accessories:
   - Type: 0
-    Sprite: {fileID: 21300000, guid: 7a7ce1d8905d0ab43a282cf468ae1062, type: 3}
+    Sprite: {fileID: 21300000, guid: cbc8a94f2ef334440b056f2d1585df82, type: 3}
+  - Type: 1
+    Sprite: {fileID: 21300000, guid: 1c70151ab31cffe4d88f69d7a30456cd, type: 3}
+  PoliceAccessories:
+  - Type: 1
+    Sprite: {fileID: 21300000, guid: 4967e44f6148a654b81643f3187667d2, type: 3}
