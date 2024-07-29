@@ -99,7 +99,7 @@ public class Centrifuge : Aparat, IUpgrade, Resetter
         if (prefab != null)
         {
             EssenceComponent essenceComponent = Instantiate(prefab);
-            essenceComponent.Setup(essence);
+            essenceComponent.Setup(essence, false);
             return essenceComponent;
         }
 

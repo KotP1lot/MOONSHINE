@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIPlayerStats : MonoBehaviour
 {
@@ -9,11 +9,10 @@ public class UIPlayerStats : MonoBehaviour
     [SerializeField] TextMeshProUGUI _days;
 
     [SerializeField] UIStar _starPref;
-    List<UIStar> _stars = new();
+    [SerializeField] Image _stars;
 
     private void Start()
     {
-
         GameManager.Instance.Gold.OnResourceChanged += OnMoneyChanged;
         GameManager.Instance.Stars.OnResourceChanged += OnStarChanged;
         GameManager.Instance.Days.OnResourceChanged += OnDaysChanged;
@@ -34,10 +33,7 @@ public class UIPlayerStats : MonoBehaviour
     }
     public void OnStarChanged(int value) 
     {
-        Debug.Log("UI");
-        for(int i = 0; i<value; i++) 
-        {
-            _stars[i].SetActive(true);
-        }
+        Debug.Log("sdgfadsfafafasfasfasfafa");
+        _stars.DOFillAmount((float)value/3, 0.3f).SetEase(Ease.OutCirc);
     }
 }

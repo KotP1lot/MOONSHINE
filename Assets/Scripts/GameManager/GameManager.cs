@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
     {
         Days.AddAmount(1);
         Silver.ChangeValue(10);
-        _clientManager.StartNewDay(10, 0, 0); 
+        _clientManager.StartNewDay(10, 0, 10); 
     }
     public void GetStars(int value)
     {
