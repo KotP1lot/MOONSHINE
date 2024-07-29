@@ -183,34 +183,22 @@ public class Client : MonoBehaviour
     }
     protected virtual GradeType GetGrade(Stat stat) 
     {
+        float max = stat.Max;
         float curr = stat.CurrentValue;
         float perf = stat.PerfectValue;
-        float lower = stat.LowerThreshold;
-        float uper = stat.UpperThreshold;
         float percentageError;
 
-        if (stat.CurrentValue > stat.PerfectValue) 
-        {
-            float diff = uper - perf;
-            float currDif = curr - perf;
-            percentageError = currDif / diff * 100;
-        }
-        else
-        {
-            float diff = perf - lower;
-            float currDif = curr - lower;
-            percentageError = currDif / diff * 100;
-        }
+        percentageError = Mathf.Abs(perf - curr) / max * 100;
        
-        if (percentageError < 5)
+        if (percentageError <= 5)
             return GradeType.S;
-        else if (percentageError < 10)
+        else if (percentageError <= 10)
             return GradeType.A;
-        else if (percentageError < 15)
+        else if (percentageError <= 15)
             return GradeType.B;
-        else if (percentageError < 20)
+        else if (percentageError <= 20)
             return GradeType.C;
-        else if (percentageError < 25)
+        else if (percentageError <= 25)
             return GradeType.D;
         else
             return GradeType.F;
