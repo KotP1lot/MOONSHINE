@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIPropUpgrade : MonoBehaviour, IPointerClickHandler
+public class UIPropUpgrade : MonoBehaviour, IPointerEnterHandler
 {
     [SerializeField] TextMeshProUGUI _descTxt;
     [SerializeField] Image _image;
@@ -23,7 +23,7 @@ public class UIPropUpgrade : MonoBehaviour, IPointerClickHandler
     {
         GameManager.Instance.Gold.OnResourceChanged += (i) => CheckGold();
     }
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerEnter(PointerEventData eventData)
     {
         OnPropClick?.Invoke(SO);
     }
