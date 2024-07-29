@@ -28,6 +28,7 @@ public class Lootbox : MonoBehaviour
 
         _cursorHover.SetTooltip(gameObject.name.ToUpper());
         _cursorHover.OnHover += Jump;
+        _cursorHover.SetPrice(PriceType.Gold,_price);
     }
     private void Jump()
     {

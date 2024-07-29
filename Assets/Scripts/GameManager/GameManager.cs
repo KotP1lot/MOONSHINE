@@ -20,6 +20,14 @@ public struct StatColors
         }
     }
 }
+
+[Serializable]
+public struct RarityPrice
+{
+    public Rarity Rarity;
+    public int Price;
+}
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -33,6 +41,10 @@ public class GameManager : MonoBehaviour
     public int HighestStat;
     public float HighestEssencePercent;
     public StatColors Colors;
+
+    [Header("Prices")]
+    [SerializeField] private int _essenceTopCost;
+    [SerializeField] private RarityPrice[] _rarityPrices;
 
     public Value Silver { get; private set; }
     public Value Gold { get; private set; }
@@ -103,5 +115,15 @@ public class GameManager : MonoBehaviour
     {
         foreach (var reset in _resetters)
             reset.ResetValues();
+    }
+
+    public int GetPriceByRarity(Rarity rarity)
+    {
+        return _rarityPrices.First(x=>x.Rarity == rarity).Price;
+    }
+
+    public int GetEssenceCost(float strength)
+    {
+        return Mathf.RoundToInt(strength/HighestEssencePercent * _essenceTopCost);
     }
 }

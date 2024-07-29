@@ -28,7 +28,8 @@ public class EssenceComponent : Item
         mat.color = color;
         _renderer.material = mat;
 
-        GetComponentInChildren<CursorHover>().SetTooltip(GenerateTooltip());
+        SetPrice(GameManager.Instance.GetEssenceCost(_strength));
+        _hover.SetTooltip(GenerateTooltip());
         if (bo) Utility.Delay(Time.deltaTime, () => Spawn());
     }
 

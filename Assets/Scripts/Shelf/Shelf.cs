@@ -14,16 +14,17 @@ public class Shelf : MonoBehaviour, Resetter
     [SerializeField] Item _³ngredientPrefab;
     [SerializeField] int _maxItemCount;
     [SerializeField] int _itemCount;
-    [SerializeField] int _cRefresh;
     [Space(10)]
     [SerializeField] float _depth;
     [SerializeField] bool _isIngredient;
 
-
+    private ShelvesController _shelfController;
     private List<Item> _items = new();
     private List<Transform> _positions = new();
     void Start()
     {
+        _shelfController = GetComponentInParent<ShelvesController>();
+
         if (_so != null) SOSetup();
         GlobalEvents.Instance.OnBeerCooked += ResetShelf;
 
@@ -60,7 +61,6 @@ public class Shelf : MonoBehaviour, Resetter
 
     public void RefreshShelf()
     {
-        if (_cRefresh-- <= 0) return;
         if (_isIngredient) SetItems(_ingredientsManager.GetRandomIngredients(_itemCount));
         else SetItems(GenerateEssense(_itemCount));
     }
@@ -107,14 +107,21 @@ public class Shelf : MonoBehaviour, Resetter
     }
     private void Ingredient_OnClick(Item item)
     {
-        item.transform.parent = null;
-        item.transform.rotation = Quaternion.identity;
-        item.SetLayer(LayerMask.NameToLayer("Default"));
-        item.transform.position -= new Vector3(0, 0, item.transform.position.z);
-        item.OnParentChange -= Ingredient_OnParentChange;
-        item.OnClick -= Ingredient_OnClick;
-        RemoveFromList(item);
-        AudioManager.instance.Play("BuyIngredient");
+        Debug.Log(item.Price);
+        if (GameManager.Instance.Silver.Spend(item.Price))
+        {
+            item.transform.parent = null;
+            item.transform.rotation = Quaternion.identity;
+            item.SetLayer(LayerMask.NameToLayer("Default"));
+            item.transform.position -= new Vector3(0, 0, item.transform.position.z);
+            item.OnParentChange -= Ingredient_OnParentChange;
+            item.OnClick -= Ingredient_OnClick;
+            RemoveFromList(item);
+            item.SetPrice(0);
+            AudioManager.instance.Play("BuyIngredient");
+        }
+        else _shelfController.NotEnough();
+
     }
 
     public void RemoveFromList(Item ingredient)

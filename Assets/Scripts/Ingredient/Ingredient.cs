@@ -7,7 +7,6 @@ public class Ingredient : Item
     public SOIngredient Data;
     public bool IsUsed;
 
-    private CursorHover _hover;
     private GameObject _modelChild;
     private MeshRenderer _meshRenderer;
 
@@ -15,7 +14,6 @@ public class Ingredient : Item
 
     private void Awake()
     {
-        _hover = GetComponentInChildren<CursorHover>();
         _meshRenderer = _model.GetComponent<MeshRenderer>();
         _modelChild = _model.GetComponentsInChildren<MeshRenderer>()[1].gameObject;
 
@@ -32,6 +30,7 @@ public class Ingredient : Item
         _modelChild.GetComponent<MeshFilter>().mesh = ingredient.ChildMesh;
         _modelChild.GetComponent<MeshRenderer>().material = ingredient.ChildMaterial;
 
+        SetPrice(GameManager.Instance.GetPriceByRarity(ingredient.Rarity));
         _hover.SetTooltip(GenerateTooltip(ingredient));
         if(bo) Utility.Delay(Time.deltaTime, () => Spawn());
     }

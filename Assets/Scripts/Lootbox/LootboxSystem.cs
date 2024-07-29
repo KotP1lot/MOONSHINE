@@ -84,6 +84,7 @@ public class LootboxSystem : MonoBehaviour
         _raycastBlock.SetActive(true);
         _fade.DOFade(0.5f, 1);
         _vignette.DOFade(0.8f, 1);
+        AudioManager.instance.Play("Roll");
     }
 
     private void ShowInfo( bool isNew, int cashback)

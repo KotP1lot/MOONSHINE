@@ -10,6 +10,10 @@ public class CursorHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] private CursorType _Hover;
     [SerializeField] private CursorType _Down;
     [Space(10)]
+    [SerializeField] private PriceType _priceType;
+    [SerializeField] private int _price;
+
+    [Space(10)]
     [TextArea][SerializeField] private string _tooltip;
     private bool _isUI;
 
@@ -27,7 +31,7 @@ public class CursorHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         OnHover?.Invoke();
         IsHovering = true;
         CursorController.Instance.SetSprite(_Hover);
-        if (_tooltip != "") TooltipController.Instance.SetTooltip(_tooltip);
+        if (_tooltip != "") TooltipController.Instance.SetTooltip(_tooltip,_priceType,_price);
         if (_tooltip == "resetTooltip") TooltipController.Instance.SetTooltip("");
     }
 
@@ -41,7 +45,7 @@ public class CursorHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         IsHovering = true;
         CursorController.Instance.SetSprite(_Down);
-        if (_tooltip != ""&& _tooltip != "resetTooltip") TooltipController.Instance.SetTooltip(_tooltip);
+        if (_tooltip != ""&& _tooltip != "resetTooltip") TooltipController.Instance.SetTooltip(_tooltip, _priceType, _price);
     }
     public void OnPointerUp(PointerEventData eventData)
     {
@@ -63,11 +67,21 @@ public class CursorHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     private void OnMouseUp()
     {
-        if (!_isUI) OnPointerExit(null);
+        if (!_isUI) OnPointerUp(null);
     }
 
     public void SetTooltip(string text)
     {
         _tooltip = text;
+    }
+    public void SetPrice(PriceType priceType, int price)
+    {
+        _priceType = priceType;
+        _price = price;
+    }
+    public void SetCursor(CursorType hover, CursorType down)
+    {
+        _Hover = hover;
+        _Down = down;
     }
 }

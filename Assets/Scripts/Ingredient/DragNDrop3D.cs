@@ -9,9 +9,11 @@ public class DragNDrop3D : MonoBehaviour
     private Rigidbody _jointRB;
     private Vector3 _offset;
     private MeshCollider _collider;
+    private Item _item;
 
     void Start()
     {
+        _item = GetComponentInParent<Item>();
         _rb = GetComponent<Rigidbody>();
         _joint = GetComponentInParent<ConfigurableJoint>();
         _jointRB = _joint.GetComponent<Rigidbody>();
@@ -31,6 +33,9 @@ public class DragNDrop3D : MonoBehaviour
 
     public virtual void OnMouseDown()
     {
+        OnClick?.Invoke();
+        if (_item.Price != 0) return;
+
         _joint.transform.ZtoZero();
         transform.ZtoZero(local: true);
 
@@ -40,10 +45,11 @@ public class DragNDrop3D : MonoBehaviour
 
         _collider.enabled = false;
         _jointRB.isKinematic = true;
-        OnClick?.Invoke();
     }
     public virtual void OnMouseDrag()
     {
+        if(_item.Price!=0) return;
+
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         _jointRB.MovePosition(new Vector3(pos.x,pos.y) -_offset);
     }

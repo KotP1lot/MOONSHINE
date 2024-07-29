@@ -180,6 +180,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: cursor_4
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 9
+        height: 9
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5511739}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38219f1482fb9bc4cabc4985d4ebdab3
+      internalID: 2033853166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -195,6 +216,7 @@ TextureImporter:
       cursor_1: -1088041648
       cursor_2: -313504931
       cursor_3: -1651354366
+      cursor_4: 2033853166
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

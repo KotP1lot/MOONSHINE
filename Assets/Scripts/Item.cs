@@ -11,6 +11,9 @@ public class Item : MonoBehaviour
     protected Rigidbody[] _rbs;
     protected MeshCollider _collider;
     [SerializeField] protected GameObject _model;
+    protected CursorHover _hover;
+
+    public int Price {  get; protected set; }
 
     private void Awake()
     {
@@ -48,5 +51,14 @@ public class Item : MonoBehaviour
         gameObject.layer = layer;
         _model.layer = layer;
     }
+    public void SetPrice(int price)
+    {
+        if(_hover == null) _hover = GetComponentInChildren<CursorHover>();
 
+        Price = price;
+        _hover.SetPrice(PriceType.Silver,price);
+
+        if(price==0) _hover.SetCursor(CursorType.Grab, CursorType.Drag);
+        else _hover.SetCursor(CursorType.Buy, CursorType.Buy);
+    }
 }

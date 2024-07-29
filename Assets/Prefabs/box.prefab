@@ -4946,6 +4946,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _price: 0
+  _cashback: 0
   _chances:
   - Rarity: 0
     Chance: 0
@@ -4966,8 +4967,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b121d416ea2737b4a8a3786a0705de49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Hover: 1
-  _Down: 1
+  _Hover: 4
+  _Down: 4
   _tooltip: 
 --- !u!65 &9189937981432775932
 BoxCollider:

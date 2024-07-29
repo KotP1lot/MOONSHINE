@@ -346,6 +346,7 @@ GameObject:
   - component: {fileID: 9221900238736429307}
   - component: {fileID: 8738409697366554699}
   - component: {fileID: 9179016686652459897}
+  - component: {fileID: 4777568439901114956}
   m_Layer: 5
   m_Name: Buy
   m_TagString: Untagged
@@ -468,6 +469,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4777568439901114956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2289801831415945624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b121d416ea2737b4a8a3786a0705de49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Hover: 4
+  _Down: 4
+  _priceType: 0
+  _price: 0
+  _tooltip: 
 --- !u!1 &2521039945559505592
 GameObject:
   m_ObjectHideFlags: 0

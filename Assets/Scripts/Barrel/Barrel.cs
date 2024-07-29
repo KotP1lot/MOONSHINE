@@ -72,6 +72,7 @@ public class Barrel : Aparat
     public void Cook() 
     {
         GameManager.Instance.SetProcessing(true);
+        TooltipController.Instance.HideTooltip();
 
         _barrelAnimation.PlayAnimation(this,CreateBeer, onComplete: () =>
         {

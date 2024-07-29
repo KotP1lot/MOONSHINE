@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public enum CursorType { Default, Click, Grab, Drag }
+public enum CursorType { Default, Click, Grab, Drag, Buy }
 public class CursorController : MonoBehaviour
 {
     public static CursorController Instance;
@@ -14,6 +14,7 @@ public class CursorController : MonoBehaviour
     [SerializeField] private Sprite _clickSprite;
     [SerializeField] private Sprite _grabSprite;
     [SerializeField] private Sprite _dragSprite;
+    [SerializeField] private Sprite _buySprite;
 
     private RectTransform _rectTransform;
     private Image _image;
@@ -53,6 +54,7 @@ public class CursorController : MonoBehaviour
             case CursorType.Click: sprite = _clickSprite; break;
             case CursorType.Grab: sprite = _grabSprite; break;
             case CursorType.Drag: sprite = _dragSprite; break;
+            case CursorType.Buy: sprite = _buySprite; break;
         }
 
         _image.sprite = sprite;

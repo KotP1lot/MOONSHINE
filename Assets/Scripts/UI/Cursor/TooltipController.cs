@@ -1,16 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
+
+public enum PriceType { Silver, Gold }
 
 public class TooltipController : MonoBehaviour
 {
     public static TooltipController Instance;
 
+    [SerializeField] private OutlinedText _priceText;
+    [SerializeField] private Image _priceImage;
+    [SerializeField] private Sprite _goldSprite;
+    [SerializeField] private Color _silverColor;
+    [SerializeField] private Color _goldColor;
+
+    private Sprite _silverSprite;
+
     private TextMeshProUGUI[] _texts;
     private RectTransform _rect;
     private CanvasGroup _group;
+    private CanvasGroup _priceGroup;
 
     public RectTransform Rect { get { return _rect; } }
     public float Width { get { return _rect.rect.width; } }
@@ -28,20 +41,29 @@ public class TooltipController : MonoBehaviour
         _rect = GetComponent<RectTransform>();
         _group = GetComponent<CanvasGroup>();
         _texts = GetComponentsInChildren<TextMeshProUGUI>();
+        _priceGroup = _priceText.GetComponent<CanvasGroup>();
+        _priceImage = _priceText.GetComponentInChildren<Image>();
+        _silverSprite = _priceImage.sprite;
     }
 
-    public void SetTooltip(string text)
+    public void SetTooltip(string text, PriceType priceType = PriceType.Silver, int price=0)
     {
         Enabled = true;
         _group.alpha = 1;
         foreach (var t in _texts)
             t.text = text.RemoveBetween("<",">");
         _texts[4].text = text;
+
+        _priceGroup.alpha = Mathf.Clamp01(price);
+        _priceImage.sprite = priceType==PriceType.Silver? _silverSprite : _goldSprite;
+        var color = priceType == PriceType.Silver ? _silverColor : _goldColor;
+        _priceText.SetText($"<color=#{color.ToHexString()}>{price}" );
     }
     public void HideTooltip()
     {
         Enabled=false;
         _group.alpha = 0;
+        _priceGroup.alpha = 0;
     }
 
     public void SetAlignment(HorizontalAlignmentOptions align)
@@ -53,14 +75,6 @@ public class TooltipController : MonoBehaviour
     {
         foreach (var t in _texts)
             t.verticalAlignment = align;
-    }
-    public void AlignOutline(float xmod , float ymod)
-    {
-        foreach (var t in _texts)
-            t.rectTransform.anchoredPosition = new Vector2(
-                xmod == 0 ? t.rectTransform.anchoredPosition.x : Mathf.Clamp(t.rectTransform.anchoredPosition.x, -1, 1) * xmod, 
-                Mathf.Clamp(t.rectTransform.anchoredPosition.y, -1, 1) * ymod
-                );
     }
 
     public void AdjustPosition(RectTransform parent)

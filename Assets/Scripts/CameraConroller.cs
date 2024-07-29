@@ -37,4 +37,16 @@ public class CameraConroller : MonoBehaviour
             }
             );
     }
+
+    public void Rotate(float angle)
+    {
+        _fade.DOFade(1, 0.2f);
+        transform.DORotate(new Vector3(0, angle), 0f).SetDelay(0.2f).
+            OnComplete(
+            () =>
+            {
+                _fade.DOFade(0, 0.2f);
+            }
+            );
+    }
 }
