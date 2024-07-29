@@ -12,7 +12,8 @@ public class CursorHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [Space(10)]
     [SerializeField] private PriceType _priceType;
     [SerializeField] private int _price;
-
+    [Space(10)]
+    [SerializeField] private bool _oneTimeClick = true;
     [Space(10)]
     [TextArea][SerializeField] private string _tooltip;
     private bool _isUI;
@@ -49,7 +50,7 @@ public class CursorHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     public void OnPointerUp(PointerEventData eventData)
     {
-        if(!IsHovering) OnPointerExit(null);
+        if(_oneTimeClick) OnPointerExit(null);
     }
 
     private void OnMouseEnter()

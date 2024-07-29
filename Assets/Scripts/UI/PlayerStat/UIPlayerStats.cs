@@ -40,7 +40,6 @@ public class UIPlayerStats : MonoBehaviour
     }
     public void OnStarChanged(int value) 
     {
-        Debug.Log("sdgfadsfafafasfasfasfafa");
         _stars.DOFillAmount((float)value/3, 0.3f).SetEase(Ease.OutCirc);
     }
 }

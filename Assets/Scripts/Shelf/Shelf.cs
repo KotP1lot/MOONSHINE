@@ -75,7 +75,7 @@ public class Shelf : MonoBehaviour, Resetter
             Essence essence = ScriptableObject.CreateInstance<Essence>();
             essence.Type = (StatType)index;
 
-            essence.Strength = Random.Range(0, highestEssencePercent);
+            essence.Strength = Random.Range(1, highestEssencePercent);
 
             objects.Add(essence);
         }
@@ -107,7 +107,6 @@ public class Shelf : MonoBehaviour, Resetter
     }
     private void Ingredient_OnClick(Item item)
     {
-        Debug.Log(item.Price);
         if (GameManager.Instance.Silver.Spend(item.Price))
         {
             item.transform.parent = null;

@@ -28,7 +28,7 @@ public class EssenceComponent : Item
         mat.color = color;
         _renderer.material = mat;
 
-        SetPrice(GameManager.Instance.GetEssenceCost(_strength));
+        _hover = GetComponentInChildren<CursorHover>();
         _hover.SetTooltip(GenerateTooltip());
         if (bo) Utility.Delay(Time.deltaTime, () => Spawn());
     }
@@ -55,6 +55,8 @@ public class EssenceComponent : Item
     }
     public override void Spawn()
     {
+        SetPrice(GameManager.Instance.GetEssenceCost(_strength));
+
         transform.localPosition = Vector3.zero;
         transform.rotation = Quaternion.identity;
 

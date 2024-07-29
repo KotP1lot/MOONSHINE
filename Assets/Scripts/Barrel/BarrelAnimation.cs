@@ -28,44 +28,45 @@ public class BarrelAnimation : MonoBehaviour
 
     public void PlayAnimation(Barrel barrel, Func<float,Beer> createBeer, TweenCallback onComplete)
     {
-        _cookButton.SetActive(false);
         _statWindow.SetActive(false);
         _back.enabled = true;
         _sprite.DOFade(1, 0.3f).SetEase(Ease.OutCirc).onComplete = () =>
         {
             barrel.gameObject.SetActive(false);
+            _cookButton.gameObject.SetActive(false);
 
             _lid.transform.DOLocalMoveY(5.7f, 0.7f).SetEase(Ease.OutBounce);
         };
 
         Utility.Delay(1.5f, () =>
         {
-            transform.DOScale(new Vector3(1.3f, 0.4f, 1), 0.3f).SetEase(Ease.OutElastic).onComplete =
-                () => transform.DOScale(new Vector3(0.7f, 1.5f, 1), 0.3f).SetEase(Ease.OutElastic).onComplete =
+            AudioManager.instance.Play("Barrel");
+            transform.DOScale(new Vector3(1.3f, 0.4f, 1), 0.16f).SetEase(Ease.OutElastic).onComplete =
+                () => transform.DOScale(new Vector3(0.7f, 1.5f, 1), 0.16f).SetEase(Ease.OutElastic).onComplete =
                     () =>
                     {
-                        transform.DOScale(new Vector3(1.3f, 0.4f, 1), 0.3f).SetEase(Ease.OutElastic);
-                        transform.DORotate(new Vector3(0, 0, 10), 0.3f).SetEase(Ease.OutElastic).onComplete =
+                        transform.DOScale(new Vector3(1.3f, 0.4f, 1), 0.16f).SetEase(Ease.OutElastic);
+                        transform.DORotate(new Vector3(0, 0, 10), 0.16f).SetEase(Ease.OutElastic).onComplete =
                             () =>
                             {
-                                transform.DOScale(new Vector3(0.7f, 1.5f, 1), 0.3f).SetEase(Ease.OutElastic);
-                                transform.DORotate(new Vector3(0, 0, -15), 0.3f).SetEase(Ease.OutElastic).onComplete =
+                                transform.DOScale(new Vector3(0.7f, 1.5f, 1), 0.16f).SetEase(Ease.OutElastic);
+                                transform.DORotate(new Vector3(0, 0, -15), 0.16f).SetEase(Ease.OutElastic).onComplete =
                                 () =>
                                 {
-                                    transform.DOScale(new Vector3(0.5f, 1.8f, 1), 0.3f).SetEase(Ease.OutElastic);
-                                    transform.DORotate(new Vector3(0, 0, 15), 0.2f).SetEase(Ease.OutElastic).onComplete =
+                                    transform.DOScale(new Vector3(0.5f, 1.8f, 1), 0.16f).SetEase(Ease.OutElastic);
+                                    transform.DORotate(new Vector3(0, 0, 15), 0.16f).SetEase(Ease.OutElastic).onComplete =
                                         () =>
                                         {
-                                            transform.DOScale(new Vector3(1.5f, 0.3f, 1), 0.3f).SetEase(Ease.OutElastic);
-                                            transform.DORotate(new Vector3(0, 0, -10), 0.3f).SetEase(Ease.OutElastic).onComplete =
+                                            transform.DOScale(new Vector3(1.5f, 0.3f, 1), 0.2f).SetEase(Ease.OutElastic);
+                                            transform.DORotate(new Vector3(0, 0, -10), 0.2f).SetEase(Ease.OutElastic).onComplete =
                                                 () =>
                                                 {
-                                                    transform.DOScale(new Vector3(0.7f, 1.5f, 1), 0.3f).SetEase(Ease.OutElastic);
-                                                    transform.DORotate(new Vector3(0, 0, -10), 0.3f).SetEase(Ease.OutElastic).onComplete =
+                                                    transform.DOScale(new Vector3(0.7f, 1.5f, 1), 0.2f).SetEase(Ease.OutElastic);
+                                                    transform.DORotate(new Vector3(0, 0, -10), 0.2f).SetEase(Ease.OutElastic).onComplete =
                                                         () =>
                                                         {
-                                                            transform.DOScale(new Vector3(1.3f, 0.4f, 1), 0.3f).SetEase(Ease.OutElastic);
-                                                            transform.DORotate(new Vector3(0, 0, 15), 0.3f).SetEase(Ease.OutElastic);
+                                                            transform.DOScale(new Vector3(1.3f, 0.4f, 1), 0.13f).SetEase(Ease.OutElastic);
+                                                            transform.DORotate(new Vector3(0, 0, 15), 0.13f).SetEase(Ease.OutElastic);
                                                         };
                                                 };
                                         };
@@ -74,7 +75,7 @@ public class BarrelAnimation : MonoBehaviour
                     };
         });
 
-        Utility.Delay(1.5f+2.4f, () =>
+        Utility.Delay(1.5f+1.2f, () =>
         {
             transform.DOScale(new Vector3(1, 1, 1), 0.3f).SetEase(Ease.OutElastic);
             transform.DORotate(new Vector3(0, 0, 0), 0.3f).SetEase(Ease.OutElastic);
@@ -82,7 +83,7 @@ public class BarrelAnimation : MonoBehaviour
                 {
                     _particles.Play();
 
-                    _lid.transform.DOMoveY(5.7f, 0.4f).SetEase(Ease.OutCirc);
+                    _lid.transform.DOLocalMoveY(11f, 0.4f).SetEase(Ease.OutCirc);
                     _lid.transform.DORotate(new Vector3(0, 0, 360 * 2), 0.3f, RotateMode.FastBeyond360).SetEase(Ease.Linear);
 
                     var pivo = createBeer(6.4f);
@@ -95,7 +96,6 @@ public class BarrelAnimation : MonoBehaviour
                             Utility.Delay(1.5f, onComplete);
                             Utility.Delay(1.8f, () =>
                             {
-                                _cookButton.SetActive(true);
                                 _statWindow.SetActive(true);
                                 _sprite.DOFade(0, 0);
                                 _back.enabled =false;

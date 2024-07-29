@@ -4969,6 +4969,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Hover: 4
   _Down: 4
+  _priceType: 0
+  _price: 0
+  _oneTimeClick: 1
   _tooltip: 
 --- !u!65 &9189937981432775932
 BoxCollider:

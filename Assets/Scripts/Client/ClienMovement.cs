@@ -40,7 +40,8 @@ public class ClientMovement : MonoBehaviour
 
     public void DieAnim() 
     {
-        transform.DOLocalMoveY(-10f, 2f).SetEase(Ease.InOutBack);
+        transform.DOLocalRotate(new Vector3(0, -270, 60), 2,RotateMode.FastBeyond360).SetEase(Ease.OutQuad);
+        transform.DOLocalMoveY(-10f, 2).SetEase(Ease.InQuad);
     }
     private void OnDisable()
     {

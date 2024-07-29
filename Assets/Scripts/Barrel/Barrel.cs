@@ -14,6 +14,7 @@ public class Barrel : Aparat
     [Space(10)]
     [SerializeField] private SpriteRenderer _barrelClosed;
     [SerializeField] private BarrelAnimation _barrelAnimation;
+    [SerializeField] private Collider _button;
 
     public Stats _beerStat;
 
@@ -24,6 +25,7 @@ public class Barrel : Aparat
     {
         AudioManager.instance.Play("Bubbles");
         _water = GetComponentInChildren<WaterShapeController>();
+
         _collider = GetComponent<Collider>();
         GlobalEvents.Instance.OnClientStatUpdated += SetupStatBar;
     }
@@ -38,7 +40,10 @@ public class Barrel : Aparat
         if (collision.transform.parent.TryGetComponent(out Ingredient ingredient))
         {
             if (ingredient.IsUsed) return;
-            
+
+            _button.gameObject.SetActive(true);
+            _button.enabled = true;
+
             AddStat(ingredient.GetStats());
             _water.AddFloater(collision.GetComponent<Rigidbody>());
             ingredient.IsUsed = true;
@@ -72,7 +77,7 @@ public class Barrel : Aparat
     public void Cook() 
     {
         GameManager.Instance.SetProcessing(true);
-        TooltipController.Instance.HideTooltip();
+        _button.enabled = false;
 
         _barrelAnimation.PlayAnimation(this,CreateBeer, onComplete: () =>
         {

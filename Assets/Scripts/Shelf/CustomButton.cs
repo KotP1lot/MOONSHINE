@@ -6,7 +6,12 @@ public class CustomButton : MonoBehaviour
 {
     public bool Animated;
     public UnityEvent OnClick;
-    
+
+    private Collider _collider;
+    private void Start()
+    {
+        _collider = GetComponent<Collider>();
+    }
 
     public void OnMouseDown()
     {
