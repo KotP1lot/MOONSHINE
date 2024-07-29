@@ -72,7 +72,6 @@ public class Barrel : Aparat
 
         _barrelAnimation.PlayAnimation(this,CreateBeer, onComplete: () =>
         {
-            gameObject.SetActive(true);
 
             GlobalEvents.Instance.OnChangeCameraPos?.Invoke(CameraPosType.Client);
 
@@ -80,6 +79,8 @@ public class Barrel : Aparat
             {
                 GlobalEvents.Instance.BeforeBeerCook?.Invoke();
                 Utility.Delay(Time.deltaTime,()=>StartCoroutine(DestroyIngredients()));
+
+                gameObject.SetActive(true);
 
                 GameManager.Instance.SetProcessing(false);
 

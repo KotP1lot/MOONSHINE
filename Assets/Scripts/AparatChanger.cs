@@ -41,8 +41,8 @@ public class AparatChanger : MonoBehaviour
                 component.OnUnlock += EnableButton;
             }
         }
-        //EnableButton(false, 1);
-        //EnableButton(false, 2);
+        EnableButton(false, 1);
+        EnableButton(false, 2);
 
         SetActiveButton(0);
     }
