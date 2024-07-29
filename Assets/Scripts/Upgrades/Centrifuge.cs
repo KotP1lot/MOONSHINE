@@ -127,7 +127,6 @@ public class Centrifuge : Aparat, IUpgrade, Resetter
                 if (_ingredients[0].Data.IsEnhanced)
                 {
                     _error.ShowText("can't extract from enhanced ingredient");
-                    AudioManager.instance.Play("Error");
                     CancelExtraction();
                 }
                 else StartExtraction(_ingredients[0]);
@@ -136,7 +135,6 @@ public class Centrifuge : Aparat, IUpgrade, Resetter
             {
                 if (_ingredients.Count > 1) _error.ShowText("more than one ingredient in the tank");
                 if (_ingredients.Count == 0) _error.ShowText("tank is empty");
-                AudioManager.instance.Play("Error");
                 CancelExtraction();
             }
         });

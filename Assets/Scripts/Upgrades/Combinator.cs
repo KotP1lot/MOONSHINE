@@ -79,7 +79,6 @@ public class Combinator : Aparat, IUpgrade, Resetter
                 if (ingredient.Data.IsEnhanced)
                 {
                     _error.ShowText("ingredient already enhanced");
-                    AudioManager.instance.Play("Error");
                     CancelCombine();
                     return;
                 }
@@ -87,7 +86,6 @@ public class Combinator : Aparat, IUpgrade, Resetter
                 if (ingredient.Data.Stats.Array[(int)essence.Type]==0)
                 {
                     _error.ShowText($"{ingredient.Data.name} doesn't have {essence.Type.ToString()}");
-                    AudioManager.instance.Play("Error");
                     CancelCombine();
                     return;
                 }
@@ -97,7 +95,6 @@ public class Combinator : Aparat, IUpgrade, Resetter
             }
             if (_items.Count <= 2) _error.ShowText("Add an ingredient and an esssence");
             if (_items.Count > 2) _error.ShowText("too many items added");
-            AudioManager.instance.Play("Error");
             CancelCombine();
         });
     }

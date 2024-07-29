@@ -35,7 +35,6 @@ public class Barrel : Aparat
 
     private void OnTriggerEnter(Collider collision)
     {
-        AudioManager.instance.Bulk();
         if (collision.transform.parent.TryGetComponent(out Ingredient ingredient))
         {
             if (ingredient.IsUsed) return;
@@ -46,6 +45,8 @@ public class Barrel : Aparat
             Destroy(collision.GetComponent<DragNDrop3D>());
             Destroy(collision.GetComponent<CursorHover>());
             ingredient.transform.SetParent(_ingredientParent);
+
+            AudioManager.instance.Bulk();
         }
 
         if (collision.transform.parent.TryGetComponent(out EssenceComponent essence))
@@ -53,6 +54,8 @@ public class Barrel : Aparat
             essence.EnablePhysics(false);
             essence.transform.DOMove(_throwOutPoint.position, 1).SetEase(Ease.OutCirc).SetDelay(0.5f)
                 .onComplete = ()=> { essence.EnablePhysics(true); };
+
+            AudioManager.instance.Bulk();
         }
     }
     private void AddStat(Stats stat)
@@ -72,6 +75,7 @@ public class Barrel : Aparat
 
         _barrelAnimation.PlayAnimation(this,CreateBeer, onComplete: () =>
         {
+            gameObject.SetActive(true);
 
             GlobalEvents.Instance.OnChangeCameraPos?.Invoke(CameraPosType.Client);
 
@@ -80,7 +84,6 @@ public class Barrel : Aparat
                 GlobalEvents.Instance.BeforeBeerCook?.Invoke();
                 Utility.Delay(Time.deltaTime,()=>StartCoroutine(DestroyIngredients()));
 
-                gameObject.SetActive(true);
 
                 GameManager.Instance.SetProcessing(false);
 

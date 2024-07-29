@@ -19,6 +19,8 @@ public class ErrorCanvas : MonoBehaviour
 
     public void ShowText(string text, float duration = 3)
     {
+        AudioManager.instance.Play("Error");
+
         if (_flash!=null) return;
         _flash = _canvasGroup.DOFade(1, 0.3f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutCirc);
 
