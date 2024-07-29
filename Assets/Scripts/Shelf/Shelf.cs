@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shelf : MonoBehaviour
+public class Shelf : MonoBehaviour, Resetter
 {
     [Header("Upgrade")]
     [SerializeField] SOUpgrade _so;
@@ -49,10 +49,13 @@ public class Shelf : MonoBehaviour
         if(upgrade.CurrLvl == 0) UnlockShelf();
         _itemCount = _so.LvlInfo[upgrade.CurrLvl].bonus;
     }
+    public void ResetValues()
+    {
+        RefreshShelf();
+    }
     private void ResetShelf()
     {
         _items.Clear();
-        RefreshShelf();
     }
 
     public void RefreshShelf()
@@ -127,4 +130,6 @@ public class Shelf : MonoBehaviour
         obj.OnParentChange -= Ingredient_OnParentChange;
         RemoveFromList(obj);
     }
+
+
 }
