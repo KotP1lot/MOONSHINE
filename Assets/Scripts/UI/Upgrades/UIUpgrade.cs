@@ -85,5 +85,5 @@ public class Upgrade
     {
         IsUnlocked = true;
     }
-    public bool IsMaxLevel => CurrLvl >= 2;
+    public bool IsMaxLevel => CurrLvl >= SO.LvlInfo.Count-1;
 } 
