@@ -180,6 +180,8 @@ public class ClientManager : MonoBehaviour
     {
         if (_currentClient is Policeman)
         {
+            _uiStat.SetActive(false);
+            _uiStat.ShowValues(new Stats());
             OnGetStar?.Invoke(3);
             _uiDialog.ShowText("Kinez", () => { });
             Debug.Log("Kinez");
@@ -189,6 +191,8 @@ public class ClientManager : MonoBehaviour
             OnGetStar?.Invoke(1);
             GameManager.Instance.SetNewGrade(GradeType.F); 
             _uiDialog.ShowText("The end of the day | +1 star", () => {
+                _uiStat.SetActive(false);
+                _uiStat.ShowValues(new Stats());
                 OnDayEnd?.Invoke();
             });
             Debug.Log("The end of the day | +1 star");
@@ -213,15 +217,15 @@ public class ClientManager : MonoBehaviour
             {
                 _clients.Enqueue(_currentClient);
             }
+            _uiStat.SetActive(false);
+            _uiStat.ShowValues(new Stats());
+            _currentClient.MoveOut();
             if (--_clientCount <= 0)
             {
                 Debug.Log("The end of the day");
                 OnDayEnd?.Invoke();
                 return;
             }
-            _uiStat.SetActive(false);
-            _uiStat.ShowValues(new Stats());
-            _currentClient.MoveOut();
         }
         if (!GameManager.Instance.IsPlayState) return;
         switch (_queue.Dequeue())

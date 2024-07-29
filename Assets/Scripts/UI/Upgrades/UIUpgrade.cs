@@ -30,11 +30,7 @@ public class UIUpgrade : MonoBehaviour
         }
         _defaultUpgrades.ForEach(x => x.OnUnlock?.Invoke());
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Tab)) ShowUpgrades();
-    }
-    private void ShowUpgrades()
+    public void ShowUpgrades()
     {
         _props.Sort((x, y) => x.Upgrade.IsMaxLevel.CompareTo(y.Upgrade.IsMaxLevel));
 

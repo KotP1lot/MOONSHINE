@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,8 +66,11 @@ public class GameManager : MonoBehaviour
     private GradeType _reputation;
     private int _gradeCount;
     private int _grade;
-    
-    
+
+    [Header("Light")]
+    [SerializeField] private List<SpriteRenderer> _lightSprite1;
+    [SerializeField] private GameObject _menu;
+
     public Value Silver { get; private set; }
     public Value Gold { get; private set; }
     public Value Stars { get; private set; }
@@ -107,6 +111,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Gold.AddAmount(_startGoldAmount);
+        Silver.ChangeValue(_silverPerClient);
         _daysQueue = new Queue<Day>(_days);
     }
 
@@ -116,25 +121,40 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !IsPlayState)
             StartNewDay();
     }
-    private void ShowMenu() 
+    private void ShowMenu(bool isActive) 
     {
-        //показувати меню між днями.    
+        _menu.transform.DOLocalMoveY(isActive ? 30 : 140, 1f).SetEase(Ease.InOutBack);
+        _menu.gameObject.SetActive(true);
     }
     private void OnDayEnded() 
     {
         if (_daysQueue.Count == 0) { /*кінець гри*/ }
         IsPlayState = false;
+        LightTurn(false);
+        ShowMenu(true);
+    }
+    private void LightTurn(bool isOn) 
+    {
+        _lightSprite1.ForEach(x =>
+        {
+            x.DOFade(isOn ? 1 : 0, 1.5f).SetEase(Ease.OutFlash, 15, 1);
+        }
+        );
     }
     //TEMP --------------------------------------------------------------------------------------
-    private void StartNewDay()
-    { 
+    public void StartNewDay()
+    {
+        if (_daysQueue.Count == 0)
+            return;
+        ShowMenu(false);
+        LightTurn(true);
         CurrentDay = _daysQueue.Dequeue();
         IsPlayState = true;
         Days.AddAmount(1);
         Silver.ChangeValue(_silverPerClient);
-        _clientManager.StartNewDay(CurrentDay.ClientCount, 
+        _clientManager.StartNewDay(CurrentDay.ClientCount,
             CurrentDay.PoliceCount,
-            CurrentDay.UnderoverPoliceCount); 
+            CurrentDay.UnderoverPoliceCount);
     }
     public void GetStars(int value)
     {
