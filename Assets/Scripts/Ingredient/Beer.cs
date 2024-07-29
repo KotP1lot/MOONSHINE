@@ -27,6 +27,7 @@ public class Beer : MonoBehaviour
     {
         transform.position = _slideStartPosition;
         transform.DOMove(_slideEndPosition, 2).SetEase(Ease.OutCirc);
+        AudioManager.instance.Play("Slide");
 
         Utility.Delay(1, () => _particles.Stop());
 
@@ -37,6 +38,7 @@ public class Beer : MonoBehaviour
                 ()=> 
                 {
                     _clientManager.FillBars(Stats);
+                    AudioManager.instance.Play("Drink");
 
                     transform.DORotate(new Vector3(110, 0, 0), 2).SetEase(Ease.OutCirc).SetDelay(0.2f);
                     transform.DOMoveY(pos.y+0.7f,2).SetEase(Ease.OutCirc).SetDelay(0.2f);
