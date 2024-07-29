@@ -169,19 +169,21 @@ public class Client : MonoBehaviour
     }
     private GradeType GetGrade()
     {
-        float avaragePrerfectValue = 0;
-        float avarageCurrValue = 0;
-
+        float grade = 0;
+        int count = 0;
         AllStats.ForEach(stat =>
         {
             if (ConditionForGrade(stat))
             {
-                avarageCurrValue += stat.CurrentValue;
-                avaragePrerfectValue += stat.PerfecValue;
+                grade += (int)GetGrade(stat.PerfecValue, stat.CurrentValue);
+                count++;
             }
         });
-
-        float percentageError = Mathf.Abs(avaragePrerfectValue - avarageCurrValue) / avaragePrerfectValue * 100;
+        return (GradeType)Mathf.RoundToInt(grade/count);
+    }
+    protected virtual GradeType GetGrade(float perfectValue, float currentValue) 
+    {
+        float percentageError = Mathf.Abs(perfectValue - currentValue) / perfectValue * 100;
         if (percentageError < 5)
             return GradeType.S;
         else if (percentageError < 10)
@@ -195,7 +197,6 @@ public class Client : MonoBehaviour
         else
             return GradeType.F;
     }
-
     protected virtual bool ConditionForGrade(Stat stat)
     {
         return true;
