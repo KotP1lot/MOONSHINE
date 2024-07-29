@@ -6456,7 +6456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2622c904c8ad8046a6016b9b0304a46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VolumeBoost: 4
+  VolumeBoost: 1
   sfx: {fileID: 11400000, guid: 5e2b2856091f05c4583d1c1e1aacce7b, type: 2}
   bulks: {fileID: 11400000, guid: 7315e2dbf22777b459fd33829842d054, type: 2}
   steps: {fileID: 11400000, guid: 066e1325cf02c504bb390bf192718061, type: 2}

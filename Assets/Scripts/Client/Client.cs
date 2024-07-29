@@ -18,22 +18,22 @@ public class Stat
     [SerializeField] public float CurrentValue;
     [SerializeField] public float LowerThreshold;
     [SerializeField] public float UpperThreshold;
-    [SerializeField] public float PerfecValue;
+    [SerializeField] public float PerfectValue;
 
     public bool IsAboveUpperThreshold() => CurrentValue > UpperThreshold;
     public bool IsBelowLowerThreshold() => CurrentValue < LowerThreshold;
 
     public bool IsInThreshold() => CurrentValue >= LowerThreshold && CurrentValue <= UpperThreshold;
 
-    public void SetStat(int max, float maxLowerThreshold, float minUpperThreshold)
+    public void SetStat(int max, float maxLowerThreshold, float stepThreshold)
     {
         CurrentValue = 0;
         Max = max;
         float lowerMax = max * maxLowerThreshold;
-        float upperMin = max * minUpperThreshold; 
+        float upperMin = max * stepThreshold; 
         LowerThreshold = Mathf.RoundToInt(UnityEngine.Random.Range(0, lowerMax));
-        UpperThreshold = Mathf.RoundToInt(UnityEngine.Random.Range(upperMin, max));
-        PerfecValue = Mathf.RoundToInt((LowerThreshold + UpperThreshold) / 2);
+        UpperThreshold = Mathf.RoundToInt(UnityEngine.Random.Range(LowerThreshold + upperMin, max));
+        PerfectValue = Mathf.RoundToInt((LowerThreshold + UpperThreshold) / 2);
     }
 }
 public class Client : MonoBehaviour
@@ -97,12 +97,12 @@ public class Client : MonoBehaviour
     protected void SetStat(int max)
     {
         float maxLowerThreshold = GameManager.Instance.CurrentDay.MaxLowerThreshold;
-        float minUpperThreshold = GameManager.Instance.CurrentDay.MinUpperThreshold;
+        float stepThreshold = GameManager.Instance.CurrentDay.StepThreshold;
 
         AllStats.ForEach(x =>
         {
-            if(x == _toxicity) x.SetStat(max/2, maxLowerThreshold, minUpperThreshold);
-            else x.SetStat(max, maxLowerThreshold, minUpperThreshold);
+            if(x == _toxicity) x.SetStat(max/2, maxLowerThreshold, stepThreshold);
+            else x.SetStat(max, maxLowerThreshold, stepThreshold);
         });
     }
     #endregion
@@ -175,15 +175,33 @@ public class Client : MonoBehaviour
         {
             if (ConditionForGrade(stat))
             {
-                grade += (int)GetGrade(stat.PerfecValue, stat.CurrentValue);
+                grade += (int)GetGrade(stat);
                 count++;
             }
         });
         return (GradeType)Mathf.RoundToInt(grade/count);
     }
-    protected virtual GradeType GetGrade(float perfectValue, float currentValue) 
+    protected virtual GradeType GetGrade(Stat stat) 
     {
-        float percentageError = Mathf.Abs(perfectValue - currentValue) / perfectValue * 100;
+        float curr = stat.CurrentValue;
+        float perf = stat.PerfectValue;
+        float lower = stat.LowerThreshold;
+        float uper = stat.UpperThreshold;
+        float percentageError;
+
+        if (stat.CurrentValue > stat.PerfectValue) 
+        {
+            float diff = uper - perf;
+            float currDif = curr - perf;
+            percentageError = currDif / diff * 100;
+        }
+        else
+        {
+            float diff = perf - lower;
+            float currDif = curr - lower;
+            percentageError = currDif / diff * 100;
+        }
+       
         if (percentageError < 5)
             return GradeType.S;
         else if (percentageError < 10)

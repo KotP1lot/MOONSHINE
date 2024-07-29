@@ -15,5 +15,5 @@ public struct Day
 
     [Header("ClientStat")]
     [Range(0,0.8f)] public float MaxLowerThreshold;
-    [Range(0.1f, 0.8f)] public float MinUpperThreshold;
+    [Range(0.1f, 0.8f)] public float StepThreshold;
 }

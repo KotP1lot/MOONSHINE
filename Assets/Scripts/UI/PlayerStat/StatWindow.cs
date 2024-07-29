@@ -16,7 +16,7 @@ public class StatWindow : MonoBehaviour
         for (int i = 0; i < stats.Count; i++)
         {
             _bars[i].MaxValue = stats[i].Max;
-            _bars[i].SetLimits(stats[i].LowerThreshold, stats[i].PerfecValue, stats[i].UpperThreshold);
+            _bars[i].SetLimits(stats[i].LowerThreshold, stats[i].PerfectValue, stats[i].UpperThreshold);
         }
         ResetValues();
     }
