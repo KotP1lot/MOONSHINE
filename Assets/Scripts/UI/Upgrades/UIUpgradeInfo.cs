@@ -21,7 +21,7 @@ public class UIUpgradeInfo : MonoBehaviour
         else
         {
             _nameTxt.text = info.Type.ToString();
-            for (int i = 0; i < _lvlTxt.Count; i++)
+            for (int i = 0; i < info.LvlInfo.Count; i++)
             {
                 _lvlTxt[i].enabled = true;
                 _lvlTxt[i].text = $"LVL {i + 1}: {info.LvlInfo[i].describe}";

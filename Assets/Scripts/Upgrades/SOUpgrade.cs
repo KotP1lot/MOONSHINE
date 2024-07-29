@@ -7,11 +7,12 @@ public enum UpgradeType
     Shelf,
     E_Shelf,
     Centrifuge,
+
 }
 [CreateAssetMenu()]
 public class SOUpgrade : ScriptableObject
 {
-    public UpgradeType Type;
+    public string Type;
     public Sprite Image;
     public string Description;
     public List<LvlInfo> LvlInfo;

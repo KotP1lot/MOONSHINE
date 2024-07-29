@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
         IsPlayState = true;
         Days.AddAmount(1);
         Silver.ChangeValue(100);
-        _clientManager.StartNewDay(10, 0, 0); 
+        _clientManager.StartNewDay(10, 10, 0); 
     }
     public void GetStars(int value)
     {

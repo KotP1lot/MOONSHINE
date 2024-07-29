@@ -6,11 +6,13 @@ using UnityEngine.UI;
 
 public class UIBribe : MonoBehaviour
 {
-    [SerializeField] GameObject _conteiner;
-
+    [Header("Upgrade")] 
+    [SerializeField] SOUpgrade _so;
     [SerializeField] List<Sprite> _emotions;
     [SerializeField] Image _currEmotion;
-    
+
+    [SerializeField] GameObject _conteiner;
+        
     [SerializeField] TMP_InputField _bribeTxt;
     [SerializeField] Slider _slider;
 
@@ -20,6 +22,11 @@ public class UIBribe : MonoBehaviour
     private int _bribeNeeded;
     private float _percent;
 
+    private void Awake() => _so.OnUpgrade += OnUpgrade;
+    private void OnUpgrade(Upgrade upgrade) 
+    {
+        _currEmotion.gameObject.SetActive(true);
+    }
     public void Setup(int bribe) 
     {
         _slider.maxValue = GameManager.Instance.Gold.Amount;

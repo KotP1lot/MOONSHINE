@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3830f0e48bd99854294790b420bbe1d5, type: 3}
   m_Name: Centrifuge
   m_EditorClassIdentifier: 
-  Type: 3
+  Type: Centrifuge
   Image: {fileID: 1055041709, guid: 38213b0c4e05116449b7bfa5588699dc, type: 3}
   Description: 'Centrifuge: centifuget N times'
   LvlInfo:

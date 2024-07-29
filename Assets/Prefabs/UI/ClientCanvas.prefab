@@ -1440,6 +1440,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5aa181bb1e6543640983362c40e31186, type: 2}
   - {fileID: 11400000, guid: 4da868dcd6afefd409e9a9a255303085, type: 2}
   - {fileID: 11400000, guid: 5f042d612a3b016498842c63c55f1ada, type: 2}
+  - {fileID: 11400000, guid: 73b7083b2670aa94bae43fda5ff2c4d0, type: 2}
+  _defaultUpgrades:
+  - {fileID: 11400000, guid: b52bbc879b201614bba249b2e91fa30b, type: 2}
+  - {fileID: 11400000, guid: 73b7083b2670aa94bae43fda5ff2c4d0, type: 2}
   _propPrefab: {fileID: 3574390067853553196, guid: 41fcd965b6a6cbc40a26c75afccd2ecc, type: 3}
 --- !u!1 &2767789684324549380
 GameObject:
@@ -1570,7 +1574,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7426344289718376593
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2800,12 +2804,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd29e02f5ef28e4c87710c6a108cbf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _conteiner: {fileID: 1023019005897639759}
+  _so: {fileID: 11400000, guid: 73b7083b2670aa94bae43fda5ff2c4d0, type: 2}
   _emotions:
-  - {fileID: 21300000, guid: 68aef9bff555b504583dfd1a760b9863, type: 3}
-  - {fileID: 21300000, guid: 63d038f2d0f9c4248a2539c15efe0aef, type: 3}
-  - {fileID: 21300000, guid: def29ef328a2d514a821f1993f13fbea, type: 3}
+  - {fileID: 1811946361, guid: 37fe1253ea268f641a203707fd6936c4, type: 3}
+  - {fileID: 771953774, guid: 37fe1253ea268f641a203707fd6936c4, type: 3}
+  - {fileID: 848739932, guid: 37fe1253ea268f641a203707fd6936c4, type: 3}
   _currEmotion: {fileID: 4821288647578708470}
+  _conteiner: {fileID: 1023019005897639759}
   _bribeTxt: {fileID: 1919799129658423644}
   _slider: {fileID: 387099064479020509}
 --- !u!1 &4732990126063145077

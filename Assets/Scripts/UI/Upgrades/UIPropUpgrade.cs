@@ -35,16 +35,20 @@ public class UIPropUpgrade : MonoBehaviour, IPointerEnterHandler
         _descTxt.text = SO.Description;
         _image.sprite = SO.Image;
         Upgrade.OnUpgrade += OnUpgrade;
+        for (int i = 0; i < 3; i++) 
+        {
+            _lvlImages[i].enabled = i <= SO.LvlInfo.Count-1;
+        }
     }
     public void LVLUp()
     {
         AudioManager.instance.Play("Roll");
         OnUpgradeConfirm?.Invoke(Upgrade);
-        GameManager.Instance.Gold.Spend(SO.LvlInfo[Upgrade.CurrLvl + 1].cost);
+        GameManager.Instance.Gold.Spend(SO.LvlInfo[Upgrade.CurrLvl].cost);
     }
     public void OnUpgrade()
     {
-        if (Upgrade.CurrLvl == 2)
+        if (Upgrade.IsMaxLevel)
         {
             _buyBtn.interactable = false;
             _costTxt.text = "MAX";
@@ -55,9 +59,10 @@ public class UIPropUpgrade : MonoBehaviour, IPointerEnterHandler
         }
         for (int i = 0; i <= Upgrade.CurrLvl; i++) { _lvlImages[i].sprite = _reachedLvlSprite; }
     }
-    private void CheckGold() 
+    private void CheckGold()
     {
-        int cost = SO.LvlInfo[Upgrade.CurrLvl + 1].cost;
+        if (Upgrade.IsMaxLevel) return;
+            int cost = SO.LvlInfo[Upgrade.CurrLvl + 1].cost;
         _buyBtn.interactable = GameManager.Instance.Gold.Amount >= cost;
         _costTxt.text = cost.ToString();
     }

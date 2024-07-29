@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3830f0e48bd99854294790b420bbe1d5, type: 3}
   m_Name: ShelfEsens
   m_EditorClassIdentifier: 
-  Type: 2
+  Type: E_Shelf
   Image: {fileID: 1368893003, guid: 38213b0c4e05116449b7bfa5588699dc, type: 3}
   Description: 'E_Shelf: unlock esense'
   LvlInfo:

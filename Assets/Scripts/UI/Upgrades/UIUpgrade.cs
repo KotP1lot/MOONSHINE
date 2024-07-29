@@ -9,6 +9,7 @@ public class UIUpgrade : MonoBehaviour
     [Header("Prop")]
     [SerializeField] Transform _propContainer;
     [SerializeField] List<SOUpgrade> _upgradeInfos;
+    [SerializeField] List<SOUpgrade> _defaultUpgrades;
     [SerializeField] UIPropUpgrade _propPrefab;
    
     private List<UIPropUpgrade> _props = new();
@@ -27,7 +28,7 @@ public class UIUpgrade : MonoBehaviour
             _props.Add(ui);
             ui.gameObject.SetActive(false);
         }
-        _props[0].Upgrade.IsUnlocked = true;
+        _defaultUpgrades.ForEach(x => x.OnUnlock?.Invoke());
     }
     private void Update()
     {
