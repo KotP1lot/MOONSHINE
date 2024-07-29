@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] ClientManager _clientManager;
     [SerializeField] int _maxStars;
     [SerializeField] AparatChanger _aparatChanger;
+    [SerializeField] Letter _letter;
 
     [Header("Stats")]
     public int HighestStat;
@@ -115,12 +116,7 @@ public class GameManager : MonoBehaviour
         _daysQueue = new Queue<Day>(_days);
     }
 
-    //TEMP --------------------------------------------------------------------------------------
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && !IsPlayState)
-            StartNewDay();
-    }
+    
     private void ShowMenu(bool isActive) 
     {
         _menu.transform.DOLocalMoveY(isActive ? 30 : 140, 1f).SetEase(Ease.InOutBack);
@@ -135,11 +131,16 @@ public class GameManager : MonoBehaviour
     }
     private void LightTurn(bool isOn) 
     {
-        _lightSprite1.ForEach(x =>
+        AudioManager.instance.Play("Lampa");
+        Utility.Delay(0.5f, () =>
         {
-            x.DOFade(isOn ? 1 : 0, 1.5f).SetEase(Ease.OutFlash, 15, 1);
-        }
+            _lightSprite1.ForEach(x =>
+            {
+                x.DOFade(isOn ? 1 : 0, 1.5f).SetEase(Ease.OutFlash, 15, 1);
+            }
         );
+        });
+        
     }
     //TEMP --------------------------------------------------------------------------------------
     public void StartNewDay()
@@ -190,7 +191,7 @@ public class GameManager : MonoBehaviour
 
     public void SetNewGrade(GradeType grade)
     {
-
+        _letter.ShowLetter(grade);
         Gold.AddAmount(_gradeGold.Find(x => x.Grade == grade).Gold);
         _grade += (int)grade;
         _gradeCount++;

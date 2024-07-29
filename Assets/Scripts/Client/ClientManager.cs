@@ -36,7 +36,7 @@ public class ClientManager : MonoBehaviour
     [SerializeField] UIDialog _uiDialog;
 
     [Header("Temp")]
-    [SerializeField] Stats _stats;
+    [SerializeField] Letter _letter;
 
     public Action OnDayEnd;
     public Action<int> OnGetStar;
@@ -182,6 +182,7 @@ public class ClientManager : MonoBehaviour
         {
             _uiStat.SetActive(false);
             _uiStat.ShowValues(new Stats());
+            _letter.HideLetter();
             OnGetStar?.Invoke(3);
             _uiDialog.ShowText("Kinez", () => { });
             Debug.Log("Kinez");
@@ -193,6 +194,7 @@ public class ClientManager : MonoBehaviour
             _uiDialog.ShowText("The end of the day | +1 star", () => {
                 _uiStat.SetActive(false);
                 _uiStat.ShowValues(new Stats());
+                _letter.HideLetter();
                 OnDayEnd?.Invoke();
             });
             Debug.Log("The end of the day | +1 star");
@@ -219,6 +221,7 @@ public class ClientManager : MonoBehaviour
             }
             _uiStat.SetActive(false);
             _uiStat.ShowValues(new Stats());
+            _letter.HideLetter();
             _currentClient.MoveOut();
             if (--_clientCount <= 0)
             {
