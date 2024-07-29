@@ -36,6 +36,8 @@ public class BarrelAnimation : MonoBehaviour
             _cookButton.gameObject.SetActive(false);
 
             _lid.transform.DOLocalMoveY(5.7f, 0.7f).SetEase(Ease.OutBounce);
+            Utility.Delay(0.3f, () => AudioManager.instance.Play("Bonk"));
+            Utility.Delay(0.5f, () => AudioManager.instance.Play("Bonk2"));
         };
 
         Utility.Delay(1.5f, () =>
@@ -82,6 +84,7 @@ public class BarrelAnimation : MonoBehaviour
             Utility.Delay(0.15f, ()=>
                 {
                     _particles.Play();
+                    AudioManager.instance.Play("Steam");
 
                     _lid.transform.DOLocalMoveY(11f, 0.4f).SetEase(Ease.OutCirc);
                     _lid.transform.DORotate(new Vector3(0, 0, 360 * 2), 0.3f, RotateMode.FastBeyond360).SetEase(Ease.Linear);

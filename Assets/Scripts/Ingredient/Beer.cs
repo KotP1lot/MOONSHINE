@@ -53,6 +53,7 @@ public class Beer : MonoBehaviour
 
             Utility.Delay(5, () =>
             {
+                AudioManager.instance.Play("Swap");
                 transform.DOJump(new Vector3(10, -8, -28), 5, 1, 2).SetEase(Ease.OutCirc);
                 transform.DORotate(new Vector3(0, 0, 360 * 6), 2, RotateMode.FastBeyond360).SetEase(Ease.OutCirc)
                     .onComplete=()=>Destroy(gameObject);

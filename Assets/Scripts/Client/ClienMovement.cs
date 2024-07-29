@@ -31,6 +31,7 @@ public class ClientMovement : MonoBehaviour
     {
 
         Tween wobbling = transform.DOLocalMoveY(-0.5f + _visual.Offset.y, 0.15f).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
+        wobbling.onStepComplete = () => { if(transform.localPosition.y - _visual.Offset.y < -0.4f) AudioManager.instance.Step(); };
         transform.DOLocalMoveX((isEnter ? 0 : -15) + _visual.Offset.x, isEnter? 2f:1.8f).SetEase(Ease.Linear).OnComplete(() =>
         {
             wobbling.Kill();
