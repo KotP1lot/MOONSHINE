@@ -137,20 +137,21 @@ public class ClientManager : MonoBehaviour
         else
             OnBribeFailure();
     }
-    private void OnCondemnConfirm() 
+    private void OnCondemnConfirm()
     {
+        OnGetStar?.Invoke(1);
         _uiDialog.ShowText("+1 star :(", () => {
             SpawnNewClient();
-            OnGetStar?.Invoke(1);
         });
         Debug.Log("+1 star :(");
     }
     private void OnBribeFailure()
     {
+        OnGetStar?.Invoke(1);
+
         _uiDialog.ShowText("Ya z ne loh >:( \n +1 star!", () =>
         {
             SpawnNewClient();
-            OnGetStar?.Invoke(1);
         });
         Debug.Log("Ya z ne loh >:( \n +1 star!");
     }
@@ -184,19 +185,20 @@ public class ClientManager : MonoBehaviour
     {
         if (_currentClient is Policeman)
         {
-            _uiDialog.ShowText("Kinez", () => { });
+            OnGetStar?.Invoke(3);
+            _uiDialog.ShowText("Kinez", () => {  });
             Debug.Log("Kinez");
         }
         else
         {
+            OnGetStar?.Invoke(1);
+
             _uiDialog.ShowText("The end of the day | +1 star", () => {
-                OnGetStar?.Invoke(1);
                 OnDayEnd?.Invoke();
             });
             Debug.Log("The end of the day | +1 star");
         }
     }
-
     private void OnClientSatisfiedHandler(bool isSat, GradeType grade)
     {
         GameManager.Instance.Gold.AddAmount(isSat
@@ -235,6 +237,7 @@ public class ClientManager : MonoBehaviour
             _uiStat.SetActive(false);
             _currentClient.MoveOut();
         }
+        if (!GameManager.Instance.IsPlayState) return;
         switch (_queue.Dequeue()) 
         {
             case ClientType.Client:

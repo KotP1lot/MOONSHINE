@@ -38,8 +38,10 @@ public class GameManager : MonoBehaviour
     public Value Gold { get; private set; }
     public Value Stars { get; private set; }
     public Value Days { get; private set; }
+    public bool IsPlayState { get; private set; }
 
     private Resetter[] _resetters;
+
 
     private void Awake()
     {
@@ -51,7 +53,7 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
-        _clientManager.OnDayEnd += StartNewDay;
+        _clientManager.OnDayEnd += OnDayEnded;
         _clientManager.OnGetStar += GetStars;
         Silver = new();
         Gold = new();
@@ -62,7 +64,7 @@ public class GameManager : MonoBehaviour
     }
     private void OnDisable()
     {
-        _clientManager.OnDayEnd -= StartNewDay;
+        _clientManager.OnDayEnd -= OnDayEnded;
         _clientManager.OnGetStar -= GetStars;
     }
     private void Start()
@@ -70,19 +72,24 @@ public class GameManager : MonoBehaviour
         Gold.AddAmount(30);
         StartNewDay();
     }
-    private void StartNewDay() 
+    private void OnDayEnded() 
     {
+        IsPlayState = false;
+    }
+    private void StartNewDay()
+    {
+        IsPlayState = true;
         Days.AddAmount(1);
         Silver.ChangeValue(10);
-        _clientManager.StartNewDay(10, 0, 10); 
+        _clientManager.StartNewDay(10, 0, 0); 
     }
     public void GetStars(int value)
     {
-        Debug.Log("GameManager");
         Stars.AddAmount(value);
         if (Stars.Amount >= _maxStars) 
         {
-            Debug.Log("KINEZ");
+            GlobalEvents.Instance.OnGameEnded?.Invoke();
+            IsPlayState = false;
             return;
         }
     }

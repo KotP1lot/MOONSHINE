@@ -37,6 +37,11 @@ public class ClientMovement : MonoBehaviour
             func();
         });
     }
+
+    public void DieAnim() 
+    {
+        transform.DOLocalMoveY(-10f, 2f).SetEase(Ease.InOutBack);
+    }
     private void OnDisable()
     {
         OnClientReady = null;

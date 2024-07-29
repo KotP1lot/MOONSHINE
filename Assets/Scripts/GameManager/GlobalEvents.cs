@@ -20,4 +20,5 @@ public class GlobalEvents: MonoBehaviour
     public Action BeforeBeerCook;
     public Action<CameraPosType> OnChangeCameraPos;
     public Action<List<Stat>> OnClientStatUpdated;
+    public Action OnGameEnded;
 }

@@ -210,6 +210,7 @@ public class Client : MonoBehaviour
     protected void Die()
     {
         OnClientDied?.Invoke();
+        _movement.DieAnim();
     }
 }
 
