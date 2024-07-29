@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UIPlayerStats : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI _money;
+    [SerializeField] TextMeshProUGUI _silver;
     [SerializeField] TextMeshProUGUI _days;
 
     [SerializeField] UIStar _starPref;
@@ -14,14 +15,20 @@ public class UIPlayerStats : MonoBehaviour
     private void Start()
     {
         GameManager.Instance.Gold.OnResourceChanged += OnMoneyChanged;
+        GameManager.Instance.Silver.OnResourceChanged += OnSilverChanged;
         GameManager.Instance.Stars.OnResourceChanged += OnStarChanged;
         GameManager.Instance.Days.OnResourceChanged += OnDaysChanged;
     }
     private void OnDisable()
     {
         GameManager.Instance.Gold.OnResourceChanged -= OnMoneyChanged;
+        GameManager.Instance.Silver.OnResourceChanged -= OnMoneyChanged;
         GameManager.Instance.Stars.OnResourceChanged -= OnStarChanged;
         GameManager.Instance.Days.OnResourceChanged -= OnDaysChanged;
+    }
+    public void OnSilverChanged(int value) 
+    {
+        _silver.text = $"{value}";
     }
     public void OnMoneyChanged(int value) 
     {

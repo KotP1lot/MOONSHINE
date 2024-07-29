@@ -2963,7 +2963,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c2c6a65daf99904988ed07f50966986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _money: {fileID: 525255849}
+  _money: {fileID: 1074548180}
+  _silver: {fileID: 525255849}
   _days: {fileID: 2131108177}
   _starPref: {fileID: 223031145969782692, guid: 38dfb5d78326207409d1409d11c0daa2, type: 3}
   _stars: {fileID: 2070999792}
