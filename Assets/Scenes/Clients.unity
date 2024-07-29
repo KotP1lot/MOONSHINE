@@ -4942,6 +4942,8 @@ MonoBehaviour:
     Price: 3
   - Rarity: 2
     Price: 4
+  _minBribe: 10
+  _maxBribe: 25
 --- !u!114 &1221354226
 MonoBehaviour:
   m_ObjectHideFlags: 0

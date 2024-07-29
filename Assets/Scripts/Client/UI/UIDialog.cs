@@ -35,7 +35,7 @@ public class UIDialog : MonoBehaviour
     public void ShowBribeUI() 
     {
          _uIBribe.SetActive(true);
-        _uIBribe.Setup(UnityEngine.Random.Range(10,1001));
+        _uIBribe.Setup(GameManager.Instance.GetBribe());
         _bribeBtn.interactable = false;
     }
     public void OnConfirmClick()

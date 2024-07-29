@@ -164,6 +164,7 @@ public class ClientManager : MonoBehaviour
     {
         Debug.Log("SHOW STATS");
         _uiStat.ShowStats(_currentClient.AllStats);
+        GameManager.Instance.Silver.ChangeValue(100);
         _uiDialog.ShowText("Give me PIVO!", () => {
             GlobalEvents.Instance.OnChangeCameraPos?.Invoke(CameraPosType.Brewery);
             GlobalEvents.Instance.OnClientStatUpdated?.Invoke(_currentClient.AllStats);

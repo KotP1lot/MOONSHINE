@@ -46,15 +46,22 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _essenceTopCost;
     [SerializeField] private RarityPrice[] _rarityPrices;
 
+    [Header("Bribe _ Temp")]
+    [SerializeField] private int _minBribe;
+    [SerializeField] private int _maxBribe;
     public Value Silver { get; private set; }
     public Value Gold { get; private set; }
     public Value Stars { get; private set; }
     public Value Days { get; private set; }
     public bool IsPlayState { get; private set; }
 
+
     private Resetter[] _resetters;
 
-
+    public int GetBribe() 
+    {
+        return UnityEngine.Random.Range(_minBribe, _maxBribe+1);
+    }
     private void Awake()
     {
         if (Instance != null && Instance != this)
