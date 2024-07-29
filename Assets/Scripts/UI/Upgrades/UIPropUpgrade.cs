@@ -12,6 +12,8 @@ public class UIPropUpgrade : MonoBehaviour, IPointerClickHandler
     [SerializeField] Button _buyBtn;
     [SerializeField] TextMeshProUGUI _costTxt;
     [SerializeField] List<Image> _lvlImages;
+    
+    [SerializeField] Sprite _reachedLvlSprite;
 
     public SOUpgrade SO;
     public Upgrade Upgrade;
@@ -50,7 +52,7 @@ public class UIPropUpgrade : MonoBehaviour, IPointerClickHandler
         {
             CheckGold();
         }
-        for(int i = 0; i<=Upgrade.CurrLvl; i++) { _lvlImages[i].color = Color.green; }
+        for (int i = 0; i <= Upgrade.CurrLvl; i++) { _lvlImages[i].sprite = _reachedLvlSprite; }
     }
     private void CheckGold() 
     {

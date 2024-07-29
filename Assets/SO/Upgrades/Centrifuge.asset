@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Centrifuge
   m_EditorClassIdentifier: 
   Type: 3
-  Image: {fileID: 21300000, guid: 638ed3887a3fc6846894dfb1a4a76d1a, type: 3}
+  Image: {fileID: 1055041709, guid: 38213b0c4e05116449b7bfa5588699dc, type: 3}
   Description: 'Centrifuge: centifuget N times'
   LvlInfo:
   - bonus: 1
@@ -26,3 +26,4 @@ MonoBehaviour:
     describe: N = 3
     cost: 15
   Unlock: []
+  AlsoUpgrade: []

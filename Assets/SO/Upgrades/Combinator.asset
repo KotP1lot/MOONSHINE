@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Combinator
   m_EditorClassIdentifier: 
   Type: 0
-  Image: {fileID: 21300000, guid: 90335264a12747d43a2dd68d94a11d8f, type: 3}
+  Image: {fileID: 311357246, guid: 38213b0c4e05116449b7bfa5588699dc, type: 3}
   Description: 'Combinator: combine N times'
   LvlInfo:
   - bonus: 1
