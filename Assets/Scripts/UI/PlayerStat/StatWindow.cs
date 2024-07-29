@@ -4,10 +4,6 @@ using UnityEngine;
 public class StatWindow : MonoBehaviour
 {
     [SerializeField] private float _maxValue;
-    [Space(10)]
-    [SerializeField] private Stats _lowLimit;
-    [SerializeField] private Stats _highLimit;
-    [SerializeField] private Stats _ideal;
 
     private StatBar[] _bars;
 
@@ -25,11 +21,11 @@ public class StatWindow : MonoBehaviour
         ResetValues();
     }
 
-    public void SetStats(Stats stats)
+    public void SetStats(Stats stats,float duration = 0.4f)
     {
         for (int i = 0; i < _bars.Length; i++)
         {
-            _bars[i].SetValue(stats.Array[i]);
+            _bars[i].SetValue(stats.Array[i],duration);
         }
     }
 

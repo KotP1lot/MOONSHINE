@@ -38,6 +38,7 @@ public class UIPropUpgrade : MonoBehaviour, IPointerEnterHandler
     }
     public void LVLUp()
     {
+        AudioManager.instance.Play("Roll");
         OnUpgradeConfirm?.Invoke(Upgrade);
         GameManager.Instance.Gold.Spend(SO.LvlInfo[Upgrade.CurrLvl + 1].cost);
     }

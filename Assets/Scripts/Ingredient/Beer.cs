@@ -36,6 +36,8 @@ public class Beer : MonoBehaviour
             transform.DOMove(new Vector3(pos.x, pos.y-1.2f, -28),0.5f).onComplete=
                 ()=> 
                 {
+                    _clientManager.FillBars(Stats);
+
                     transform.DORotate(new Vector3(110, 0, 0), 2).SetEase(Ease.OutCirc).SetDelay(0.2f);
                     transform.DOMoveY(pos.y+0.7f,2).SetEase(Ease.OutCirc).SetDelay(0.2f);
                     _meshRenderer.transform.DOScaleY(0,2f).SetEase(Ease.OutCirc).SetDelay(0.3f)

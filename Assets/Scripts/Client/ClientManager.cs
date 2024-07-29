@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ClientManager : MonoBehaviour
 {
-    private enum ClientType 
+    private enum ClientType
     {
         Client,
         Police,
@@ -20,7 +20,7 @@ public class ClientManager : MonoBehaviour
     [SerializeField] private ClientCollection _clientCollection;
     private Client _currentClient;
     private Queue<Client> _clients = new();
-    
+
     private Queue<ClientType> _queue = new();
 
     [Header("Policeman")]
@@ -69,7 +69,7 @@ public class ClientManager : MonoBehaviour
             Destroy(client.gameObject);
         }
     }
-    public void StartNewDay(int clientCount, int policemenCount, int undercoverPolicemenCount) 
+    public void StartNewDay(int clientCount, int policemenCount, int undercoverPolicemenCount)
     {
         _clientCount = clientCount;
         _policemenCount = policemenCount;
@@ -79,7 +79,7 @@ public class ClientManager : MonoBehaviour
         SpawnNewClient();
     }
     #region CREATE CLIENTS
-    private void CreateQueue() 
+    private void CreateQueue()
     {
         List<ClientType> clients = new List<ClientType>(_clientCount);
 
@@ -89,7 +89,7 @@ public class ClientManager : MonoBehaviour
 
         _queue = new(clients.ShuffleList());
     }
-    private void CreatePolicement() 
+    private void CreatePolicement()
     {
         Policeman policement = Instantiate(_policemenPref, transform);
         policement.transform.localPosition = new Vector2(15, 0);
@@ -155,7 +155,7 @@ public class ClientManager : MonoBehaviour
         });
         Debug.Log("Ya z ne loh >:( \n +1 star!");
     }
-    private void OnBribeSuccess() 
+    private void OnBribeSuccess()
     {
         _uiDialog.ShowText("ok :)", SpawnNewClient);
         Debug.Log("Sho tut?");
@@ -186,7 +186,7 @@ public class ClientManager : MonoBehaviour
         if (_currentClient is Policeman)
         {
             OnGetStar?.Invoke(3);
-            _uiDialog.ShowText("Kinez", () => {  });
+            _uiDialog.ShowText("Kinez", () => { });
             Debug.Log("Kinez");
         }
         else
@@ -235,10 +235,11 @@ public class ClientManager : MonoBehaviour
                 return;
             }
             _uiStat.SetActive(false);
+            _uiStat.ShowValues(new Stats());
             _currentClient.MoveOut();
         }
         if (!GameManager.Instance.IsPlayState) return;
-        switch (_queue.Dequeue()) 
+        switch (_queue.Dequeue())
         {
             case ClientType.Client:
                 _currentClient = _clients.Dequeue();
@@ -254,10 +255,14 @@ public class ClientManager : MonoBehaviour
                 break;
         }
     }
-    public void Confirm(Stats stats) 
+    public void Confirm(Stats stats)
     {
         _currentClient.Drink(stats);
     }
+    public void FillBars(Stats stats)
+    {
+        _uiStat.ShowValues(stats,2);
+    } 
     public Client GetCurrentClient()
     {
     return _currentClient; }

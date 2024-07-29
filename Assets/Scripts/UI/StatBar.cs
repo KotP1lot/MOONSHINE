@@ -85,16 +85,18 @@ public class StatBar : MonoBehaviour
         _ideal.rectTransform.anchoredPosition = PercentToPos(_idealValue / MaxValue);
     }
 
-    public void SetValue(float value)
+    public void SetValue(float value, float duration = 0.4f)
     {
         _fillValue = value;
 
         var fillPercent = Mathf.Clamp01(_fillValue / MaxValue);
         _fillBar.rectTransform.DOKill();
 
+        var ease = duration==0.4f? Ease.OutCirc : Ease.InOutQuad;
+
         _isTweening = true;
         _fillBar.rectTransform.DOSizeDelta(new Vector3(PercentToPos(fillPercent).x,
-            _fillBar.rectTransform.sizeDelta.y), 0.4f).SetEase(Ease.OutCirc)
+            _fillBar.rectTransform.sizeDelta.y), duration).SetEase(ease)
             .onComplete = ()=> 
             {
                 _isTweening = false;
