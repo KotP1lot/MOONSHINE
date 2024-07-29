@@ -179,6 +179,7 @@ public class ClientManager : MonoBehaviour
     }
     private void OnClientFeelSickHandler()
     {
+        GameManager.Instance.SetNewGrade(GradeType.F);
         _uiDialog.ShowText("clienty ploha", SpawnNewClient);
         Debug.Log("clienty ploha");
     }
@@ -193,7 +194,7 @@ public class ClientManager : MonoBehaviour
         else
         {
             OnGetStar?.Invoke(1);
-
+            GameManager.Instance.SetNewGrade(GradeType.F); 
             _uiDialog.ShowText("The end of the day | +1 star", () => {
                 OnDayEnd?.Invoke();
             });
@@ -202,18 +203,8 @@ public class ClientManager : MonoBehaviour
     }
     private void OnClientSatisfiedHandler(bool isSat, GradeType grade)
     {
-        GameManager.Instance.Gold.AddAmount(isSat
-            ? grade switch
-            {
-                GradeType.S => 100,
-                GradeType.A => 80,
-                GradeType.B => 60,
-                GradeType.C => 40,
-                GradeType.D => 20,
-                _ => 5
-            }
-        : 0);
-        _uiDialog.ShowText(isSat ? $"CLIENT DOVOLEN | Grade: {grade}" : "CLIENT NE DOVOLEN >:(", SpawnNewClient);
+        GameManager.Instance.SetNewGrade(isSat?grade:GradeType.F); 
+        _uiDialog.ShowText(isSat ? $"CLIENT DOVOLEN | Grade: {grade}" : $"CLIENT NE DOVOLEN >:( \n Grade: {GradeType.F}", SpawnNewClient);
     }
 
     #endregion

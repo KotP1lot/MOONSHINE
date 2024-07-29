@@ -49,6 +49,11 @@ public class GameManager : MonoBehaviour
     [Header("Bribe _ Temp")]
     [SerializeField] private int _minBribe;
     [SerializeField] private int _maxBribe;
+
+    [Header("Reputation")]
+    [SerializeField] private GradeType _reputation;
+    private int _gradeCount;
+    private int _grade;
     public Value Silver { get; private set; }
     public Value Gold { get; private set; }
     public Value Stars { get; private set; }
@@ -132,5 +137,22 @@ public class GameManager : MonoBehaviour
     public int GetEssenceCost(float strength)
     {
         return Mathf.RoundToInt(strength/HighestEssencePercent * _essenceTopCost);
+    }
+
+    public void SetNewGrade(GradeType grade)
+    {
+        Gold.AddAmount(grade switch
+            {
+                GradeType.S => 100,
+                GradeType.A => 80,
+                GradeType.B => 60,
+                GradeType.C => 40,
+                GradeType.D => 20,
+                _ => 0
+            });
+        _grade += (int)grade;
+        _gradeCount++;
+        _reputation = (GradeType) Mathf.RoundToInt((float)_grade / (float)_gradeCount);
+        Debug.Log(_reputation);
     }
 }

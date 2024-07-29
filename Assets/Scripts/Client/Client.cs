@@ -4,11 +4,12 @@ using UnityEngine;
 
 public enum GradeType
 {
-    S,
-    A,
-    B,
+    F,
+    D,
     C,
-    D
+    B,
+    A,
+    S
 }
 [Serializable]
 public class Stat
@@ -178,16 +179,18 @@ public class Client : MonoBehaviour
         });
 
         float percentageError = Mathf.Abs(avaragePrerfectValue - avarageCurrValue) / avaragePrerfectValue * 100;
-        if (percentageError  < 5)
+        if (percentageError < 5)
             return GradeType.S;
-        else if (percentageError  < 10)
+        else if (percentageError < 10)
             return GradeType.A;
-        else if (percentageError  < 15)
+        else if (percentageError < 15)
             return GradeType.B;
-        else if (percentageError  < 20)
+        else if (percentageError < 20)
             return GradeType.C;
-        else
+        else if (percentageError < 25)
             return GradeType.D;
+        else
+            return GradeType.F;
     }
 
     protected virtual bool ConditionForGrade(Stat stat)
