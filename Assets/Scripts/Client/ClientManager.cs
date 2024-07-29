@@ -49,13 +49,6 @@ public class ClientManager : MonoBehaviour
 
         _uiBribe.OnBribeResult += OnBribeResult;
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Confirm(_stats);
-        }
-    }
     private void OnDisable()
     {
         _uiBribe.OnBribeResult -= OnBribeResult;

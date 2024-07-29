@@ -25,14 +25,14 @@ public class Stat
 
     public bool IsInThreshold() => CurrentValue >= LowerThreshold && CurrentValue <= UpperThreshold;
 
-    public void SetStat(int max)
+    public void SetStat(int max, float maxLowerThreshold, float minUpperThreshold)
     {
         CurrentValue = 0;
         Max = max;
-        float lowerMax = max * 0.65f;
-        float upperMin = max * 0.15f; 
+        float lowerMax = max * maxLowerThreshold;
+        float upperMin = max * minUpperThreshold; 
         LowerThreshold = Mathf.RoundToInt(UnityEngine.Random.Range(0, lowerMax));
-        UpperThreshold = Mathf.RoundToInt(UnityEngine.Random.Range(LowerThreshold + upperMin, max));
+        UpperThreshold = Mathf.RoundToInt(UnityEngine.Random.Range(upperMin, max));
         PerfecValue = Mathf.RoundToInt((LowerThreshold + UpperThreshold) / 2);
     }
 }
@@ -96,10 +96,13 @@ public class Client : MonoBehaviour
 
     protected void SetStat(int max)
     {
+        float maxLowerThreshold = GameManager.Instance.CurrentDay.MaxLowerThreshold;
+        float minUpperThreshold = GameManager.Instance.CurrentDay.MinUpperThreshold;
+
         AllStats.ForEach(x =>
         {
-            if(x == _toxicity) x.SetStat(max/2);
-            else x.SetStat(max);
+            if(x == _toxicity) x.SetStat(max/2, maxLowerThreshold, minUpperThreshold);
+            else x.SetStat(max, maxLowerThreshold, minUpperThreshold);
         });
     }
     #endregion

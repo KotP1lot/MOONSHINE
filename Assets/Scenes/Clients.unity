@@ -4872,7 +4872,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1221354224}
-  - component: {fileID: 1221354223}
   - component: {fileID: 1221354225}
   - component: {fileID: 1221354226}
   m_Layer: 0
@@ -4882,18 +4881,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1221354223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1221354222}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d9cbb32a7251314599ec2861208d063, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1221354224
 Transform:
   m_ObjectHideFlags: 0
@@ -4922,7 +4909,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _clientManager: {fileID: 15723668}
-  _uiPlayerStats: {fileID: 0}
   _maxStars: 3
   _aparatChanger: {fileID: 2897677142549019183}
   HighestStat: 9
@@ -4942,9 +4928,29 @@ MonoBehaviour:
     Price: 3
   - Rarity: 2
     Price: 4
-  _minBribe: 10
-  _maxBribe: 25
-  _reputation: 0
+  _days:
+  - ClientCount: 5
+    PoliceCount: 0
+    UnderoverPoliceCount: 0
+    MinBribe: 0
+    MaxBribe: 0
+    MaxLowerThreshold: 0.2
+    MinUpperThreshold: 0.6
+  _silverPerClient: 100
+  _startGoldAmount: 20
+  _gradeGold:
+  - Grade: 0
+    Gold: 0
+  - Grade: 1
+    Gold: 0
+  - Grade: 2
+    Gold: 0
+  - Grade: 3
+    Gold: 0
+  - Grade: 4
+    Gold: 0
+  - Grade: 5
+    Gold: 0
 --- !u!114 &1221354226
 MonoBehaviour:
   m_ObjectHideFlags: 0

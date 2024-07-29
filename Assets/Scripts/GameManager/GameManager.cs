@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -28,12 +29,17 @@ public struct RarityPrice
     public int Price;
 }
 
+[Serializable]
+public struct GradeGold 
+{
+    public GradeType Grade;
+    public int Gold;
+}
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
     [SerializeField] ClientManager _clientManager;
-    [SerializeField] UIPlayerStats _uiPlayerStats;
     [SerializeField] int _maxStars;
     [SerializeField] AparatChanger _aparatChanger;
 
@@ -46,14 +52,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _essenceTopCost;
     [SerializeField] private RarityPrice[] _rarityPrices;
 
-    [Header("Bribe _ Temp")]
-    [SerializeField] private int _minBribe;
-    [SerializeField] private int _maxBribe;
+    [Header("Days")]
+    [SerializeField] List<Day> _days;
+    private Queue<Day> _daysQueue;
+    public Day CurrentDay { get; private set; }
 
-    [Header("Reputation")]
-    [SerializeField] private GradeType _reputation;
+
+    [Header("Macro")]
+    [SerializeField] private int _silverPerClient;
+    [SerializeField] private int _startGoldAmount;
+    [SerializeField] private List<GradeGold> _gradeGold;
+    private GradeType _reputation;
     private int _gradeCount;
     private int _grade;
+    
+    
     public Value Silver { get; private set; }
     public Value Gold { get; private set; }
     public Value Stars { get; private set; }
@@ -65,7 +78,7 @@ public class GameManager : MonoBehaviour
 
     public int GetBribe() 
     {
-        return UnityEngine.Random.Range(_minBribe, _maxBribe+1);
+        return UnityEngine.Random.Range(CurrentDay.MinBribe, CurrentDay.MaxBribe + 1);
     }
     private void Awake()
     {
@@ -93,19 +106,35 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        Gold.AddAmount(30);
-        StartNewDay();
+        Gold.AddAmount(_startGoldAmount);
+        _daysQueue = new Queue<Day>(_days);
+    }
+
+    //TEMP --------------------------------------------------------------------------------------
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && !IsPlayState)
+            StartNewDay();
+    }
+    private void ShowMenu() 
+    {
+        //показувати меню між днями.    
     }
     private void OnDayEnded() 
     {
+        if (_daysQueue.Count == 0) { /*кінець гри*/ }
         IsPlayState = false;
     }
+    //TEMP --------------------------------------------------------------------------------------
     private void StartNewDay()
-    {
+    { 
+        CurrentDay = _daysQueue.Dequeue();
         IsPlayState = true;
         Days.AddAmount(1);
-        Silver.ChangeValue(100);
-        _clientManager.StartNewDay(10, 10, 0); 
+        Silver.ChangeValue(_silverPerClient);
+        _clientManager.StartNewDay(CurrentDay.ClientCount, 
+            CurrentDay.PoliceCount,
+            CurrentDay.UnderoverPoliceCount); 
     }
     public void GetStars(int value)
     {
@@ -141,15 +170,8 @@ public class GameManager : MonoBehaviour
 
     public void SetNewGrade(GradeType grade)
     {
-        Gold.AddAmount(grade switch
-            {
-                GradeType.S => 100,
-                GradeType.A => 80,
-                GradeType.B => 60,
-                GradeType.C => 40,
-                GradeType.D => 20,
-                _ => 0
-            });
+
+        Gold.AddAmount(_gradeGold.Find(x => x.Grade == grade).Gold);
         _grade += (int)grade;
         _gradeCount++;
         _reputation = (GradeType) Mathf.RoundToInt((float)_grade / (float)_gradeCount);
