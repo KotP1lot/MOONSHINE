@@ -51,7 +51,7 @@ public class Beer : MonoBehaviour
             _clientManager.Confirm(Stats);
 
             transform.DORotate(new Vector3(0, 0, 0), 1).SetEase(Ease.InQuad);
-            transform.DOMoveY(_slideEndPosition.y, 1).SetEase(Ease.InCirc).SetDelay(0.2f);
+            transform.DOMoveY(_slideEndPosition.y, 1).SetEase(Ease.InCirc).SetDelay(0.2f).onComplete=()=>AudioManager.instance.Play("Bonk");
 
             Utility.Delay(5, () =>
             {

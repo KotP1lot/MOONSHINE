@@ -56,8 +56,8 @@ MonoBehaviour:
     mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
     source: {fileID: 0}
   - name: Swap
-    clip: {fileID: 8300000, guid: fd07fdc870548554db7173b0af94a742, type: 3}
-    volume: 0.5
+    clip: {fileID: 8300000, guid: 810aa7a103718b743b40671bd3e95162, type: 3}
+    volume: 0.15
     pitch: 1
     loop: 0
     mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
@@ -99,7 +99,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Barrel
     clip: {fileID: 8300000, guid: 8f53d12dd966e90449689ffa08a623b9, type: 3}
-    volume: 0.2
+    volume: 0.1
     pitch: 1
     loop: 0
     mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
@@ -148,14 +148,14 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Slide
     clip: {fileID: 8300000, guid: a8f6a46d02b0c9949b72453ab3b5a3a2, type: 3}
-    volume: 0.2
+    volume: 0.3
     pitch: 1
     loop: 0
     mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
     source: {fileID: 0}
   - name: Drink
     clip: {fileID: 8300000, guid: a1602e6a22a0c4b459f95aebb81a8695, type: 3}
-    volume: 0.2
+    volume: 0.3
     pitch: 1
     loop: 0
     mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}

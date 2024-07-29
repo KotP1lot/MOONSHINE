@@ -65,7 +65,6 @@ public class AparatChanger : MonoBehaviour
         if (_isChecking || _IsMoving) return;
         Hide(_aparats.Where(x=>Array.IndexOf(_aparats,x)!=index).ToArray());
         _callback = () => { Appear(_aparats[index]); };
-        AudioManager.instance.Play("Swap");
 
         SetActiveButton(index);
     }
@@ -88,7 +87,10 @@ public class AparatChanger : MonoBehaviour
         {
             if(aparat.gameObject.activeSelf)
             {
-                aparat.ChangeState(() => { MoveToStack(aparat.transform); });
+                aparat.ChangeState(() => { 
+                    MoveToStack(aparat.transform);
+                    AudioManager.instance.Play("Swap");
+                });
             }
         }
     }
