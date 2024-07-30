@@ -34,7 +34,21 @@ public struct RarityPrice
 public struct GradeGold 
 {
     public GradeType Grade;
-    public int Gold;
+    public int MinGold;
+    public int MaxGold;
+}
+[Serializable]
+public struct Finish 
+{
+    public FinishType FinishType;
+    public Sprite Sprite;
+}
+public enum FinishType 
+{
+    Police,
+    Bad,
+    Normal,
+    Super
 }
 public class GameManager : MonoBehaviour
 {
@@ -72,6 +86,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<SpriteRenderer> _lightSprite1;
     [SerializeField] private GameObject _menu;
 
+    [Header("MainMenu")]
+    [SerializeField] private RectTransform _mainMenu;
+    [SerializeField] private RectTransform _playerStats;
+
+    [Header("Finish")]
+    [SerializeField] private GameObject _newSpaper;
+    [SerializeField] private CanvasGroup _endScreen;
+    [SerializeField] private List<Finish> _finishes;
     public Value Silver { get; private set; }
     public Value Gold { get; private set; }
     public Value Stars { get; private set; }
@@ -81,7 +103,7 @@ public class GameManager : MonoBehaviour
 
     private Resetter[] _resetters;
 
-    public int GetBribe() 
+    public int GetBribe()
     {
         return UnityEngine.Random.Range(CurrentDay.MinBribe, CurrentDay.MaxBribe + 1);
     }
@@ -109,25 +131,76 @@ public class GameManager : MonoBehaviour
         _clientManager.OnDayEnd -= OnDayEnded;
         _clientManager.OnGetStar -= GetStars;
     }
-    private void Start()
+    public void MainMenu(bool isActive)
     {
-        Gold.AddAmount(_startGoldAmount);
-        Silver.ChangeValue(_silverPerClient);
-        _daysQueue = new Queue<Day>(_days);
-    }
+        if (!isActive) 
+        {
+            Gold.ChangeValue(_startGoldAmount);
+            Silver.ChangeValue(_silverPerClient);
+            Stars.Reset();
+            Days.Reset();
+            _gradeCount = 0;
+            _grade = 0;
+            _daysQueue = new Queue<Day>(_days);
+        }
+        _mainMenu.DOAnchorPosY(isActive ? 0 : 140, 1f).SetEase(Ease.InOutBack);
+        _playerStats.DOAnchorPosX(isActive ? -40 : 0, 1f).SetEase(Ease.InOutBack);
 
-    
+        StartNewDay();
+    }
+    public void Restart()
+    {
+        _newSpaper.transform.DOScale(0, 0.7f).SetEase(Ease.InCirc);
+        _endScreen.DOFade(0, 1f).SetEase(Ease.InCirc).OnComplete(() =>
+            MainMenu(true)
+        );
+    }
+    public void End()
+    {
+        FinishType type;
+        if (Stars.Amount >= 3) type = FinishType.Police; 
+        else if ((int)_reputation < 2) type = FinishType.Bad;  // < C
+        else if ((int)_reputation < 4) type = FinishType.Normal; // < A
+        else type = FinishType.Super; // >= A 
+
+        Debug.Log(type);
+
+        _newSpaper.GetComponent<SpriteRenderer>().sprite = _finishes.Find(x => x.FinishType == type).Sprite;
+
+        LightTurn(false);
+        Utility.Delay(1.5f, () =>
+        _endScreen.DOFade(1, 1f).SetEase(Ease.InCirc).OnComplete(() =>
+        {
+            _newSpaper.transform.DOScale(1, 0.7f).SetEase(Ease.InCirc).onComplete = () =>
+            {
+                _newSpaper.transform.DOScale(1.5f, 0.1f).SetEase(Ease.Linear).onComplete = () =>
+                _newSpaper.transform.DOScale(1f, 0.2f).SetEase(Ease.OutCirc);
+            };
+
+            _newSpaper.transform.DOLocalRotate(new Vector3(0, 0, 1800), 0.5f, RotateMode.FastBeyond360)
+                .SetEase(Ease.InCirc)
+                .OnComplete(() =>
+                {
+                    _endScreen.interactable = true;
+                });
+        }
+        )
+       );
+    }
     private void ShowMenu(bool isActive) 
     {
         _menu.transform.DOLocalMoveY(isActive ? 30 : 140, 1f).SetEase(Ease.InOutBack);
-        _menu.gameObject.SetActive(true);
     }
     private void OnDayEnded() 
     {
-        if (_daysQueue.Count == 0) { /*ך³םוצü דנט*/ }
         IsPlayState = false;
-        LightTurn(false);
+        if (_daysQueue.Count == 0) 
+        {
+            End();
+            return; 
+        }
         ShowMenu(true);
+        LightTurn(false);
     }
     private void LightTurn(bool isOn) 
     {
@@ -163,6 +236,7 @@ public class GameManager : MonoBehaviour
         if (Stars.Amount >= _maxStars) 
         {
             GlobalEvents.Instance.OnGameEnded?.Invoke();
+            End();
             IsPlayState = false;
             return;
         }
@@ -192,7 +266,8 @@ public class GameManager : MonoBehaviour
     public void SetNewGrade(GradeType grade)
     {
         _letter.ShowLetter(grade);
-        Gold.AddAmount(_gradeGold.Find(x => x.Grade == grade).Gold);
+        GradeGold gold = _gradeGold.Find(x => x.Grade == grade);
+        Gold.AddAmount(UnityEngine.Random.Range(gold.MinGold, gold.MaxGold));
         _grade += (int)grade;
         _gradeCount++;
         _reputation = (GradeType) Mathf.RoundToInt((float)_grade / (float)_gradeCount);

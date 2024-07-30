@@ -66,7 +66,7 @@ public class Client : MonoBehaviour
     public void Spawn(SOClient client, int max)
     {
         SetStat(max);
-
+        transform.localRotation = Quaternion.identity;
         transform.localPosition = new Vector2(15, 0);
         _visual.Setup(GetSprites(client));
 

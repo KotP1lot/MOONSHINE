@@ -133,18 +133,17 @@ public class ClientManager : MonoBehaviour
     }
     private void OnCondemnConfirm()
     {
-        OnGetStar?.Invoke(1);
         _uiDialog.ShowText("+1 star :(", () => {
+            OnGetStar?.Invoke(1);
             SpawnNewClient();
         });
         Debug.Log("+1 star :(");
     }
     private void OnBribeFailure()
     {
-        OnGetStar?.Invoke(1);
-
         _uiDialog.ShowText("Ya z ne loh >:( \n +1 star!", () =>
         {
+            OnGetStar?.Invoke(1);
             SpawnNewClient();
         });
         Debug.Log("Ya z ne loh >:( \n +1 star!");
