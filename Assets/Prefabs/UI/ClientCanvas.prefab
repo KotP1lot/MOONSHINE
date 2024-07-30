@@ -4519,7 +4519,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 5.9, y: -56.7}
+  m_AnchoredPosition: {x: 6.1, y: -56.7}
   m_SizeDelta: {x: 54, y: 20}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &4675011707508035056
@@ -5300,7 +5300,6 @@ GameObject:
   - component: {fileID: 8205203611601127303}
   - component: {fileID: 2649074602637789489}
   - component: {fileID: 6165191756869192948}
-  - component: {fileID: 4547740932813402395}
   m_Layer: 5
   m_Name: Grade
   m_TagString: Untagged
@@ -5384,26 +5383,6 @@ MonoBehaviour:
   - {fileID: -988746441, guid: dbe89fda52b78d74bac7f02b28cf174f, type: 3}
   - {fileID: -645258203, guid: dbe89fda52b78d74bac7f02b28cf174f, type: 3}
   - {fileID: 1325719875, guid: dbe89fda52b78d74bac7f02b28cf174f, type: 3}
---- !u!114 &4547740932813402395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5721630117261096142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b121d416ea2737b4a8a3786a0705de49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _Hover: 0
-  _Down: 0
-  _priceType: 0
-  _price: 0
-  _oneTimeClick: 1
-  _clickSFX: 0
-  _hoverSFX: 0
-  _tooltip: uwu ayaya
 --- !u!1 &5771588276753270153
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,15 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+public enum ClientType
+{
+    Client,
+    Police,
+    UndercoverPolice
+}
 public class ClientManager : MonoBehaviour
 {
-    private enum ClientType
-    {
-        Client,
-        Police,
-        UndercoverPolice
-    }
+    
     [SerializeField] Transform _clientContainer;
     [SerializeField] int _maxStat;
 
@@ -153,6 +153,10 @@ public class ClientManager : MonoBehaviour
     }
     private void OnClientReadyHandler()
     {
+        Tutorials.Instance.ShowTutorial(0);
+        if(_currentClient.Type==ClientType.Police) Tutorials.Instance.ShowTutorial(3);
+        if (_currentClient.Type == ClientType.UndercoverPolice) Tutorials.Instance.ShowTutorial(4);
+
         _uiStat.ShowStats(_currentClient.AllStats);
         GameManager.Instance.Silver.ChangeValue(100);
         _uiDialog.ShowText(GetRandomDialog(_dialogs.ClientHi), () => {
@@ -233,14 +237,17 @@ public class ClientManager : MonoBehaviour
             case ClientType.Client:
                 _currentClient = _clients.Dequeue();
                 _currentClient.Spawn(_clientCollection.GetRandomClient(), _maxStat);
+                _currentClient.Type = ClientType.Client;
                 break;
             case ClientType.Police:
                 _currentClient = _policemen.Dequeue();
                 _currentClient.Spawn(_policemenCollection.GetRandomClient(), _maxStat);
+                _currentClient.Type = ClientType.Police;
                 break;
             case ClientType.UndercoverPolice:
                 _currentClient = _policemen.Dequeue();
                 _currentClient.Spawn(_clientCollection.GetRandomClient(), _maxStat);
+                _currentClient.Type = ClientType.UndercoverPolice;
                 break;
         }
     }

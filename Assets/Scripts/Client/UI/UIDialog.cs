@@ -40,6 +40,8 @@ public class UIDialog : MonoBehaviour
     }
     public void OnConfirmClick()
     {
+        Utility.Delay(0.5f,()=> Tutorials.Instance.ShowTutorial(1));
+
         _container.SetActive(false);
         _confirmBtn.gameObject.SetActive(false);
         _bribeBtn.gameObject.SetActive(false);

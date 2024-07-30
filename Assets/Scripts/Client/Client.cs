@@ -45,6 +45,7 @@ public class Client : MonoBehaviour
     protected Stat _sourness = new();
 
     public List<Stat> AllStats;
+    public ClientType Type;
 
     public event Action OnClientReady;
     public event Action<bool, GradeType> OnClientSatisfied;

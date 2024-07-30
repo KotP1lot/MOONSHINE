@@ -20,6 +20,8 @@ public class Letter : MonoBehaviour
     
     public void ShowLetter(GradeType grade)
     {
+        Tutorials.Instance.ShowTutorial(2);
+
         _spriteRenderer.sprite = _sprites[(int)grade];
 
         transform.localScale = Vector3.zero;
