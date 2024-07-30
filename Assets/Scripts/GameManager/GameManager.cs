@@ -73,7 +73,6 @@ public class GameManager : MonoBehaviour
     private Queue<Day> _daysQueue;
     public Day CurrentDay { get; private set; }
 
-
     [Header("Macro")]
     [SerializeField] private int _silverPerClient;
     [SerializeField] private int _startGoldAmount;
@@ -87,7 +86,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _menu;
 
     [Header("MainMenu")]
-    [SerializeField] private RectTransform _mainMenu;
+    [SerializeField] private Transform _mainMenu;
     [SerializeField] private RectTransform _playerStats;
 
     [Header("Finish")]
@@ -99,7 +98,7 @@ public class GameManager : MonoBehaviour
     public Value Stars { get; private set; }
     public Value Days { get; private set; }
     public bool IsPlayState { get; private set; }
-
+    private bool _isReadyToRestart;
 
     private Resetter[] _resetters;
 
@@ -123,6 +122,7 @@ public class GameManager : MonoBehaviour
         Gold = new();
         Stars = new();
         Days = new();
+        _isReadyToRestart = true;
 
         _resetters = FindObjectsOfType<MonoBehaviour>().OfType<Resetter>().ToArray();
     }
@@ -131,8 +131,16 @@ public class GameManager : MonoBehaviour
         _clientManager.OnDayEnd -= OnDayEnded;
         _clientManager.OnGetStar -= GetStars;
     }
+    private void Update()
+    {
+        if (Input.anyKeyDown && _isReadyToRestart) 
+        {
+            MainMenu(false);
+        }
+    }
     public void MainMenu(bool isActive)
     {
+        _isReadyToRestart = isActive;
         if (!isActive) 
         {
             Gold.ChangeValue(_startGoldAmount);
@@ -143,7 +151,13 @@ public class GameManager : MonoBehaviour
             _grade = 0;
             _daysQueue = new Queue<Day>(_days);
         }
-        _mainMenu.DOAnchorPosY(isActive ? 0 : 140, 1f).SetEase(Ease.InOutBack);
+        
+        if(isActive)
+            _mainMenu.GetComponent<MainMenuScreen>().Start();
+        else
+            _mainMenu.GetComponent<MainMenuScreen>().Stop();
+        
+        _mainMenu.DOLocalMoveY(isActive ? 0 : 6, 1f).SetEase(Ease.InOutBack);
         _playerStats.DOAnchorPosX(isActive ? -40 : 0, 1f).SetEase(Ease.InOutBack);
 
         StartNewDay();

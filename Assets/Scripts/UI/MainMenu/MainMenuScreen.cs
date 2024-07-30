@@ -22,8 +22,8 @@ public class MainMenuScreen : MonoBehaviour
             .SetLoops(-1);
 
         _startLabelSequence = DOTween.Sequence()
-            .Append(_startLabel.DOMoveY(-0.1f, 0.5f).SetEase(Ease.OutQuad))
-            .Append(_startLabel.DOMoveY(-0.3f, 0.5f).SetEase(Ease.OutQuad))
+            .Append(_startLabel.DOLocalMoveY(-0.1f, 0.5f).SetEase(Ease.OutQuad))
+            .Append(_startLabel.DOLocalMoveY(-0.3f, 0.5f).SetEase(Ease.OutQuad))
             .SetLoops(-1);
     }
 
