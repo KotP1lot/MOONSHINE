@@ -2,6 +2,7 @@ using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 [Serializable]
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour
     [Header("Prices")]
     [SerializeField] private int _essenceTopCost;
     [SerializeField] private RarityPrice[] _rarityPrices;
+    [SerializeField] private ParticleSystem _goldParticles;
 
     [Header("Days")]
     [SerializeField] List<Day> _days;
@@ -77,6 +79,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _silverPerClient;
     [SerializeField] private int _startGoldAmount;
     [SerializeField] private List<GradeGold> _gradeGold;
+    [SerializeField] private Letter _reputationLetter;
     private GradeType _reputation;
     private int _gradeCount;
     private int _grade;
@@ -89,9 +92,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform _mainMenu;
     [SerializeField] private RectTransform _playerStats;
 
+    [Header("NewsPaper")]
+    [SerializeField] private SpriteRenderer _newSpaper;
+    [SerializeField] private CanvasGroup _newspaperButton;
+    [SerializeField] private TextMeshProUGUI _newspaperButtonText;
+    [SerializeField] private OutlinedText _daysText;
+
     [Header("Finish")]
-    [SerializeField] private GameObject _newSpaper;
-    [SerializeField] private CanvasGroup _endScreen;
+    [SerializeField] private SpriteRenderer _fade;
+    [SerializeField] private SpriteRenderer _vignette;
+    [SerializeField] private CanvasGroup _restartButton;
     [SerializeField] private List<Finish> _finishes;
     public Value Silver { get; private set; }
     public Value Gold { get; private set; }
@@ -165,9 +175,12 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         _newSpaper.transform.DOScale(0, 0.7f).SetEase(Ease.InCirc);
-        _endScreen.DOFade(0, 1f).SetEase(Ease.InCirc).OnComplete(() =>
-            MainMenu(true)
-        );
+        _fade.DOFade(0, 0.5f).SetEase(Ease.OutCirc);
+        _vignette.DOFade(0, 0.5f).SetEase(Ease.OutCirc).OnComplete(() => MainMenu(true));
+
+        _restartButton.interactable = true;
+        _restartButton.blocksRaycasts = true;
+        _restartButton.DOFade(0, 0.3f).SetEase(Ease.OutCirc);
     }
     public void End()
     {
@@ -179,30 +192,34 @@ public class GameManager : MonoBehaviour
 
         Debug.Log(type);
 
-        _newSpaper.GetComponent<SpriteRenderer>().sprite = _finishes.Find(x => x.FinishType == type).Sprite;
 
         LightTurn(false);
         Utility.Delay(1.5f, () =>
-        _endScreen.DOFade(1, 1f).SetEase(Ease.InCirc).OnComplete(() =>
         {
-            _newSpaper.transform.DOScale(1, 0.7f).SetEase(Ease.InCirc).onComplete = () =>
+            _fade.DOFade(0.7f, 1).SetEase(Ease.InCirc);
+            _vignette.DOFade(1, 1f).SetEase(Ease.InCirc).OnComplete(() =>
             {
-                _newSpaper.transform.DOScale(1.5f, 0.1f).SetEase(Ease.Linear).onComplete = () =>
-                _newSpaper.transform.DOScale(1f, 0.2f).SetEase(Ease.OutCirc);
-            };
+                ShowNews(_finishes.Find(x => x.FinishType == type).Sprite);
 
-            _newSpaper.transform.DOLocalRotate(new Vector3(0, 0, 1800), 0.5f, RotateMode.FastBeyond360)
-                .SetEase(Ease.InCirc)
-                .OnComplete(() =>
+                Utility.Delay(1.5f, () =>
                 {
-                    _endScreen.interactable = true;
+                    _restartButton.DOFade(1, 0.3f).SetEase(Ease.OutCirc).onComplete =
+                    () =>
+                    {
+                        _restartButton.interactable = true;
+                        _restartButton.blocksRaycasts = true;
+                    };
                 });
-        }
-        )
-       );
+            });
+        });
     }
-    private void ShowMenu(bool isActive) 
+    public void ShowMenu(bool isActive) 
     {
+        ShowNews(null);
+        _newspaperButton.interactable = false;
+        _newspaperButton.blocksRaycasts = false;
+        _newspaperButton.DOFade(0, 0.3f).SetEase(Ease.OutCirc);
+
         _menu.transform.DOLocalMoveY(isActive ? 30 : 140, 1f).SetEase(Ease.InOutBack);
     }
     private void OnDayEnded() 
@@ -213,8 +230,29 @@ public class GameManager : MonoBehaviour
             End();
             return; 
         }
-        ShowMenu(true);
+
         LightTurn(false);
+
+        if (CurrentDay.Newspaper == null) ShowMenu(true);
+        else
+        {
+            Utility.Delay(2f, () =>
+            {
+                ShowNews(CurrentDay.Newspaper);
+                Utility.Delay(1.5f, () =>
+                {
+                    _newspaperButton.DOFade(1, 0.3f).SetEase(Ease.OutCirc).onComplete =
+                    () =>
+                    {
+                        _newspaperButton.interactable = true;
+                        _newspaperButton.blocksRaycasts = true;
+                    };
+
+                    _newspaperButtonText.text = CurrentDay.NewspaperButtonText;
+                });
+            });
+            
+        }
     }
     private void LightTurn(bool isOn) 
     {
@@ -227,8 +265,27 @@ public class GameManager : MonoBehaviour
             }
         );
         });
-        
     }
+
+    private void ShowNews(Sprite newspaper)
+    {
+        if(newspaper==null)
+        {
+            _newSpaper.transform.DOScale(0, 0.3f).SetEase(Ease.OutCirc);
+            return;
+        }
+
+        _newSpaper.sprite = newspaper;
+        _newSpaper.transform.DOScale(1, 0.7f).SetEase(Ease.InCirc).onComplete = () =>
+        {
+            _newSpaper.transform.DOScale(1.5f, 0.1f).SetEase(Ease.Linear).onComplete = () =>
+            _newSpaper.transform.DOScale(1f, 0.2f).SetEase(Ease.OutCirc);
+        };
+
+        _newSpaper.transform.DOLocalRotate(new Vector3(0, 0, 360*4), 0.9f, RotateMode.FastBeyond360)
+            .SetEase(Ease.OutCirc);
+    }
+
     //TEMP --------------------------------------------------------------------------------------
     public void StartNewDay()
     {
@@ -243,6 +300,7 @@ public class GameManager : MonoBehaviour
         _clientManager.StartNewDay(CurrentDay.ClientCount,
             CurrentDay.PoliceCount,
             CurrentDay.UnderoverPoliceCount);
+        _daysText.SetText(_daysQueue.Count + " DAYS LEFT");
     }
     public void GetStars(int value)
     {
@@ -281,10 +339,36 @@ public class GameManager : MonoBehaviour
     {
         _letter.ShowLetter(grade);
         GradeGold gold = _gradeGold.Find(x => x.Grade == grade);
-        Gold.AddAmount(UnityEngine.Random.Range(gold.MinGold, gold.MaxGold));
+        ObtainGold(UnityEngine.Random.Range(gold.MinGold, gold.MaxGold));
         _grade += (int)grade;
         _gradeCount++;
         _reputation = (GradeType) Mathf.RoundToInt((float)_grade / (float)_gradeCount);
-        Debug.Log(_reputation);
+        _reputationLetter.SetLetter(_reputation);
+    }
+
+    public void ObtainGold(int amount)
+    {
+        if (amount == 0) return;
+
+        float highestIncome = _gradeGold[_gradeGold.Count-1].MaxGold;
+        var percent = amount / highestIncome;
+        int coinCount = Mathf.CeilToInt(Mathf.Lerp(1, 50, percent));
+
+        var burst = _goldParticles.emission.GetBurst(0);
+        burst.cycleCount = coinCount;
+        _goldParticles.emission.SetBurst(0, burst);
+        _goldParticles.Play();
+
+        float duration = _goldParticles.main.duration + 0.05f * coinCount;
+        int goldPerCoin = Mathf.CeilToInt(amount / coinCount);
+        var estimatedGoldAmount = goldPerCoin * coinCount;
+
+        Utility.Delay(3.5f,()=> Utility.Repeat(0.05f,coinCount,()=>Gold.AddAmount(goldPerCoin)));
+        Utility.Delay(duration + 0.05f, () => 
+        {
+            Debug.Log(amount - estimatedGoldAmount);
+            if(estimatedGoldAmount < amount)
+                Gold.AddAmount(amount - estimatedGoldAmount);
+        });
     }
 }

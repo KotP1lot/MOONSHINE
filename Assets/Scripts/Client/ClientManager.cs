@@ -34,6 +34,7 @@ public class ClientManager : MonoBehaviour
     [SerializeField] UIStat _uiStat;
     [SerializeField] UIBribe _uiBribe;
     [SerializeField] UIDialog _uiDialog;
+    [SerializeField] DialogSO _dialogs;
 
     [Header("Temp")]
     [SerializeField] private Letter _letter;
@@ -133,32 +134,28 @@ public class ClientManager : MonoBehaviour
     }
     private void OnCondemnConfirm()
     {
-        _uiDialog.ShowText("+1 star :(", () => {
+        _uiDialog.ShowText(_dialogs.Condemn, () => {
             OnGetStar?.Invoke(1);
             SpawnNewClient();
         });
-        Debug.Log("+1 star :(");
     }
     private void OnBribeFailure()
     {
-        _uiDialog.ShowText("Ya z ne loh >:( \n +1 star!", () =>
+        _uiDialog.ShowText(_dialogs.BribeNotHappy, () =>
         {
             OnGetStar?.Invoke(1);
             SpawnNewClient();
         });
-        Debug.Log("Ya z ne loh >:( \n +1 star!");
     }
     private void OnBribeSuccess()
     {
-        _uiDialog.ShowText("ok :)", SpawnNewClient);
-        Debug.Log("Sho tut?");
+        _uiDialog.ShowText(_dialogs.BribeHappy, SpawnNewClient);
     }
     private void OnClientReadyHandler()
     {
-        Debug.Log("SHOW STATS");
         _uiStat.ShowStats(_currentClient.AllStats);
         GameManager.Instance.Silver.ChangeValue(100);
-        _uiDialog.ShowText("Give me PIVO!", () => {
+        _uiDialog.ShowText(GetRandomDialog(_dialogs.ClientHi), () => {
             GlobalEvents.Instance.OnChangeCameraPos?.Invoke(CameraPosType.Brewery);
             GlobalEvents.Instance.OnClientStatUpdated?.Invoke(_currentClient.AllStats);
         });
@@ -167,14 +164,13 @@ public class ClientManager : MonoBehaviour
     }
     private void OnCondemnHandler()
     {
-        _uiDialog.ShowCodemn("POPAVSYA!", OnCondemnConfirm);
-        Debug.Log("POPAVSYA!");
+        _uiDialog.ShowCodemn(_dialogs.Popavsya, OnCondemnConfirm);
     }
     private void OnClientFeelSickHandler()
     {
         GameManager.Instance.SetNewGrade(GradeType.F);
 
-        Utility.Delay(_pukeParticles.main.duration,()=>_uiDialog.ShowText("clienty ploha", SpawnNewClient));
+        Utility.Delay(_pukeParticles.main.duration,()=>_uiDialog.ShowText(GetRandomDialog(_dialogs.ClientPuke), SpawnNewClient));
 
         _pukeParticles.transform.position = _currentClient.transform.position;
         _pukeParticles.Play();
@@ -187,26 +183,24 @@ public class ClientManager : MonoBehaviour
             _uiStat.ShowValues(new Stats());
             _letter.HideLetter();
             OnGetStar?.Invoke(3);
-            _uiDialog.ShowText("Kinez", () => { });
-            Debug.Log("Kinez");
+            _uiDialog.ShowText(_dialogs.CopDied, () => { });
         }
         else
         {
             OnGetStar?.Invoke(1);
             GameManager.Instance.SetNewGrade(GradeType.F); 
-            _uiDialog.ShowText("The end of the day | +1 star", () => {
+            _uiDialog.ShowText(_dialogs.ClientDied, () => {
                 _uiStat.SetActive(false);
                 _uiStat.ShowValues(new Stats());
                 _letter.HideLetter();
                 OnDayEnd?.Invoke();
             });
-            Debug.Log("The end of the day | +1 star");
         }
     }
     private void OnClientSatisfiedHandler(bool isSat, GradeType grade)
     {
         GameManager.Instance.SetNewGrade(isSat?grade:GradeType.F); 
-        _uiDialog.ShowText(isSat ? $"CLIENT DOVOLEN | Grade: {grade}" : $"CLIENT NE DOVOLEN >:( \n Grade: {GradeType.F}", SpawnNewClient);
+        _uiDialog.ShowText(isSat ? GetRandomDialog(_dialogs.ClientHappy) : GetRandomDialog(_dialogs.ClientNotHappy), SpawnNewClient);
     }
 
     #endregion
@@ -228,7 +222,6 @@ public class ClientManager : MonoBehaviour
             _currentClient.MoveOut();
             if (--_clientCount <= 0)
             {
-                Debug.Log("The end of the day");
                 OnDayEnd?.Invoke();
                 return;
             }
@@ -261,4 +254,9 @@ public class ClientManager : MonoBehaviour
     public Client GetCurrentClient()
     {
     return _currentClient; }
+
+    private string GetRandomDialog(string[] texts)
+    {
+        return texts[UnityEngine.Random.Range(0, texts.Length)];
+    }
 }

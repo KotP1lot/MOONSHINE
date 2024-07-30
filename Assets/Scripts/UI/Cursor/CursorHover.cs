@@ -14,6 +14,8 @@ public class CursorHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] private int _price;
     [Space(10)]
     [SerializeField] private bool _oneTimeClick = true;
+    [SerializeField] private bool _clickSFX;
+    [SerializeField] private bool _hoverSFX;
     [Space(10)]
     [TextArea][SerializeField] private string _tooltip;
     private bool _isUI;
@@ -29,6 +31,7 @@ public class CursorHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (_hoverSFX) AudioManager.instance.Play("UIHover");
         OnHover?.Invoke();
         IsHovering = true;
         CursorController.Instance.SetSprite(_Hover);
@@ -44,6 +47,7 @@ public class CursorHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     public void OnPointerDown(PointerEventData eventData)
     {
+        if(_clickSFX)AudioManager.instance.Play("Click");
         IsHovering = true;
         CursorController.Instance.SetSprite(_Down);
         if (_tooltip != ""&& _tooltip != "resetTooltip") TooltipController.Instance.SetTooltip(_tooltip, _priceType, _price);

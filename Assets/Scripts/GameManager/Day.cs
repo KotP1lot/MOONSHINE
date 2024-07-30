@@ -16,4 +16,8 @@ public struct Day
     [Header("ClientStat")]
     [Range(0,0.8f)] public float MaxLowerThreshold;
     [Range(0.1f, 0.8f)] public float StepThreshold;
+
+    [Space(10)]
+    public Sprite Newspaper;
+    public string NewspaperButtonText;
 }

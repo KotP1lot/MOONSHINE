@@ -41,4 +41,12 @@ public static class Utility
         tween.onComplete = func;
         return tween;
     }
+    public static Tweener Repeat(float interval, int times, TweenCallback func, bool realTime = false)
+    {
+        float timer = 0;
+        Tweener tween = DOTween.To(() => timer, x => timer = x, interval, interval).SetUpdate(realTime);
+        tween.SetLoops(times);
+        tween.onStepComplete = func;
+        return tween;
+    }
 }

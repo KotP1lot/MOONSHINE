@@ -34,7 +34,7 @@ public class IngredientsManager : MonoBehaviour
         }
         else
         {
-            GameManager.Instance.Gold.AddAmount(cashback);
+            GameManager.Instance.ObtainGold(cashback);
         }
         return false;
     }

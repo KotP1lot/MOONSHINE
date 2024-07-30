@@ -37,6 +37,9 @@ public class Lootbox : MonoBehaviour
         _jump = transform.DOJump(transform.position, 0.2f, 1, 0.2f);
         _jump.onComplete = () => _jump = null;
         transform.DOShakeRotation(0.2f, 9);
+
+        int rand = Random.Range(0, 2);
+        AudioManager.instance.Play(rand==0?"Bonk":"Bonk2");
     }
 
     private void OnMouseDown()

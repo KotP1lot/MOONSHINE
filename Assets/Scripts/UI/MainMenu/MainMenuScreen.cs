@@ -30,5 +30,8 @@ public class MainMenuScreen : MonoBehaviour
     {
         _titleSequence.Kill();
         _startLabelSequence.Kill();
+
+        _title.DOFade(1, 0);
+        _startLabel.DOLocalMoveY(-0.3f, 0);
     }
 }

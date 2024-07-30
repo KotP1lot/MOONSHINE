@@ -485,6 +485,9 @@ MonoBehaviour:
   _Down: 4
   _priceType: 0
   _price: 0
+  _oneTimeClick: 1
+  _clickSFX: 0
+  _hoverSFX: 1
   _tooltip: 
 --- !u!1 &2521039945559505592
 GameObject:

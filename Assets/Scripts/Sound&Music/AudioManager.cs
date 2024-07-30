@@ -2,6 +2,9 @@ using UnityEngine.Audio;
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using System.Linq;
+using UnityEngine.Rendering;
 
 public class AudioManager : MonoBehaviour
 {
@@ -10,11 +13,17 @@ public class AudioManager : MonoBehaviour
     public AudioSO sfx;
     public AudioSO bulks;
     public AudioSO steps;
+    public AudioSO Music;
 
     public static AudioManager instance;
     public AudioMixer mixer;
 
     public bool muted = false;
+
+    [SerializeField] private float _musicInterval;
+    private int _currentMusic;
+    private AudioSource _musicSource;
+    private AudioSource _ambienceSource;
 
     void Awake()
     {
@@ -30,38 +39,27 @@ public class AudioManager : MonoBehaviour
 
         foreach (Sound sound in sfx.Sounds)
         {
-            sound.source = gameObject.AddComponent<AudioSource>();
-            sound.source.clip = sound.clip;
-
-            sound.source.volume = sound.volume * VolumeBoost;
-            sound.source.pitch = sound.pitch;
-            sound.source.loop = sound.loop;
-            sound.source.outputAudioMixerGroup = sound.mixerGroup;
+            sound.source = GenerateSource(sound);
         }
         foreach (Sound sound in bulks.Sounds)
         {
-            sound.source = gameObject.AddComponent<AudioSource>();
-            sound.source.clip = sound.clip;
-
-            sound.source.volume = sound.volume * VolumeBoost;
-            sound.source.pitch = sound.pitch;
-            sound.source.loop = sound.loop;
-            sound.source.outputAudioMixerGroup = sound.mixerGroup;
+            sound.source = GenerateSource(sound);
         }
         foreach (Sound sound in steps.Sounds)
         {
-            sound.source = gameObject.AddComponent<AudioSource>();
-            sound.source.clip = sound.clip;
-
-            sound.source.volume = sound.volume * VolumeBoost;
-            sound.source.pitch = sound.pitch;
-            sound.source.loop = sound.loop;
-            sound.source.outputAudioMixerGroup = sound.mixerGroup;
+            sound.source = GenerateSource(sound);
         }
+
+        _musicSource = gameObject.AddComponent<AudioSource>();
+
+        _ambienceSource = GenerateSource(Music.Sounds[0]);
+        _ambienceSource.Play();
+
     }
     public void Start()
     {
-        Play("Theme");
+        PlayNextMusic();
+        SetAmbience(false);
     }
     public void Play(string name)
     {
@@ -92,11 +90,56 @@ public class AudioManager : MonoBehaviour
 
     public void SetSFXVolume(float volume)
     {
-        mixer.SetFloat("SFXVolume", Mathf.Lerp(-80, 0, volume));
+        float soundLevel = Mathf.Lerp(0.001f, 1, volume / 100);
+        mixer.SetFloat("SFXVolume", Mathf.Log(soundLevel) * 20);
     }
     public void SetBGMVolume(float volume)
     {
 
-        mixer.SetFloat("MusicVolume", Mathf.Lerp(-80, 0, volume));
+        float soundLevel = Mathf.Lerp(0.001f, 1, volume/100);
+        mixer.SetFloat("BGMVolume", Mathf.Log(soundLevel) * 20);
+    }
+
+    private void PlayNextMusic()
+    {
+        int index;
+        do
+        {
+            index = UnityEngine.Random.Range(1, Music.Sounds.Length);
+        } while (index == _currentMusic);
+
+        _currentMusic = index;
+
+        var sound = Music.Sounds[index];
+        _musicSource.clip = sound.clip;
+        _musicSource.volume = sound.volume * VolumeBoost;
+        _musicSource.pitch = sound.pitch;
+        _musicSource.loop = sound.loop;
+        _musicSource.outputAudioMixerGroup = sound.mixerGroup;
+        _musicSource.Play();
+
+        var duration = sound.clip.length;
+        Utility.Delay(duration + _musicInterval, PlayNextMusic);
+    }
+
+    private AudioSource GenerateSource(Sound sound)
+    {
+        var source = gameObject.AddComponent<AudioSource>();
+        source.clip = sound.clip;
+
+        source.volume = sound.volume * VolumeBoost;
+        source.pitch = sound.pitch;
+        source.loop = sound.loop;
+        source.outputAudioMixerGroup = sound.mixerGroup;
+        return source;
+    }
+
+    public void SetAmbience(bool ambience)
+    {
+        float music = ambience ? Mathf.Lerp(0.001f, 1, 0.7f) : 1;
+        float ambient = ambience ? 1 : 0.001f;
+
+        mixer.SetFloat("MusicVolume", Mathf.Log(music)*20);
+        mixer.SetFloat("AmbienceVolume", Mathf.Log(ambient)*20);
     }
 }

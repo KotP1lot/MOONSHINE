@@ -1,0 +1,183 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64aa2ae4e1ac8e2419c9b6f007ba035a, type: 3}
+  m_Name: SFX
+  m_EditorClassIdentifier: 
+  Sounds:
+  - name: Bubbles
+    clip: {fileID: 8300000, guid: eec7514813a14e547ba03056cea33d9e, type: 3}
+    volume: 0.1
+    pitch: 1
+    loop: 1
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: ItemDrop
+    clip: {fileID: 8300000, guid: 4c1c04068a42e3e429f55fd8671d58ca, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Roll
+    clip: {fileID: 8300000, guid: 667fba9462c62fd488fa35e566fe600b, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: BuyIngredient
+    clip: {fileID: 8300000, guid: aefe312a6c97343439c1b92d69c4c4c6, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Lootbox
+    clip: {fileID: 8300000, guid: f7545b32e078c18468e1e3f1d23f9f6e, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: MoneyGain
+    clip: {fileID: 8300000, guid: d1bdd29053538914c9c76c4adce7f575, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Swap
+    clip: {fileID: 8300000, guid: 810aa7a103718b743b40671bd3e95162, type: 3}
+    volume: 0.15
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Error
+    clip: {fileID: 8300000, guid: 2d54fc2660d8b0b4fafcc0e9c725a950, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Lever
+    clip: {fileID: 8300000, guid: 4922e5ef0f44e53419c6ea94f59306da, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Pop
+    clip: {fileID: 8300000, guid: 2780610b8f6362546b0d5cfeeafb656b, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Centrifuge
+    clip: {fileID: 8300000, guid: 55cd2a3240c8b1145b63f43a0568bbb6, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Combinator
+    clip: {fileID: 8300000, guid: 038f4dd223b624e468393bb974592f5c, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Barrel
+    clip: {fileID: 8300000, guid: 8f53d12dd966e90449689ffa08a623b9, type: 3}
+    volume: 0.1
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Upgrade
+    clip: {fileID: 8300000, guid: fae072a14fa635641915612ac6514056, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Steam
+    clip: {fileID: 8300000, guid: 2f591ddf7ca175b4d80f1b9b4510df91, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Click
+    clip: {fileID: 8300000, guid: b18a90fec7fb9804ea8b1873f0d9a92e, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: UIHover
+    clip: {fileID: 8300000, guid: 9e9adbb9187ebfa4296cd73ecac49d74, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Bonk
+    clip: {fileID: 8300000, guid: 9b9915aa0417f9444b3761b5bb49eb2a, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Bonk2
+    clip: {fileID: 8300000, guid: fb31e888501d90e49b7bf53099a076e2, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Slide
+    clip: {fileID: 8300000, guid: a8f6a46d02b0c9949b72453ab3b5a3a2, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Drink
+    clip: {fileID: 8300000, guid: a1602e6a22a0c4b459f95aebb81a8695, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Lampa
+    clip: {fileID: 8300000, guid: 3fb0f4f0c7a19a84b8f29f792caa872c, type: 3}
+    volume: 0.3
+    pitch: 1.2
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Stamp
+    clip: {fileID: 8300000, guid: db087f41eccde7749b83d6e37f1a5e40, type: 3}
+    volume: 0.3
+    pitch: 1.2
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Backdoor
+    clip: {fileID: 8300000, guid: c576c7c7b720e374ea2c5a01ab18f119, type: 3}
+    volume: 0.3
+    pitch: 1.2
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}

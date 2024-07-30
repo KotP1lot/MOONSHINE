@@ -25,7 +25,6 @@ public class OnHover : MonoBehaviour, IPointerEnterHandler
     public void ShowWindow(bool show)
     {
         if (_canvasGroup == null) return;
-        Debug.Log(show);
         _canvasGroup.DOComplete();
         _canvasGroup.DOFade(show ? 1 : 0, 0.4f).SetEase(Ease.OutCirc);
         _canvasGroup.interactable = show;

@@ -33,7 +33,6 @@ public class BarrelAnimation : MonoBehaviour
         _sprite.DOFade(1, 0.3f).SetEase(Ease.OutCirc).onComplete = () =>
         {
             barrel.gameObject.SetActive(false);
-            _cookButton.gameObject.SetActive(false);
 
             _lid.transform.DOLocalMoveY(5.7f, 0.7f).SetEase(Ease.OutBounce);
             Utility.Delay(0.3f, () => AudioManager.instance.Play("Bonk"));

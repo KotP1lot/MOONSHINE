@@ -41,8 +41,6 @@ public class Barrel : Aparat
         {
             if (ingredient.IsUsed) return;
 
-            _button.gameObject.SetActive(true);
-            _button.enabled = true;
 
             AddStat(ingredient.GetStats());
             _water.AddFloater(collision.GetComponent<Rigidbody>());
@@ -94,6 +92,8 @@ public class Barrel : Aparat
                 GameManager.Instance.SetProcessing(false);
 
                 _beerStat = new();
+
+                _button.enabled = true;
             });
         });
     }
