@@ -43,6 +43,7 @@ public class ClientMovement : MonoBehaviour
     {
         transform.DOLocalRotate(new Vector3(0, -270, 60), 2,RotateMode.FastBeyond360).SetEase(Ease.OutQuad);
         transform.DOLocalMoveY(-10f, 2).SetEase(Ease.InQuad);
+        Utility.Delay(1, () => AudioManager.instance.Play("Bodyfall"));
     }
     private void OnDisable()
     {

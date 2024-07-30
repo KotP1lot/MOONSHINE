@@ -174,6 +174,7 @@ public class ClientManager : MonoBehaviour
 
         _pukeParticles.transform.position = _currentClient.transform.position;
         _pukeParticles.Play();
+        AudioManager.instance.Play("Puke");
     }
     private void OnClientDiedHandler()
     {

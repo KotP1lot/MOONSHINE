@@ -169,15 +169,29 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Stamp
     clip: {fileID: 8300000, guid: db087f41eccde7749b83d6e37f1a5e40, type: 3}
-    volume: 0.3
-    pitch: 1.2
+    volume: 0.2
+    pitch: 1
     loop: 0
     mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
     source: {fileID: 0}
   - name: Backdoor
     clip: {fileID: 8300000, guid: c576c7c7b720e374ea2c5a01ab18f119, type: 3}
     volume: 0.3
-    pitch: 1.2
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Bodyfall
+    clip: {fileID: 8300000, guid: 26d469097d90d684cb3a600fd75adf23, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
+    source: {fileID: 0}
+  - name: Puke
+    clip: {fileID: 8300000, guid: 18048c5e7bf10b941a293a9034b5d50c, type: 3}
+    volume: 0.2
+    pitch: 0.8
     loop: 0
     mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
     source: {fileID: 0}

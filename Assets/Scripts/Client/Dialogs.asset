@@ -23,8 +23,8 @@ MonoBehaviour:
   - lame
   ClientPuke:
   - Disgusting!
-  - '*BLERGH*'
-  ClientDied: Client died. Everyone else left.
+  - BLERGH
+  ClientDied: Customer died. Everyone else left.
   Popavsya: Alcohol detected.
   Condemn: condemn
   BribeHappy: nice bribe bro
