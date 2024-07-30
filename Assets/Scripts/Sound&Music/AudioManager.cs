@@ -92,10 +92,11 @@ public class AudioManager : MonoBehaviour
 
     public void SetSFXVolume(float volume)
     {
-
+        mixer.SetFloat("SFXVolume", Mathf.Lerp(-80, 0, volume));
     }
     public void SetBGMVolume(float volume)
     {
 
+        mixer.SetFloat("MusicVolume", Mathf.Lerp(-80, 0, volume));
     }
 }
