@@ -6961,7 +6961,7 @@ MonoBehaviour:
     Price: 4
   _days:
   - ClientCount: 3
-    PoliceCount: 3
+    PoliceCount: 0
     UnderoverPoliceCount: 0
     MinBribe: 0
     MaxBribe: 0
@@ -6992,7 +6992,7 @@ MonoBehaviour:
   - {fileID: 45683199}
   - {fileID: 54099383}
   _menu: {fileID: 252465655}
-  _mainMenu: {fileID: 788355220}
+  _mainMenu: {fileID: 1799490133}
   _playerStats: {fileID: 756544326}
   _newSpaper: {fileID: 845596086}
   _endScreen: {fileID: 409109124}
