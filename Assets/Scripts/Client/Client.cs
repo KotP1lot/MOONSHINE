@@ -117,7 +117,8 @@ public class Client : MonoBehaviour
         _alcohol.CurrentValue += cock.Alcohol;
         _bitterness.CurrentValue += cock.Bitterness;
         _sourness.CurrentValue += cock.Sourness;
-        UpdateStats();
+        
+        Utility.Delay(1.3f,()=>UpdateStats());
     }
     protected virtual void UpdateStats()
     {

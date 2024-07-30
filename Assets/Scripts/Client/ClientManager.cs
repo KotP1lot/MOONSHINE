@@ -36,7 +36,8 @@ public class ClientManager : MonoBehaviour
     [SerializeField] UIDialog _uiDialog;
 
     [Header("Temp")]
-    [SerializeField] Letter _letter;
+    [SerializeField] private Letter _letter;
+    [SerializeField] private ParticleSystem _pukeParticles;
 
     public Action OnDayEnd;
     public Action<int> OnGetStar;
@@ -175,6 +176,9 @@ public class ClientManager : MonoBehaviour
         GameManager.Instance.SetNewGrade(GradeType.F);
         _uiDialog.ShowText("clienty ploha", SpawnNewClient);
         Debug.Log("clienty ploha");
+
+        _pukeParticles.transform.position = _currentClient.transform.position;
+        _pukeParticles.Play();
     }
     private void OnClientDiedHandler()
     {
