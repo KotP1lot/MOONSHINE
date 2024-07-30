@@ -89,4 +89,13 @@ public class AudioManager : MonoBehaviour
 
         s.source.Play();
     }
+
+    public void SetSFXVolume(float volume)
+    {
+
+    }
+    public void SetBGMVolume(float volume)
+    {
+
+    }
 }
