@@ -541,12 +541,12 @@ TextureImporter:
       name: UI2_0
       rect:
         serializedVersion: 2
-        x: 81
-        y: 17
-        width: 21
-        height: 21
+        x: 85
+        y: 35
+        width: 19
+        height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
