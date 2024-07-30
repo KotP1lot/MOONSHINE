@@ -174,8 +174,8 @@ public class ClientManager : MonoBehaviour
     private void OnClientFeelSickHandler()
     {
         GameManager.Instance.SetNewGrade(GradeType.F);
-        _uiDialog.ShowText("clienty ploha", SpawnNewClient);
-        Debug.Log("clienty ploha");
+
+        Utility.Delay(_pukeParticles.main.duration,()=>_uiDialog.ShowText("clienty ploha", SpawnNewClient));
 
         _pukeParticles.transform.position = _currentClient.transform.position;
         _pukeParticles.Play();
