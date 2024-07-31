@@ -85,7 +85,7 @@ public class Barrel : Aparat
             Utility.Delay(0.2f, () =>
             {
                 GlobalEvents.Instance.BeforeBeerCook?.Invoke();
-                Utility.Delay(Time.deltaTime,()=>StartCoroutine(DestroyIngredients()));
+                Utility.Delay(0.1f,()=>StartCoroutine(DestroyIngredients()));
 
 
                 GameManager.Instance.SetProcessing(false);
