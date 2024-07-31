@@ -99,19 +99,12 @@ public class WaterShapeController : MonoBehaviour
     }
     private WaterSpring CreateSpringObject(int index)
     {
-        Debug.LogError("0");
         WaterSpring spring = Instantiate(_prefab);
-        Debug.LogError("0.1");
         spring.gameObject.name = "point " + index;
-        Debug.LogError("1");
-        spring.transform.SetParent(transform, false); ;
-        Debug.LogError("2");
+        spring.transform.SetParent(transform, false);
         spring.transform.localPosition = Spline.GetPosition(index) - new Vector3(0,0,transform.position.z);
-        Debug.LogError("3");
         spring.transform.localScale = Vector3.one * 0.8f;
-        Debug.LogError("8");
         spring.Init(index, this, _resistance);
-        Debug.LogError("9");
         return spring;
     }
     private void Smoothen(Spline waterSpline, int index)

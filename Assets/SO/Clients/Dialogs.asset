@@ -13,20 +13,37 @@ MonoBehaviour:
   m_Name: Dialogs
   m_EditorClassIdentifier: 
   ClientHi:
-  - yo
-  - hi
+  - Yo.
+  - I need something to forget my ex.
+  - Surprise me, barkeep!
+  - I'm celebrating! Make it fancy.
+  - Make me forget I'm in this dump.
+  - The usual.
+  - Bartender's choice, I trust you.
+  - Good evening.
   ClientHappy:
-  - nice
-  - zaebis
+  - Nice.
+  - That hits the spot.
+  - Thanks!
+  - Well done!
+  - Banger.
+  - 10/10
+  - Decent.
   ClientNotHappy:
-  - That's not what i wanted
-  - lame
+  - That's not what I wanted.
+  - Lame.
+  - Epic fail.
+  - Really?
+  - Seriously?
+  - Is this water?
+  - Unique experience...
   ClientPuke:
   - Disgusting!
   - BLERGH
+  - Horizontally spinning rat
   ClientDied: Customer died. Everyone else left.
   Popavsya: Alcohol detected.
-  Condemn: condemn
-  BribeHappy: nice bribe bro
-  BribeNotHappy: nah
-  CopDied: Cop died. You got arrested.
+  Condemn: Keep this up and it definitely won't end well.
+  BribeHappy: I might have made a mistake. Have a nice day.
+  BribeNotHappy: Who do you think I am?
+  CopDied: Officer died. You got arrested.

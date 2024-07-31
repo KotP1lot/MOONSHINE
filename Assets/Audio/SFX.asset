@@ -120,7 +120,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Click
     clip: {fileID: 8300000, guid: b18a90fec7fb9804ea8b1873f0d9a92e, type: 3}
-    volume: 0.2
+    volume: 0.4
     pitch: 1
     loop: 0
     mixerGroup: {fileID: -5439584801302871352, guid: d1e4deb0a094d8a478d3cedb312c87cc, type: 2}
