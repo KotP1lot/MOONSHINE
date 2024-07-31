@@ -98,17 +98,25 @@ public class WaterShapeController : MonoBehaviour
     }
     private WaterSpring CreateSpringObject(int index)
     {
+        Debug.LogError("0");
         GameObject obj = new GameObject("point " + index);
-
-        Debug.LogError("yo");
-        obj.transform.SetParent(transform, false);
+        Debug.LogError("1");
+        obj.transform.SetParent(transform, false); ;
+        Debug.LogError("2");
         obj.transform.localPosition = Spline.GetPosition(index) - new Vector3(0,0,transform.position.z);
+        Debug.LogError("3");
         obj.transform.localScale = Vector3.one * 0.8f;
+        Debug.LogError("4");
         Collider collider = obj.AddComponent<SphereCollider>();
+        Debug.LogError("5");
         collider.isTrigger = true;
+        Debug.LogError("6");
         WaterSpring spring = obj.AddComponent<WaterSpring>();
+        Debug.LogError("7");
         spring.AddComponent<SpriteRenderer>().sprite = _test;
+        Debug.LogError("8");
         spring.Init(index, this, _resistance);
+        Debug.LogError("9");
         return spring;
     }
     private void Smoothen(Spline waterSpline, int index)
