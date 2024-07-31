@@ -107,7 +107,7 @@ public class WaterShapeController : MonoBehaviour
         Debug.LogError("3");
         obj.transform.localScale = Vector3.one * 0.8f;
         Debug.LogError("4");
-        Collider collider = obj.AddComponent<SphereCollider>();
+        SphereCollider collider = obj.AddComponent<SphereCollider>();
         Debug.LogError("5");
         collider.isTrigger = true;
         Debug.LogError("6");
