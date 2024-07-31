@@ -43,7 +43,7 @@ public class LootboxSystem : MonoBehaviour
     private void Start()
     {
         _errorCanvas = GetComponentInChildren<ErrorCanvas>();
-        _unlockedText.SetText($"unlocked: {_ingredientsManager.Unlocked}/31");
+        _unlockedText.SetText($"unlocked: {_ingredientsManager.Unlocked}/32");
     }
 
     public void UnlockIngredient(Rarity rarity,int cashback)
@@ -55,7 +55,7 @@ public class LootboxSystem : MonoBehaviour
 
         _loot.transform.DOKill();
         bool isNew = _ingredientsManager.UnlockIngredient(so,cashback);
-        _unlockedText.SetText($"unlocked: {_ingredientsManager.Unlocked}/31");
+        _unlockedText.SetText($"unlocked: {_ingredientsManager.Unlocked}/32");
 
         _loot.Setup(so,false);
 
