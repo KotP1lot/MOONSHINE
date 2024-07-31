@@ -6,6 +6,8 @@ public class IngredientsManager : MonoBehaviour
     [SerializeField] private List<ScriptableObject> _unlocked = new();
     [SerializeField] private List<ScriptableObject> _all = new();
 
+    public int Unlocked { get { return _unlocked.Count; } }
+
     public void AddIngredient(ScriptableObject ingredient) => _unlocked.Add(ingredient);
 
     public void UnlockRandomIngredients(int count)

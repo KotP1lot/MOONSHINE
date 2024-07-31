@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3830f0e48bd99854294790b420bbe1d5, type: 3}
   m_Name: Emotions
   m_EditorClassIdentifier: 
-  Type: Emotions
+  Type: READ EMOTIONS
   Image: {fileID: 1368876611, guid: 38213b0c4e05116449b7bfa5588699dc, type: 3}
-  Description: 'Emotions: For bribes'
+  Description: READ EMOTIONS
   LvlInfo:
   - bonus: 1
-    describe: Show police emotions while bribe
-    cost: 5
+    describe: Indicates whether an officer is satisfied with your bribe
+    cost: 500
   Unlock: []
   AlsoUpgrade: []

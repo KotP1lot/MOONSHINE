@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +24,7 @@ public class Tutorials : MonoBehaviour
 
     public void ShowTutorial(int index)
     {
-        if(index==0) _skipButton.SetActive(true);
+        if(index==0 && _skipButton!=null) _skipButton.SetActive(true);
 
         if (_tutorials[index]!=null)
         {
@@ -38,10 +39,14 @@ public class Tutorials : MonoBehaviour
 
     public void SkipTutorial()
     {
-        for(int i =0;i <=2;i++)
+        if(_tutorials[0]!=null)
         {
-            Destroy(_tutorials[i]);
+            for (int i = 0; i <= 2; i++)
+            {
+                Destroy(_tutorials[i]);
+            }
         }
+        
         Destroy(_skipButton);
     }
 

@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3830f0e48bd99854294790b420bbe1d5, type: 3}
   m_Name: Shelf
   m_EditorClassIdentifier: 
-  Type: Shelf
+  Type: INGREDIENT SHELF
   Image: {fileID: 1368893003, guid: 38213b0c4e05116449b7bfa5588699dc, type: 3}
-  Description: 'Shelf: + N ingredients to next refresh'
+  Description: INGREDIENT SHELF
   LvlInfo:
   - bonus: 1
-    describe: N = 1
-    cost: 5
+    describe: Additional shelf for 1 ingredient
+    cost: 200
   - bonus: 2
-    describe: N = 2
-    cost: 10
+    describe: 2 ingredients
+    cost: 300
   - bonus: 3
-    describe: N = 3
-    cost: 15
+    describe: 3 ingredients
+    cost: 400
   Unlock: []
   AlsoUpgrade: []

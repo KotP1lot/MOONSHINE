@@ -33,6 +33,7 @@ public class LootboxSystem : MonoBehaviour
     [SerializeField] private OutlinedText _newText;
     [SerializeField] private OutlinedText _statsText;
     [SerializeField] private TextMeshProUGUI _newTextColored;
+    [SerializeField] private OutlinedText _unlockedText;
     [Space(10)]
     [SerializeField] private Color _newColor = Color.white;
     [SerializeField] private Color _duplicateColor = Color.white;
@@ -43,6 +44,7 @@ public class LootboxSystem : MonoBehaviour
     private void Start()
     {
         _errorCanvas = GetComponentInChildren<ErrorCanvas>();
+        _unlockedText.SetText($"unlocked: {_ingredientsManager.Unlocked}/31");
     }
 
     public void UnlockIngredient(Rarity rarity,int cashback)
@@ -54,6 +56,7 @@ public class LootboxSystem : MonoBehaviour
 
         _loot.transform.DOKill();
         bool isNew = _ingredientsManager.UnlockIngredient(so,cashback);
+        _unlockedText.SetText($"unlocked: {_ingredientsManager.Unlocked}/31");
 
         _loot.Setup(so,false);
 

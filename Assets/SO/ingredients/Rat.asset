@@ -18,8 +18,8 @@ MonoBehaviour:
   ChildMaterial: {fileID: 0}
   SpawnPos: {x: 0, y: -0.2, z: 0}
   Stats:
-    Alcohol: 0
-    Toxicity: 7
+    Alcohol: -3
+    Toxicity: 5
     Sweetness: 0
     Bitterness: -4
     Sourness: 0

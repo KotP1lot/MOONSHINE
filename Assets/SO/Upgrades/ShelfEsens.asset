@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3830f0e48bd99854294790b420bbe1d5, type: 3}
   m_Name: ShelfEsens
   m_EditorClassIdentifier: 
-  Type: E_Shelf
+  Type: ESSENCE SHELF
   Image: {fileID: 1368893003, guid: 38213b0c4e05116449b7bfa5588699dc, type: 3}
-  Description: 'E_Shelf: unlock esense'
+  Description: ESSENCE SHELF
   LvlInfo:
   - bonus: 1
-    describe: 1 esense
-    cost: 5
+    describe: Shelf with random essences. 1 essence
+    cost: 200
   - bonus: 2
-    describe: 2 esense
-    cost: 10
+    describe: 2 essences
+    cost: 300
   - bonus: 3
-    describe: 3 esense
-    cost: 15
+    describe: 3 essences
+    cost: 400
   Unlock: []
   AlsoUpgrade: []

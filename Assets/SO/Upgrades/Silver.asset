@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3830f0e48bd99854294790b420bbe1d5, type: 3}
-  m_Name: Centrifuge
+  m_Name: Silver
   m_EditorClassIdentifier: 
-  Type: EXTRACTOR
-  Image: {fileID: 1055041709, guid: 38213b0c4e05116449b7bfa5588699dc, type: 3}
-  Description: EXTRACTOR
+  Type: DRINK BUDGET
+  Image: {fileID: 1368893003, guid: 38213b0c4e05116449b7bfa5588699dc, type: 3}
+  Description: DRINK BUDGET
   LvlInfo:
-  - bonus: 1
-    describe: Exctracts essences from ingredients. 1 use
+  - bonus: 5
+    describe: Increase silver per drink by 5
+    cost: 100
+  - bonus: 10
+    describe: Increase silver per drink by 10
     cost: 200
-  - bonus: 2
-    describe: 2 uses
+  - bonus: 15
+    describe: Increase silver per drink by 15
     cost: 300
-  - bonus: 3
-    describe: 3 uses
-    cost: 400
   Unlock: []
   AlsoUpgrade: []

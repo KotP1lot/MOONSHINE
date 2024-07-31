@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    [SerializeField] SOUpgrade _silverUpgrade;
     [SerializeField] ClientManager _clientManager;
     [SerializeField] int _maxStars;
     [SerializeField] AparatChanger _aparatChanger;
@@ -84,6 +85,7 @@ public class GameManager : MonoBehaviour
     private GradeType _reputation;
     private int _gradeCount;
     private int _grade;
+    private int _silverBonus;
 
     [Header("Light")]
     [SerializeField] private List<SpriteRenderer> _lightSprite1;
@@ -109,6 +111,7 @@ public class GameManager : MonoBehaviour
     public Value Stars { get; private set; }
     public Value Days { get; private set; }
     public bool IsPlayState { get; private set; }
+
     private bool _isReadyToRestart;
 
     private Resetter[] _resetters;
@@ -136,6 +139,8 @@ public class GameManager : MonoBehaviour
         _isReadyToRestart = true;
 
         _resetters = FindObjectsOfType<MonoBehaviour>().OfType<Resetter>().ToArray();
+
+        _silverUpgrade.OnUpgrade += OnUpgrade;
     }
     private void OnDisable()
     {
@@ -155,7 +160,6 @@ public class GameManager : MonoBehaviour
         if (!isActive) 
         {
             Gold.ChangeValue(_startGoldAmount);
-            Silver.ChangeValue(_silverPerClient);
             Stars.Reset();
             Days.Reset();
             _gradeCount = 0;
@@ -372,5 +376,15 @@ public class GameManager : MonoBehaviour
             if(estimatedGoldAmount < amount)
                 Gold.AddAmount(amount - estimatedGoldAmount);
         });
+    }
+
+    public void SilverReset()
+    {
+        Silver.ChangeValue(_silverPerClient + _silverBonus);
+    }
+
+    private void OnUpgrade(Upgrade upgrade)
+    {
+        _silverBonus = _silverUpgrade.LvlInfo[upgrade.CurrLvl].bonus;
     }
 }

@@ -21,10 +21,11 @@ public class UIUpgradeInfo : MonoBehaviour
         else
         {
             _nameTxt.text = info.Type.ToString();
-            for (int i = 0; i < info.LvlInfo.Count; i++)
+            for (int i = 0; i < 3; i++)
             {
-                _lvlTxt[i].enabled = true;
-                _lvlTxt[i].text = $"LVL {i + 1}: {info.LvlInfo[i].describe}";
+                _lvlTxt[i].enabled = i < info.LvlInfo.Count;
+                if(i < info.LvlInfo.Count)
+                    _lvlTxt[i].text = $"LVL {i + 1}: {info.LvlInfo[i].describe}";
             }
             if (info.Unlock.Count > 0)
             {

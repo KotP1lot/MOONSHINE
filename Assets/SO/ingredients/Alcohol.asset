@@ -24,5 +24,4 @@ MonoBehaviour:
     Bitterness: 0
     Sourness: 0
     EnhancedStat: 0
-  Rarity: 0
-  Unlocked: 1
+  Rarity: 1

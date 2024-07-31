@@ -18,11 +18,10 @@ MonoBehaviour:
   ChildMaterial: {fileID: 2100000, guid: 0956f95b4f13d404aaf06d652a47f6b7, type: 2}
   SpawnPos: {x: 0, y: 0, z: 0}
   Stats:
-    Alcohol: 4
+    Alcohol: 0
     Toxicity: -2
     Sweetness: 4
     Bitterness: 0
-    Sourness: 0
+    Sourness: -3
     EnhancedStat: 0
-  Rarity: 0
-  Unlocked: 0
+  Rarity: 1

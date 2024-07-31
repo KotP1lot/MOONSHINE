@@ -159,7 +159,7 @@ public class ClientManager : MonoBehaviour
         if (_currentClient.Type == ClientType.UndercoverPolice) Tutorials.Instance.ShowTutorial(4);
 
         _uiStat.ShowStats(_currentClient.AllStats);
-        GameManager.Instance.Silver.ChangeValue(100);
+        GameManager.Instance.SilverReset();
         _uiDialog.ShowText(GetRandomDialog(_dialogs.ClientHi), () => {
             GlobalEvents.Instance.OnChangeCameraPos?.Invoke(CameraPosType.Brewery);
             GlobalEvents.Instance.OnClientStatUpdated?.Invoke(_currentClient.AllStats);
