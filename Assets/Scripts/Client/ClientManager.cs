@@ -83,6 +83,7 @@ public class ClientManager : MonoBehaviour
         clients.AddRange(Enumerable.Repeat(ClientType.Client, _clientCount - _policemenCount - _undercoverPolicemenCount));
 
         _queue = new(clients.ShuffleList());
+        if (GameManager.Instance.Days.Amount > 1) _clientCount++;
     }
     private void CreatePolicement()
     {
