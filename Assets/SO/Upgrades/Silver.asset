@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Silver
   m_EditorClassIdentifier: 
   Type: DRINK BUDGET
-  Image: {fileID: 1368893003, guid: 38213b0c4e05116449b7bfa5588699dc, type: 3}
+  Image: {fileID: -2022670409, guid: 38213b0c4e05116449b7bfa5588699dc, type: 3}
   Description: DRINK BUDGET
   LvlInfo:
   - bonus: 5
