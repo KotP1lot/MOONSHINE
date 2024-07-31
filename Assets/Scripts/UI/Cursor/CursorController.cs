@@ -39,6 +39,7 @@ public class CursorController : MonoBehaviour
 
     private void Update()
     {
+        _screenScale = Screen.width / 320;
         _rectTransform.anchoredPosition = new Vector2(Mathf.Round(Input.mousePosition.x / _screenScale), Mathf.Round(Input.mousePosition.y / _screenScale));
         _tooltip.AdjustPosition(_rectTransform);
     }
