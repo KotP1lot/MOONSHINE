@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public struct StatColors
@@ -174,13 +175,14 @@ public class GameManager : MonoBehaviour
     }
     public void Restart()
     {
-        _newSpaper.transform.DOScale(0, 0.7f).SetEase(Ease.InCirc);
-        _fade.DOFade(0, 0.5f).SetEase(Ease.OutCirc);
-        _vignette.DOFade(0, 0.5f).SetEase(Ease.OutCirc).OnComplete(() => MainMenu(true));
+        SceneManager.LoadScene(0);
+        //_newSpaper.transform.DOScale(0, 0.7f).SetEase(Ease.InCirc);
+        //_fade.DOFade(0, 0.5f).SetEase(Ease.OutCirc);
+        //_vignette.DOFade(0, 0.5f).SetEase(Ease.OutCirc).OnComplete(() => MainMenu(true));
 
-        _restartButton.interactable = true;
-        _restartButton.blocksRaycasts = true;
-        _restartButton.DOFade(0, 0.3f).SetEase(Ease.OutCirc);
+        //_restartButton.interactable = true;
+        //_restartButton.blocksRaycasts = true;
+        //_restartButton.DOFade(0, 0.3f).SetEase(Ease.OutCirc);
     }
     public void End()
     {
