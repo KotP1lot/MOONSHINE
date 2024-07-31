@@ -18,7 +18,7 @@ public class Letter : MonoBehaviour
     
     public void ShowLetter(GradeType grade)
     {
-        Tutorials.Instance.ShowTutorial(2);
+        Tutorials.Instance.ShowTutorial(3);
 
         _spriteRenderer.sprite = _sprites[(int)grade];
 
