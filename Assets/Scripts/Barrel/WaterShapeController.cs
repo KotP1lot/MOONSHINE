@@ -24,7 +24,7 @@ public class WaterShapeController : MonoBehaviour
         CreateSprings();
         GlobalEvents.Instance.BeforeBeerCook += ResetWater;
     }
-    private void ResetWater() 
+    public void ResetWater() 
     {
         _floaters.Clear();
     }

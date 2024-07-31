@@ -84,9 +84,10 @@ public class Barrel : Aparat
 
             Utility.Delay(0.2f, () =>
             {
-                GlobalEvents.Instance.BeforeBeerCook?.Invoke();
-                Utility.Delay(0.1f,()=>StartCoroutine(DestroyIngredients()));
+                _water.ResetWater();
+                Utility.Delay(0.1f,()=>DestroyIngredients());
 
+                Utility.Delay(0.2f, () => GlobalEvents.Instance.OnBeerCooked?.Invoke());
 
                 GameManager.Instance.SetProcessing(false);
 
@@ -107,7 +108,7 @@ public class Barrel : Aparat
         return beer;
     }
 
-    IEnumerator DestroyIngredients() 
+    private void DestroyIngredients() 
     {
         Item[] childTransforms = FindObjectsOfType<Item>();
         foreach (var children in childTransforms)
@@ -115,8 +116,6 @@ public class Barrel : Aparat
             if (children.CompareTag("Ignore")) continue;
             Destroy(children.gameObject);
         };
-        yield return null;
-        GlobalEvents.Instance.OnBeerCooked?.Invoke();
     }
 
     public override void ChangeState(TweenCallback onComplete)
