@@ -14,14 +14,13 @@ public class WaterShapeController : MonoBehaviour
     [SerializeField] private float _resistance;
     [SerializeField] private float _floating;
 
-    private SpriteShapeController _shapeController;
+    [SerializeField]private SpriteShapeController _shapeController;
     private List<WaterSpring> _springs = new List<WaterSpring>();
     private List<Rigidbody> _floaters = new List<Rigidbody>();
     public Spline Spline { get { return _shapeController.spline; } }
 
     private void Start()
     {
-        _shapeController = GetComponent<SpriteShapeController>();
         SetPoints();
         CreateSprings();
         GlobalEvents.Instance.BeforeBeerCook += ResetWater;

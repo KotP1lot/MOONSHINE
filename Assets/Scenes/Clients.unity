@@ -30550,6 +30550,7 @@ MonoBehaviour:
   _waveSpread: 0.03
   _resistance: 0.05
   _floating: 2
+  _shapeController: {fileID: 5437347456546420706}
 --- !u!4 &4687725866689470148
 Transform:
   m_ObjectHideFlags: 0
