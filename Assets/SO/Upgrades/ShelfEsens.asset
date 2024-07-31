@@ -18,12 +18,12 @@ MonoBehaviour:
   LvlInfo:
   - bonus: 1
     describe: Shelf with random essences. 1 essence
-    cost: 200
+    cost: 0
   - bonus: 2
     describe: 2 essences
-    cost: 300
+    cost: 100
   - bonus: 3
     describe: 3 essences
-    cost: 400
+    cost: 150
   Unlock: []
   AlsoUpgrade: []

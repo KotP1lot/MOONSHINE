@@ -155,8 +155,8 @@ public class ClientManager : MonoBehaviour
     private void OnClientReadyHandler()
     {
         Tutorials.Instance.ShowTutorial(0);
-        if(_currentClient.Type==ClientType.Police) Tutorials.Instance.ShowTutorial(3);
-        if (_currentClient.Type == ClientType.UndercoverPolice) Tutorials.Instance.ShowTutorial(4);
+        if(_currentClient.Type==ClientType.Police) Tutorials.Instance.ShowTutorial(4);
+        if (_currentClient.Type == ClientType.UndercoverPolice) Tutorials.Instance.ShowTutorial(5);
 
         _uiStat.ShowStats(_currentClient.AllStats);
         GameManager.Instance.SilverReset();

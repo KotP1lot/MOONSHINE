@@ -18,6 +18,6 @@ MonoBehaviour:
   LvlInfo:
   - bonus: 1
     describe: Indicates whether an officer is satisfied with your bribe
-    cost: 500
+    cost: 200
   Unlock: []
   AlsoUpgrade: []

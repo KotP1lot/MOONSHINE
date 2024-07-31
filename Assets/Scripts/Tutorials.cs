@@ -38,7 +38,7 @@ public class Tutorials : MonoBehaviour
     {
         if(_tutorials[2]!=null)
         {
-            for (int i = 0; i <= 2; i++)
+            for (int i = 0; i <= 3; i++)
             {
                 Destroy(_tutorials[i]);
             }

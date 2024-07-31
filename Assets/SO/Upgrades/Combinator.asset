@@ -18,13 +18,13 @@ MonoBehaviour:
   LvlInfo:
   - bonus: 2
     describe: Combine ingredients with essences. 2 uses
-    cost: 200
+    cost: 100
   - bonus: 3
     describe: 3 uses
-    cost: 300
+    cost: 200
   - bonus: 4
     describe: 4 uses
-    cost: 400
+    cost: 300
   Unlock:
   - {fileID: 11400000, guid: 4da868dcd6afefd409e9a9a255303085, type: 2}
   - {fileID: 11400000, guid: 5f042d612a3b016498842c63c55f1ada, type: 2}

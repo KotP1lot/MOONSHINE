@@ -18,12 +18,12 @@ MonoBehaviour:
   LvlInfo:
   - bonus: 1
     describe: Exctracts essences from ingredients. 1 use
-    cost: 200
+    cost: 100
   - bonus: 2
     describe: 2 uses
-    cost: 300
+    cost: 150
   - bonus: 3
     describe: 3 uses
-    cost: 400
+    cost: 200
   Unlock: []
   AlsoUpgrade: []

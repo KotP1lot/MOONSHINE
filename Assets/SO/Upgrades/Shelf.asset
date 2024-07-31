@@ -18,12 +18,12 @@ MonoBehaviour:
   LvlInfo:
   - bonus: 1
     describe: Additional shelf for 1 ingredient
-    cost: 200
+    cost: 100
   - bonus: 2
     describe: 2 ingredients
-    cost: 300
+    cost: 150
   - bonus: 3
     describe: 3 ingredients
-    cost: 400
+    cost: 200
   Unlock: []
   AlsoUpgrade: []
