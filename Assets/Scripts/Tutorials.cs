@@ -39,7 +39,7 @@ public class Tutorials : MonoBehaviour
 
     public void SkipTutorial()
     {
-        if(_tutorials[0]!=null)
+        if(_tutorials[2]!=null)
         {
             for (int i = 0; i <= 2; i++)
             {
