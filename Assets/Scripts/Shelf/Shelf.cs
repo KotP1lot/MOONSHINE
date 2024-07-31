@@ -75,7 +75,7 @@ public class Shelf : MonoBehaviour, Resetter
             Essence essence = ScriptableObject.CreateInstance<Essence>();
             essence.Type = (StatType)index;
 
-            essence.Strength = Random.Range(1, highestEssencePercent);
+            essence.Strength = Random.Range(0.1f, highestEssencePercent);
 
             objects.Add(essence);
         }
