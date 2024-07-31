@@ -37,6 +37,8 @@ public class CursorController : MonoBehaviour
         _tooltip = GetComponentInChildren<TooltipController>();
         _defaultSprite = _image.sprite;
         _screenScale = Screen.width / 320;
+
+        Cursor.visible = false;
     }
 
     private void Update()
