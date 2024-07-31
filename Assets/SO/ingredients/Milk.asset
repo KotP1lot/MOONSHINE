@@ -20,8 +20,8 @@ MonoBehaviour:
   Stats:
     Alcohol: 0
     Toxicity: -6
-    Sweetness: 0
+    Sweetness: 2
     Bitterness: 0
-    Sourness: 4
+    Sourness: 2
     EnhancedStat: 0
   Rarity: 2

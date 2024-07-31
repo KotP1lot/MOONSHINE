@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 141694dbd9b33d1439e8a6605d674814, type: 3}
-  m_Name: Banana
+  m_Name: Quicksilver
   m_EditorClassIdentifier: 
-  Mesh: {fileID: -8457624670379154836, guid: 89f1ee058075a264bb9e32363a7024ce, type: 3}
-  Material: {fileID: 2100000, guid: 528575878427efd48ae3e48d51735da7, type: 2}
-  ChildMesh: {fileID: 0}
-  ChildMaterial: {fileID: 0}
+  Mesh: {fileID: -3117702180364922942, guid: 0ee0031947e99c44ba63e00235ce0601, type: 3}
+  Material: {fileID: 2100000, guid: d6aa9506bceb80d47ad01c3716dfca1e, type: 2}
+  ChildMesh: {fileID: 4949611885764658078, guid: 0ee0031947e99c44ba63e00235ce0601, type: 3}
+  ChildMaterial: {fileID: 2100000, guid: 433f4801ed82e824bb021678ca337b2d, type: 2}
   SpawnPos: {x: 0, y: 0, z: 0}
   Stats:
-    Alcohol: 3
-    Toxicity: 0
+    Alcohol: 5
+    Toxicity: 4
     Sweetness: 3
-    Bitterness: -2
-    Sourness: 0
+    Bitterness: 2
+    Sourness: 1
     EnhancedStat: 0
-  Rarity: 1
+  Rarity: 2

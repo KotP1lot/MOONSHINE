@@ -21,7 +21,7 @@ MonoBehaviour:
     Alcohol: -3
     Toxicity: 5
     Sweetness: 0
-    Bitterness: -4
+    Bitterness: -2
     Sourness: 0
     EnhancedStat: 0
   Rarity: 1
