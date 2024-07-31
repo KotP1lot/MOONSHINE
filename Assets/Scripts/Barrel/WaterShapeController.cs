@@ -21,7 +21,6 @@ public class WaterShapeController : MonoBehaviour
 
     private void Start()
     {
-        Debug.LogError(_shapeController);
         SetPoints();
         CreateSprings();
         GlobalEvents.Instance.BeforeBeerCook += ResetWater;
@@ -100,6 +99,8 @@ public class WaterShapeController : MonoBehaviour
     private WaterSpring CreateSpringObject(int index)
     {
         GameObject obj = new GameObject("point " + index);
+
+        Debug.LogError("yo");
         obj.transform.SetParent(transform, false);
         obj.transform.localPosition = Spline.GetPosition(index) - new Vector3(0,0,transform.position.z);
         obj.transform.localScale = Vector3.one * 0.8f;
