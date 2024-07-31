@@ -30543,6 +30543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b24d98740d762b4b839de83c96d0253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _test: {fileID: 7482667652216324306, guid: 9348daa2fde4a4c44957b9af8d8aa925, type: 3}
   _pointCount: 3
   _stiffness: 0.1
   _dampening: 0.05

@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.U2D;
 
 public class WaterShapeController : MonoBehaviour
 {
+    public Sprite _test;
     [SerializeField] private int _pointCount;
     [Space(10)]
     [SerializeField] private float _stiffness;
@@ -104,6 +106,7 @@ public class WaterShapeController : MonoBehaviour
         Collider collider = obj.AddComponent<SphereCollider>();
         collider.isTrigger = true;
         WaterSpring spring = obj.AddComponent<WaterSpring>();
+        spring.AddComponent<SpriteRenderer>().sprite = _test;
         spring.Init(index, this, _resistance);
         return spring;
     }
