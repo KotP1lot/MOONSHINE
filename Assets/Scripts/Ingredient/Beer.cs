@@ -1,10 +1,5 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
-using static UnityEngine.ParticleSystem;
 
 public class Beer : MonoBehaviour
 {

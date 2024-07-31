@@ -1,10 +1,6 @@
-using UnityEngine.Audio;
 using System;
 using UnityEngine;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using System.Linq;
-using UnityEngine.Rendering;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {

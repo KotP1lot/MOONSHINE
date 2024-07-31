@@ -1,10 +1,9 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
-using DG.Tweening;
 using TMPro;
-using UnityEngine.UI;
 using Unity.VisualScripting;
+using UnityEngine;
 
 [System.Serializable]
 public class RarityChance

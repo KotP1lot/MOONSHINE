@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public enum CursorType { Default, Click, Grab, Drag, Buy }
 public class CursorController : MonoBehaviour
