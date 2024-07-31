@@ -59,10 +59,10 @@ public class UIPropUpgrade : MonoBehaviour, IPointerEnterHandler
         }
         for (int i = 0; i <= Upgrade.CurrLvl; i++) { _lvlImages[i].sprite = _reachedLvlSprite; }
     }
-    private void CheckGold()
+    public void CheckGold()
     {
         if (Upgrade.IsMaxLevel) return;
-            int cost = SO.LvlInfo[Upgrade.CurrLvl + 1].cost;
+        int cost = SO.LvlInfo[Upgrade.CurrLvl + 1].cost;
         _buyBtn.interactable = GameManager.Instance.Gold.Amount >= cost;
         _costTxt.text = cost.ToString();
     }

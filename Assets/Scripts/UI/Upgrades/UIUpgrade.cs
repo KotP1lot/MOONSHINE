@@ -36,6 +36,7 @@ public class UIUpgrade : MonoBehaviour
 
         for (int i = 0; i < _props.Count; i++)
         {
+            _props[i].CheckGold();
             _props[i].transform.SetSiblingIndex(i);
             _props[i].gameObject.SetActive(_props[i].Upgrade.IsUnlocked);
         }
