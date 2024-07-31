@@ -7584,7 +7584,7 @@ MonoBehaviour:
     StepThreshold: 0.25
     Newspaper: {fileID: 0}
     NewspaperButtonText: 
-  _silverPerClient: 20
+  _silverPerClient: 22
   _startGoldAmount: 0
   _gradeGold:
   - Grade: 0

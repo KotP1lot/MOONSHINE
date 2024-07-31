@@ -365,12 +365,14 @@ public class GameManager : MonoBehaviour
         _goldParticles.emission.SetBurst(0, burst);
         _goldParticles.Play();
 
-        float duration = _goldParticles.main.duration + 0.05f * coinCount;
-        int goldPerCoin = Mathf.CeilToInt(amount / coinCount);
+        float duration = _goldParticles.main.duration + 0.025f * coinCount;
+        int goldPerCoin = Mathf.CeilToInt(amount / (float)coinCount);
         var estimatedGoldAmount = goldPerCoin * coinCount;
 
-        Utility.Delay(3.5f,()=> Utility.Repeat(0.05f,coinCount,()=>Gold.AddAmount(goldPerCoin)));
-        Utility.Delay(duration + 0.05f, () => 
+        Debug.Log(estimatedGoldAmount);
+
+        Utility.Delay(3.5f,()=> Utility.Repeat(0.025f,coinCount,()=>Gold.AddAmount(goldPerCoin)));
+        Utility.Delay(duration + 0.025f, () => 
         {
             Debug.Log(amount - estimatedGoldAmount);
             if(estimatedGoldAmount < amount)
