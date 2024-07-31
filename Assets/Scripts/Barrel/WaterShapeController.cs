@@ -21,6 +21,7 @@ public class WaterShapeController : MonoBehaviour
 
     private void Start()
     {
+        Debug.LogError(_shapeController);
         SetPoints();
         CreateSprings();
         GlobalEvents.Instance.BeforeBeerCook += ResetWater;
